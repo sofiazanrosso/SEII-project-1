@@ -78,3 +78,138 @@ form of choices.
                     }
                 ]
             }
+            
+## Announcements [/announcements/{id}]
+
+### Visualize the details of an announcement [GET]
+
++ Parameters
+    + id (number) - ID of the announcement in the form of an integer
+    
++ Response 200 (application/json)
+    
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+      
+        
+### Add announcement [POST]
+
++ Request
+
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+        
++ Response 201 (application/json)
+
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+    
+## Announcements [/flyers/{id}]
+
+### Visualize the details of a flyer [GET]
+
++ Parameters
+    + id (number) - ID of the flyer in the form of an integer
+    
++ Response 200 (application/json)
+    
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+      
+        
+### Add flyer [POST]
+
++ Request
+
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+        
++ Response 201 (application/json)
+
+        {
+            "id" : "1",
+            "author" : "Simba",
+            "category" : "libri",
+            "published_at" : "22/11/1963",
+            "url" : "/announcements/1"
+        }
+        
+## Categories [/announcements/categories/{id}]
+
+### List announcements of a certain category [GET]
+
++ Parameters 
+    + id (number) - ID of the category in the form of an integer
+
++ Response 200 (application/json)
+
+        {
+            "category" : "libri",
+            "announcements" : [
+                {
+                    "title" : "name1",
+                    "url" : "announcements/1"
+                },
+                {
+                    "title" : "name2",
+                    "url" : "announcements/2"
+                }
+            ]
+        }
+
+
+
+## Board [/board]
+
+### Board that contains all announcements and flyers [GET]
+
++ Response 200 (application/json)
+        
+        {
+            "a_category" : [
+                {
+                    "title" : "name1",
+                    "url" : "flyers/1"
+                },
+                {
+                    "title" : "name2",
+                    "url" : "flyers/2"
+                }
+            ],
+            "f_category" : [
+                {
+                    "title" : "name1",
+                    "url" : "flyers/1"
+                },
+                {
+                    "title" : "name2",
+                    "url" : "flyers/2"
+                }
+            ],
+            
+        }
