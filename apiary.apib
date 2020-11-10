@@ -79,33 +79,45 @@ form of choices.
                 ]
             }
             
-## Announcements [/announcements/{id}]
+## Announcements [/announcements/{a_id}]
 
 ### Visualize the details of an announcement [GET]
 
+You may want to see the details of a specific announcement.
+The parameter is the unique ID (a_id), the attributes are author, category, content, publish and expiry dates and the url.
+
 + Parameters
-    + id (number) - ID of the announcement in the form of an integer
+    + a_id (number) - ID of the announcement in the form of an integer
     
 + Response 200 (application/json)
+
     
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
+            "author" : "name",
+            "category" : "vendita appunti",
+            "content":"text",
+            "publish_date" : "12/01/2010",
+            "expiry_date" : "12/02/2010",
             "url" : "/announcements/1"
         }
       
         
+
 ### Add announcement [POST]
+
+You may want to post a new announcement.
+The attributes are author, category, content, publish and expiry dates and the url.
 
 + Request
 
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
+            "author" : "name",
+            "category" : "gruppi studio",
+            "content":"text",
+            "publish_date" : "22/11/2011",
+            "expiry_date" : "22/12/2011",
             "url" : "/announcements/1"
         }
         
@@ -113,58 +125,74 @@ form of choices.
 
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
+            "author" : "name",
+            "category" : "gruppi studio",
+            "content":"text",
+            "publish_date" : "22/11/2011",
+            "expiry_date" : "22/12/2011",
             "url" : "/announcements/1"
         }
     
-## Announcements [/flyers/{id}]
+## Flyers [/flyers/{f_id}]
 
 ### Visualize the details of a flyer [GET]
 
+You may want to see a flyer.
+The parameter is its unique ID (f_id).
+The attributes are author, category, content, publish and expiry dates and the url.
+
 + Parameters
-    + id (number) - ID of the flyer in the form of an integer
+    + f_id (number) - ID of the flyer in the form of an integer
     
 + Response 200 (application/json)
-    
+
+        
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
-            "url" : "/announcements/1"
+            "author" : "name",
+            "category" : "attività",
+            "publish_date" : "22/11/2019",
+            "expiry_date" : "22/12/2019",
+            "url" : "/flyers/1"
         }
-      
         
+
 ### Add flyer [POST]
+
+You may want to post a new flyer.
+The attributes are author, category, publish and expiry dates and the url.
 
 + Request
 
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
-            "url" : "/announcements/1"
+            "author" : "name",
+            "category" : "attività",
+            "publish_date" : "22/11/2015",
+            "expiry_date" : "22/11/2015",
+            "url" : "/flyers/1"
         }
         
 + Response 201 (application/json)
 
         {
             "id" : "1",
-            "author" : "Simba",
-            "category" : "libri",
-            "published_at" : "22/11/1963",
-            "url" : "/announcements/1"
+            "author" : "name",
+            "category" : "attività",
+            "publish_date" : "22/11/2015",
+            "url" : "/flyers/1"
         }
         
-## Categories [/announcements/categories/{id}]
+## Categories [/announcements/categories/{cat_id}]
 
 ### List announcements of a certain category [GET]
 
+Flyers and announcements belong to a specific cathergoy, you may want to see all the announcement listed for a specific one.
+The parameter is the unique ID (cat_id).
+
+
 + Parameters 
-    + id (number) - ID of the category in the form of an integer
+    + cat_id (number) - ID of the category in the form of an integer
 
 + Response 200 (application/json)
 
@@ -188,17 +216,20 @@ form of choices.
 
 ### Board that contains all announcements and flyers [GET]
 
+The board contains all the announcements and flyers that has been published.
+
 + Response 200 (application/json)
+
         
         {
             "a_category" : [
                 {
                     "title" : "name1",
-                    "url" : "flyers/1"
+                    "url" : "anouncements/1"
                 },
                 {
                     "title" : "name2",
-                    "url" : "flyers/2"
+                    "url" : "anouncements/2"
                 }
             ],
             "f_category" : [
