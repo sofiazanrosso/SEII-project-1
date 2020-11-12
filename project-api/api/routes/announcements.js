@@ -119,7 +119,7 @@ router.post('/',(req,res,next)=>{
 
 
 //get an announcement
-router.get('/:id',function(req,res){
+router.get('/:id',(req,res,next)=>{
     /*
     var id=req.params.id;
     var announcementFound = announcements.find((a)=> a.id==id);
@@ -149,5 +149,51 @@ router.get('/:id',function(req,res){
         res.status(500).json({error:err});
     });
 }); 
+
+router.patch('/:id',(req,res,next)=>{
+    const id = req.params.id;
+    const updateOps={};
+    for(const ops of req.body){
+        updateOps[ops.newExpireData]=ops.value;
+    }
+    Announcement.update({_id: id, $set: updateOps})
+    .exec()
+    .then(result=>{
+        console.log(result);
+        res.status(200).json({
+            message: "Expire date updated",
+            url: 'http://localhost:3000/announcements/'+id
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+});
+
+
+router.delete('/:id',(req,res,next)=>{
+    const id=req.params.id;
+    Announcement.remove({_id : id})
+    .exec()
+    .then(result=>{
+        res.status(200).json({
+            message: 'Announcement deleted',
+            request: {
+                type: 'DELETE',
+                url: 'http://localhost:3000',
+                data: {author: 'String', content: 'String'}
+            }
+        });
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+});
 
 module.exports = router;
