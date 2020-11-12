@@ -125,7 +125,7 @@ router.get('/:id',function(req,res){
     var announcementFound = announcements.find((a)=> a.id==id);
     res.status(200).send(announcementFound);
     */
-   const id=req.params._id;
+   const id=req.params.id;
    Announcement.findById(id)
    .exec()
    .then(doc=>{
