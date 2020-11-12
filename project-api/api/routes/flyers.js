@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const flyer = require('../models/flyer');
 const router = express.Router();
 
 const Flyer= require('../models/flyer');
@@ -9,9 +8,25 @@ const Flyer= require('../models/flyer');
 router.get('/', (req, res, next) => {
     Flyer.find()
     .exec()
-    .then(docs => {
-        console.log(docs);
-        res.status(200).json(docs);
+    .then(doc => {
+        const response = {
+            count : doc.length,
+            flyer: doc.map(fly=>{
+                return {
+                    _id: fly._id,
+                    author: fly.author,
+                    category: fly.category,
+                    content: fly.content,
+                    publish_date: fly.publish_date,
+                    expiry_date: fly.expiry_date,
+                    request : {
+                        type: 'GET',
+                        url: 'http://localhost:3000/flyers/' + fly._id
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
     })
     .catch(err => {
         console.log(err);
@@ -19,7 +34,7 @@ router.get('/', (req, res, next) => {
             error: err
         });
     });
-})
+});
 
 //post a new flyer
 router.post('/', (req, res,next) => {

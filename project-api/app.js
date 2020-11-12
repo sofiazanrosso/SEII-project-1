@@ -4,6 +4,7 @@ const mongoose=require('mongoose');
 const app = express();
 
 const announcementRoute=require('./api/routes/announcements');
+const flyerRoute=require('./api/routes/flyers');
 const { Mongoose } = require('mongoose');
 
 // connection to the database mongoDB
@@ -25,6 +26,7 @@ app.use('/',express.static('public'));
 
 //method to manage the announcements
 app.use('/announcements',announcementRoute);
+app.use('/flyers', flyerRoute);
 
 app.use((req,res,next)=>{
     const error=new Error('Not Found');
