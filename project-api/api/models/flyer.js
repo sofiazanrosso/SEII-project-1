@@ -1,5 +1,7 @@
 const mongoose= require('mongoose');
 
+const Category= require('../category');
+
 const flyerSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     author: {type: String, required:true},
