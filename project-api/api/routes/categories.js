@@ -9,6 +9,7 @@ const Announcement = require('../models/announcement');
 //get all categories
 router.get('/', (req, res, next) => {
     Category.find()
+    .select('_id name')
     .exec()
     .then(doc => {
         const response = {
@@ -34,7 +35,30 @@ router.get('/', (req, res, next) => {
     });
 });
 
-// la post delle categories non c'è, le categorie sono decise a priori
+//post a new category
+router.post('/', (req, res,next) => {
+    const category= new Category({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        nn_ids: req.body.ann_ids,
+        fly_ids: req.body.fly_ids
+    });
+
+    //mongoose method to save models
+    category.save().then(result => {
+        console.log(result);
+        res.status(201).json({
+            message: 'POST request to /categories',
+            createCategory: result
+        });
+    })
+    .catch( err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        })
+    });
+});
 
 //GET request for an individual category
 
