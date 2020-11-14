@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 
 const Flyer= require('../models/flyer');
+const Category= require('../models/category');
 
 //get all flyers
 router.get('/', (req, res, next) => {

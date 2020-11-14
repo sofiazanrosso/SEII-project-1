@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
     .catch(err => {
         console.log(err);
         res.status(500).json({
-            error: err
+            error: err    
         });
     });
 });
@@ -37,6 +37,7 @@ router.get('/', (req, res, next) => {
 // la post delle categories non c'è, le categorie sono decise a priori
 
 //GET request for an individual category
+/*
 router.get('/:id', (req, res, next) => {
     //extract the id
     const id = req.params.id;
@@ -47,6 +48,7 @@ router.get('/:id', (req, res, next) => {
         /* const response = {
             how to retrive data from the database? 
         }*/
+        /*
         if (doc) {
             //Announcement.findById(id)
             res.status(200).json(doc);
@@ -60,5 +62,5 @@ router.get('/:id', (req, res, next) => {
         res.status(500).json({error: err});
     });
 });
-
+*/
 module.exports = router;

@@ -5,7 +5,9 @@ const app = express();
 
 const announcementRoute=require('./api/routes/announcements');
 const flyerRoute=require('./api/routes/flyers');
+const categoryRoute=require('./api/routes/categories');
 const { Mongoose } = require('mongoose');
+const category = require('./api/models/category');
 
 // connection to the database mongoDB
 
@@ -16,6 +18,7 @@ mongoose.connect(uri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
 mongoose.Promise = global.Promise;
 
 
@@ -27,6 +30,7 @@ app.use('/',express.static('public'));
 //method to manage the announcements
 app.use('/announcements',announcementRoute);
 app.use('/flyers', flyerRoute);
+app.use('/categories', categoryRoute);
 
 app.use((req,res,next)=>{
     const error=new Error('Not Found');

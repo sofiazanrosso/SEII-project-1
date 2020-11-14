@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-const Announcement= require('../announcement');
+const Announcement= require('../models/announcement');
 
 const categorySchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
