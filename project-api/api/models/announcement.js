@@ -5,7 +5,7 @@ const Category= require('../models/category');
 const announcementSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     author: { type: String, required:true},
-    category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category', required:true},
+    category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category', default: 000000000000000000000000},
     content: {type: String, required:true},
     publish_date: {type: String, required:true},
     expiry_date: {type: String, required:true}

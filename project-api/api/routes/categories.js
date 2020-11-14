@@ -37,21 +37,32 @@ router.get('/', (req, res, next) => {
 // la post delle categories non c'è, le categorie sono decise a priori
 
 //GET request for an individual category
-/*
+
 router.get('/:id', (req, res, next) => {
     //extract the id
     const id = req.params.id;
-    Category.findById(id)
+    Category.find()
+    .select('_id ann_ids fly_ids')
     .exec()
-    .then(doc => {
-        console.log("From database", doc);
+    .then(docs => {
+        console.log("From database", docs);
         /* const response = {
             how to retrive data from the database? 
         }*/
-        /*
-        if (doc) {
+        
+        if (docs) {
             //Announcement.findById(id)
-            res.status(200).json(doc);
+            res.status(200).json({
+                count: docs.length,
+                orders: docs.map ( doc => {
+                    return {
+                        _id: doc._id,
+                        announcements: doc.ann_ids,
+                        flyers: doc.fly_ids
+                        //get?
+                    }
+                })
+            });
             
         } else {
             res.status(404).json({ message: 'No valid entry found for given id'});
@@ -62,5 +73,5 @@ router.get('/:id', (req, res, next) => {
         res.status(500).json({error: err});
     });
 });
-*/
+
 module.exports = router;

@@ -32,6 +32,7 @@ router.get('/',(req,res,next)=>{
     */
     
     Announcement.find()
+    .select('_id author category content publish_date expiry_date')
     .exec()
     .then(doc=>{
         const response={
@@ -102,10 +103,10 @@ router.post('/',(req,res,next)=>{
                 content: result.content,
                 publish_date: result.publish_date,
                 expiry_date: result.expiry_date,
-                request: {
+               /* request: {
                     type: 'POST',
                     url: "http://localhost:3000/announcement/"+result._id
-                }
+                }*/
             }
         });
     })
@@ -127,6 +128,7 @@ router.get('/:id',(req,res,next)=>{
     */
    const id=req.params.id;
    Announcement.findById(id)
+   .select('_id author category content publish_date expiry_date')
    .exec()
    .then(doc=>{
        console.log("From database",doc);;
