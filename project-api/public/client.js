@@ -69,5 +69,46 @@ $(document).ready(function () {
     
   };
   */
-  
-  
+
+
+var urlApi = 'http://localhost:3000';
+//when the page is loaded, I insert the cards 
+$(document).ready(function () {
+    loadCards();
+});
+
+function loadCards(){
+  var xhttp= new XMLHttpRequest();
+  xhttp.onreadystatechange=function(){
+    if(this.readyState==4 && this.status==200){
+      //obtains the json object
+      let text=this.responseText;
+      let result=JSON.parse(text);
+      //obtains the number of announcements
+      let count=result.count;
+      let announcements=result.announcement;
+      var res="<div class='card-deck'>";
+      //with column the layout will change dinamicaly with the insertion of other cards
+      //var res="<div class='card-column'>";
+      for(let i=0;i<count;i++){
+        res+="<div class='card bg-success'>";
+        res+="<div class='card-body text-center'>";
+        res+="<h3 class='card-title'> Author: "+announcements[i].author+"</h3>";
+        //res+="<p class='card-text'>"+announcements[i].content+"</p>";
+        res+="<p class='card-text'> Publish date: "+announcements[i].publish_date+"</p>";
+        res+="<p class='card-text'> Expiry date: "+announcements[i].expiry_date+"</p>";
+        res+="<a class='btn btn-primary stretched-link' onclick='show(\""+announcements[i].content+"\")'>See Announce</a>";
+        res+="</div></div>";
+      }
+      res+="</div>";
+      document.getElementById('root').innerHTML=res;
+    }
+  }
+  xhttp.open('GET',urlApi+'/announcements/',true);
+  xhttp.send();
+}
+
+//show the announce in a popup
+function show(text){
+  window.alert(text);
+}

@@ -129,7 +129,6 @@ router.get('/:id',(req,res,next)=>{
    Announcement.findById(id)
    .exec()
    .then(doc=>{
-       console.log("From database",doc);;
        if(doc){
             res.status(200).json({
                 announcement: doc,
