@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 
 const Flyer= require('../models/flyer');
+const Category= require('../models/category');
 
 //get all flyers
 router.get('/', (req, res, next) => {
@@ -74,7 +75,7 @@ router.get('/:id', (req, res, next) => {
         if (doc) {
             res.status(200).json(doc);
         } else {
-            res.status(404).json({ message: 'No valide entry found for given id'});
+            res.status(404).json({ message: 'No valid entry found for given id'});
         }
     })
     .catch(err => {
