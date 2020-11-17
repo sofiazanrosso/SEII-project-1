@@ -129,6 +129,7 @@ router.get('/:id',(req,res,next)=>{
    Announcement.findById(id)
    .exec()
    .then(doc=>{
+       console.log("From database",doc);;
        if(doc){
             res.status(200).json({
                 announcement: doc,
@@ -194,5 +195,7 @@ router.delete('/:id',(req,res,next)=>{
         });
     });
 });
+
+// se va tutto bene non dovrebbe comparire il get di flyers
 
 module.exports = router;
