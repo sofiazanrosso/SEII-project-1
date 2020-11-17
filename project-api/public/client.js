@@ -116,7 +116,7 @@ fetch(urlApi+"/announcements")
     let announcements=res.announcement;
     var cards="<div class='card-deck'>";
     //with column the layout will change dinamicaly with the insertion of other cards
-    //var res="<div class='card-column'>";
+    //var cards="<div class='card-column'>";
     for(let i=0;i<count;i++){
       cards+="<div class='card bg-success'>";
       cards+="<div class='card-body text-center'>";
