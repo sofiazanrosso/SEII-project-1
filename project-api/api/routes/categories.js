@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const announcement = require('../models/announcement');
 const router = express.Router();
 
 const Category = require('../models/category');
 const Announcement = require('../models/announcement');
+const Flyer = require('../models/flyer');
 
 //get all categories
 router.get('/', (req, res, next) => {

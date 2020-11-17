@@ -7,8 +7,8 @@ const app = express();
 const announcementRoute=require('./api/routes/announcements');
 const flyerRoute=require('./api/routes/flyers');
 const categoryRoute=require('./api/routes/categories');
-const { Mongoose } = require('mongoose');
-const category = require('./api/models/category');
+
+// const category = require('./api/models/category');
 
 // connection to the database mongoDB
 const uri= 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-pbzryp-shard-0&authSource=admin&retryWrites=true&w=majority';
@@ -40,6 +40,7 @@ app.use((req,res,next)=>{
 app.use('/announcements',announcementRoute);
 //method to manage the flyers
 app.use('/flyers', flyerRoute);
+//method to manage the categories
 app.use('/categories', categoryRoute);
 
 app.use((req,res,next)=>{
