@@ -32,7 +32,6 @@ router.get('/',(req,res,next)=>{
     */
     
     Announcement.find()
-    .select('_id author category content publish_date expiry_date')
     .exec()
     .then(doc=>{
         const response={
@@ -103,10 +102,10 @@ router.post('/',(req,res,next)=>{
                 content: result.content,
                 publish_date: result.publish_date,
                 expiry_date: result.expiry_date,
-               /* request: {
+                request: {
                     type: 'POST',
                     url: "http://localhost:3000/announcement/"+result._id
-                }*/
+                }
             }
         });
     })
@@ -128,9 +127,9 @@ router.get('/:id',(req,res,next)=>{
     */
    const id=req.params.id;
    Announcement.findById(id)
-   .select('_id author category content publish_date expiry_date')
    .exec()
    .then(doc=>{
+       console.log("From database",doc);;
        if(doc){
             res.status(200).json({
                 announcement: doc,
@@ -197,24 +196,6 @@ router.delete('/:id',(req,res,next)=>{
     });
 });
 
-//GET request for an individual flyer
-router.get('/:id', (req, res, next) => {
-    //extract the id
-    const id = req.params.id;
-    Flyer.findById(id)
-    .exec()
-    .then(doc => {
-        console.log("From database", doc);
-        if (doc) {
-            res.status(200).json(doc);
-        } else {
-            res.status(404).json({ message: 'No valide entry found for given id'});
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-    });
-});
+// se va tutto bene non dovrebbe comparire il get di flyers
 
 module.exports = router;
