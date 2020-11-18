@@ -70,14 +70,14 @@ $(document).ready(function () {
   };
   */
 
-
-var urlApi = 'http://localhost:3000';
+const urlApi = 'http://localhost:3000';
 //when the page is loaded, I insert the cards 
 $(document).ready(function () {
-    loadCards();
+    loadCards();    
 });
 
 function loadCards(){
+  /*
   var xhttp= new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
     if(this.readyState==4 && this.status==200){
@@ -106,6 +106,30 @@ function loadCards(){
   }
   xhttp.open('GET',urlApi+'/announcements/',true);
   xhttp.send();
+  */
+fetch(urlApi+"/announcements")
+.then(response=>response.json())  //convert the response to json and pass it to the next promise
+.then(res => 
+  {
+    //obtains the number of announcements
+    let count=res.count;
+    let announcements=res.announcement;
+    var cards="<div class='card-deck'>";
+    //with column the layout will change dinamicaly with the insertion of other cards
+    //var cards="<div class='card-column'>";
+    for(let i=0;i<count;i++){
+      cards+="<div class='card bg-success'>";
+      cards+="<div class='card-body text-center'>";
+      cards+="<h3 class='card-title'> Author: "+announcements[i].author+"</h3>";
+      //res+="<p class='card-text'>"+announcements[i].content+"</p>";
+      cards+="<p class='card-text'> Publish date: "+announcements[i].publish_date+"</p>";
+      cards+="<p class='card-text'> Expiry date: "+announcements[i].expiry_date+"</p>";
+      cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+announcements[i].content+"\")'>See Announce</a>";
+      cards+="</div></div>";
+    }
+    cards+="</div>";
+    document.getElementById('root').innerHTML=cards;
+  });
 }
 
 //show the announce in a popup
