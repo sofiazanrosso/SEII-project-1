@@ -44,13 +44,10 @@ app.use('/announcements', announcementRoute);
 app.use('/flyers', flyerRoute);
 //method to manage the categories
 app.use('/categories', categoryRoute);
-<<<<<<< HEAD
 //method to manage the actual board
 app.use('/board', boardRoute);
-=======
 // Method to manage searches
 app.use('/search', searchRoute);
->>>>>>> origin/main
 
 /*
 app.use((req,res,next)=>{
