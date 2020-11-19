@@ -6,19 +6,18 @@ const router = express.Router();
 const Announcement= require('../models/announcement');
 
 
-router.get('/:text', (req, res, next) => {
+router.get('/', (req, res, next) => {
 
-    const txt = req.params.text;
+    // Settaggi della query mongoDB
+    const queryOpts = [];
+
 
     // Eventualmente si può distinguere tra case-sensitive e non
     // const options = req.body.caseSensitive ? '' : 'i';
     const options = 'i';
 
     // Per quando announcements avrà un titolo
-    // .find({ $or: [ { "title": { $regex: txt, $options: options } }, { "content": { $regex: txt, $options: options } } ] })
-
-    
-    const queryOpts = [];
+    // queryOpts.push( { "title": { $regex: txt, $options: options } }, { "content": { $regex: txt, $options: options } } );
 
     // Match stringa con content
     if(typeof req.query.includes !== 'undefined'){
@@ -26,28 +25,40 @@ router.get('/:text', (req, res, next) => {
     }
 
     // Range ammesso di publish_date
-    d = {};
-    if(typeof req.query.from_publish !== 'undefined'){
-        d["$gte"] = req.query.from_publish;
-    }
-    if(typeof req.query.to_publish !== 'undefined'){
-        d["$lte"] = req.query.to_publish;
-    }
     if(typeof req.query.from_publish !== 'undefined' || typeof req.query.to_publish !== 'undefined'){
+        d = {};
+        if(typeof req.query.from_publish !== 'undefined'){
+            d["$gte"] = req.query.from_publish;
+        }
+        if(typeof req.query.to_publish !== 'undefined'){
+            d["$lte"] = req.query.to_publish;
+        }
         queryOpts.push( { publish_date: d } );
     }
 
+    // Range ammesso di expiry_date
+    if(typeof req.query.from_expiry !== 'undefined' || typeof req.query.to_expiry !== 'undefined'){
+        d = {};
+        if(typeof req.query.from_expiry !== 'undefined'){
+            d["$gte"] = req.query.from_expiry;
+        }
+        if(typeof req.query.to_expiry !== 'undefined'){
+            d["$lte"] = req.query.to_expiry;
+        }
+        queryOpts.push( { expiry_date: d } );
+    }
+
+    // Query
     const query = { $or: queryOpts};
 
-    console.log(JSON.stringify(queryOpts));
-    console.log(JSON.stringify(query));
-
     Announcement
-    .find({ "content": { $regex: txt, $options: options } })
+    .find(query)
     .exec()
     .then(docs => {
         const response = {
-            query: query,
+            debug: {
+                query: query
+            },
             count: docs.length,
             caseSensitive: req.body.caseSensitive === 'true',
             products: docs.map(doc => {
