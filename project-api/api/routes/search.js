@@ -1,4 +1,3 @@
-const { text } = require('express');
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
@@ -10,12 +9,10 @@ router.get('/', (req, res, next) => {
 
     // Query mongoDB
     const query = {};
+    
 
-
-    // Eventualmente si può distinguere tra case-sensitive e non
-    // const options = req.body.caseSensitive ? '' : 'i';
-    const caseSensitiveOptions = 'i';
-
+    // Ricerca case-sensitive   >>>>>>>>> C'è un modo migliore per farlo? <<<<<<<<<<<<<
+    const caseSensitiveOptions = req.query.caseSensitive === 'true' ? '' : 'i';
 
     // Match stringa con content
     if(typeof req.query.includes !== 'undefined'){
