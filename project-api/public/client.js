@@ -132,6 +132,16 @@ fetch(urlApi+"/announcements")
   });
 }
 
+function selectCat(id) {
+  //window.alert(id);
+  fetch(urlApi+ "/categories/"+ id)
+  .then(response=>response.json())  //convert the response to json and pass it to the next promise
+  .then(res => 
+    {
+      document.getElementById('root').innerHTML=res.orders[0]._id;
+    });
+}
+
 //show the announce in a popup
 function show(text){
   window.alert(text);
