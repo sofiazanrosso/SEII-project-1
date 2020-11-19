@@ -7,6 +7,7 @@ const app = express();
 const announcementRoute=require('./api/routes/announcements');
 const flyerRoute=require('./api/routes/flyers');
 const categoryRoute=require('./api/routes/categories');
+const boardRoute = require('./api/routes/board');
 const searchRoute = require('./api/routes/search');
 
 // const category = require('./api/models/category');
@@ -38,11 +39,13 @@ app.use((req,res,next)=>{
 });
 
 //method to manage the announcements
-app.use('/announcements',announcementRoute);
+app.use('/announcements', announcementRoute);
 //method to manage the flyers
 app.use('/flyers', flyerRoute);
 //method to manage the categories
 app.use('/categories', categoryRoute);
+//method to manage the actual board
+app.use('/board', boardRoute);
 // Method to manage searches
 app.use('/search', searchRoute);
 

@@ -63,6 +63,45 @@ router.post('/', (req, res,next) => {
 //GET request for an individual category
 
 router.get('/:id', (req, res, next) => {
+
+    // Da controllare
+
+    const catId = req.params.id;
+
+    Announcement.find({ category: { $eq: catId } })
+    .exec()
+    .then(doc=>{
+        const response={
+            //number of announcements
+            count : doc.length,
+            announcement: doc.map(ann=>{
+                return {
+                    _id: ann._id,
+                    title: ann.title,
+                    author: ann.author,
+                    publish_date: ann.publish_date,
+                    expiry_date: ann.expiry_date,
+                    
+                    request : {
+                        type: 'GET',
+                        url: 'http://localhost:3000/announcements/'+ann._id
+                    }
+                }
+            })
+        }
+        res.status(200).json(response);
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(500).json({
+            error:err
+        });
+    });
+
+
+
+
+    /*
     //extract the id
     const id = req.params.id;
     Category.find()
@@ -73,7 +112,7 @@ router.get('/:id', (req, res, next) => {
         /* const response = {
             how to retrive data from the database? 
         }*/
-        
+        /*
         if (docs) {
             //Announcement.findById(id)
             res.status(200).json({
@@ -96,6 +135,7 @@ router.get('/:id', (req, res, next) => {
         console.log(err);
         res.status(500).json({error: err});
     });
+    */
 });
 
 module.exports = router;
