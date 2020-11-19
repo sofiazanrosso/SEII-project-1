@@ -8,20 +8,18 @@ const Announcement= require('../models/announcement');
 
 router.get('/', (req, res, next) => {
 
-    // Settaggi della query mongoDB
-    const queryOpts = [];
+    // Query mongoDB
+    const query = {};
 
 
     // Eventualmente si può distinguere tra case-sensitive e non
     // const options = req.body.caseSensitive ? '' : 'i';
-    const options = 'i';
+    const caseSensitiveOptions = 'i';
 
-    // Per quando announcements avrà un titolo
-    // queryOpts.push( { "title": { $regex: txt, $options: options } }, { "content": { $regex: txt, $options: options } } );
 
     // Match stringa con content
     if(typeof req.query.includes !== 'undefined'){
-        queryOpts.push( { "title": { $regex: req.query.includes, $options: options } } );
+        query["$or"] = [ { "title": {$regex: req.query.includes, $options: caseSensitiveOptions } }, { "content": { $regex: req.query.includes, $options: caseSensitiveOptions } } ];
     }
 
     // Range ammesso di publish_date
@@ -33,7 +31,7 @@ router.get('/', (req, res, next) => {
         if(typeof req.query.to_publish !== 'undefined'){
             d["$lte"] = req.query.to_publish;
         }
-        queryOpts.push( { publish_date: d } );
+        query["publish_date"] = d;
     }
 
     // Range ammesso di expiry_date
@@ -45,12 +43,10 @@ router.get('/', (req, res, next) => {
         if(typeof req.query.to_expiry !== 'undefined'){
             d["$lte"] = req.query.to_expiry;
         }
-        queryOpts.push( { expiry_date: d } );
+        query["expiry_date"] = d;
     }
 
-    // Query
-    const query = { $or: queryOpts};
-
+    
     Announcement
     .find(query)
     .exec()
