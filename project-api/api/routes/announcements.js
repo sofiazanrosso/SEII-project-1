@@ -40,6 +40,7 @@ router.get('/',(req,res,next)=>{
             announcement: doc.map(ann=>{
                 return {
                     _id: ann._id,
+                    title: ann.title,
                     author: ann.author,
                     category: ann.category,
                     content: ann.content,
@@ -83,6 +84,7 @@ router.post('/',(req,res,next)=>{
 
     const announcement= new Announcement({
         _id: new mongoose.Types.ObjectId(),
+        title: req.body.title,
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
@@ -97,6 +99,7 @@ router.post('/',(req,res,next)=>{
             message: "Announcement posted",
             announcementPosted: {
                 _id: result._id,
+                title: result.title,
                 author: result.author,
                 category: result.category,
                 content: result.content,
@@ -195,7 +198,5 @@ router.delete('/:id',(req,res,next)=>{
         });
     });
 });
-
-// se va tutto bene non dovrebbe comparire il get di flyers
 
 module.exports = router;

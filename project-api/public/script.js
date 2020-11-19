@@ -2,6 +2,7 @@ const urlApi = 'http://localhost:3000';
 
 //function to add an announcement
 function addAnnouncement(){
+    var newTitle = document.getElementById("title").value;
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
     var newExpiryDate = document.getElementById("expiry_date").value;
@@ -13,6 +14,7 @@ function addAnnouncement(){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( 
             { 
+                title: newTitle,
                 author: newAuthor,
                 content: newContent, 
                 publish_date: newPublishDate,

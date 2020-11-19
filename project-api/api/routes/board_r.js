@@ -14,18 +14,22 @@ const AnnRoute = require('../routes/announcements');
 
 //get board
 router.get('/', (req, res, next) => {
-    Board.find()
+    Announcement.find()
     .exec()
     .then(doc => {
         const response = {
             count : doc.length,
-            board: doc.map(brd =>{
+            announcement: doc.map(ann =>{
                 return {
-                    //announcements: board.ann[i]._id,      potrebbe essere qualcosa del genere?  
-                    _id: brd._id
-                    //app.AnnRoute()
-                    //richiamare get all flyers, get all annoucenments
-                    //richiamare get categories
+                    _id: ann._id,
+                    title: ann.title,
+                    author: ann.author,
+                    publish_date: ann.publish_date,
+                    expiry_date: ann.expiry_date,
+                    request : {
+                        type: 'GET',
+                        url: 'http://localhost:3000/announcements/'+ann._id
+                    }
                 }
             })
         }
