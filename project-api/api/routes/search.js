@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
 
     // Query mongoDB
     const query = {};
-    
+
 
     // Ricerca case-sensitive   >>>>>>>>> C'è un modo migliore per farlo? <<<<<<<<<<<<<
     const caseSensitiveOptions = req.query.caseSensitive === 'true' ? '' : 'i';
@@ -50,10 +50,10 @@ router.get('/', (req, res, next) => {
     .then(docs => {
         const response = {
             debug: {
+                caseSensitive: caseSensitiveOptions !== 'i',
                 query: query
             },
-            count: docs.length,
-            caseSensitive: req.body.caseSensitive === 'true',
+            count: docs.length,            
             products: docs.map(doc => {
                 return {
                     _id: doc._id,
