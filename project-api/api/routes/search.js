@@ -17,11 +17,37 @@ router.get('/:text', (req, res, next) => {
     // Per quando announcements avrà un titolo
     // .find({ $or: [ { "title": { $regex: txt, $options: options } }, { "content": { $regex: txt, $options: options } } ] })
 
+    
+    const queryOpts = [];
+
+    // Match stringa con content
+    if(typeof req.query.includes !== 'undefined'){
+        queryOpts.push( { "title": { $regex: req.query.includes, $options: options } } );
+    }
+
+    // Range ammesso di publish_date
+    d = {};
+    if(typeof req.query.from_publish !== 'undefined'){
+        d["$gte"] = req.query.from_publish;
+    }
+    if(typeof req.query.to_publish !== 'undefined'){
+        d["$lte"] = req.query.to_publish;
+    }
+    if(typeof req.query.from_publish !== 'undefined' || typeof req.query.to_publish !== 'undefined'){
+        queryOpts.push( { publish_date: d } );
+    }
+
+    const query = { $or: queryOpts};
+
+    console.log(JSON.stringify(queryOpts));
+    console.log(JSON.stringify(query));
+
     Announcement
     .find({ "content": { $regex: txt, $options: options } })
     .exec()
     .then(docs => {
         const response = {
+            query: query,
             count: docs.length,
             caseSensitive: req.body.caseSensitive === 'true',
             products: docs.map(doc => {
