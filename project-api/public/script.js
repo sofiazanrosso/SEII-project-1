@@ -1,5 +1,6 @@
 const urlApi = 'http://localhost:3000';
 
+//da prendere dal database
 var categories = [ "sassi", "libri", "gruppi studio" ];
 
 //function to add an announcement
@@ -7,10 +8,49 @@ function addAnnouncement(){
     var newTitle = document.getElementById("title").value;
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
+    var newCategory = document.getElementById("cat").value;
     var newExpiryDate = document.getElementById("expiry_date").value;
     var newPublishDate = document.getElementById("publish_date").value;
 
+    var count;
+    var catlist;
+    var newCatid;
+
+    fetch(urlApi+"/categories")
+    .then(response=>response.json())
+    .then(res => {
+        count = res.count;
+        catlist = res.category;
+        for (let i=0; i<count; i++) {
+            if(catlist[i].name == newCategory) {
+                newCatid = catlist[i]._id;
+            }
+        }
+        return fetch(urlApi+"/announcements", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify( 
+                { 
+                    
+                    title: newTitle,
+                    author: newAuthor,
+                    content: newContent, 
+                    category: newCatid,
+                    publish_date: newPublishDate,
+                    expiry_date: newExpiryDate
+                }),
+        })
+        .then((resp) => {
+            console.log(resp);
+            console.log(newCatid);
+        })
+        
+    })
+    .catch( error => console.error(error) ); 
+
     //do the POST request with the data of the form
+    // ----------- funziona -----------
+    /*
     fetch(urlApi+"/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -19,6 +59,7 @@ function addAnnouncement(){
                 title: newTitle,
                 author: newAuthor,
                 content: newContent, 
+                cat: newCategory,
                 publish_date: newPublishDate,
                 expiry_date: newExpiryDate
             }),
@@ -30,6 +71,7 @@ function addAnnouncement(){
         return;
     })
     .catch( error => console.error(error) ); // If there is any error you will catch them here
+    */
 }
 
 //function to add a new flyer
