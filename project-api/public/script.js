@@ -1,5 +1,7 @@
 const urlApi = 'http://localhost:3000';
 
+var categories = [ "sassi", "libri", "gruppi studio" ];
+
 //function to add an announcement
 function addAnnouncement(){
     var newTitle = document.getElementById("title").value;
@@ -56,4 +58,12 @@ function addFlyer(){
         return;
     })
     .catch( error => console.error(error) ); // If there is any error you will catch them here
+}
+
+function loadCategories(){
+    var catSel = document.getElementById("cat");
+    for (var x in categories){
+        console.log(categories[x]);
+        catSel.options[catSel.options.length] = new Option(categories[x]);
+    }
 }

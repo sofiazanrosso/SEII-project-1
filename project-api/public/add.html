@@ -6,7 +6,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>  
+<body onload="loadCategories()">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="script.js"></script>
 
@@ -16,6 +16,13 @@
       <div class="form-group">
         <label for="insertTitle">Insert title</label>
         <input type="text" class="form-text" id="title">
+      </div>
+      <div class="form-group">
+        <!-- select category -->
+        Category: <select name="categories" id="cat">
+          <option value="" selected="selected">Select category</option>
+          <!-- abbinare categories al proprio id (passando dal db????) -->
+        </select>
       </div>
       <div class="form-group">
         <label for="insertAuthor">Insert author</label>
