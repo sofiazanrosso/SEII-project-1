@@ -9,6 +9,9 @@ const flyerRoute=require('./api/routes/flyers');
 const categoryRoute=require('./api/routes/categories');
 const searchRoute = require('./api/routes/search');
 
+// TEMP
+const imageRoute = require('./api/routes/images');
+
 // const category = require('./api/models/category');
 
 // connection to the database mongoDB
@@ -45,6 +48,9 @@ app.use('/flyers', flyerRoute);
 app.use('/categories', categoryRoute);
 // Method to manage searches
 app.use('/search', searchRoute);
+
+// TEMP
+app.use('/img', imageRoute);
 
 /*
 app.use((req,res,next)=>{
