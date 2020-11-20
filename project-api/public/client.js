@@ -130,6 +130,7 @@ fetch(urlApi+"/announcements")
       cards+="<p class='card-text'> Publish date: "+announcements[i].publish_date+"</p>";
       cards+="<p class='card-text'> Expiry date: "+announcements[i].expiry_date+"</p>";
       cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+announcements[i].content+"\")'>See Announce</a>";
+      cards+="<a class='btn btn-primary stretched-link' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
     }
     cards+="</div>";
@@ -173,6 +174,19 @@ function selectCat(id) {
         document.getElementById('root').innerHTML=res.announcement[i].author;
       }
     });
+}
+
+function deleteAnnouncement(id){
+  fetch(urlApi+"/announcements/"+id, {
+    method: 'DELETE'
+  })
+  .then((resp) => {
+        console.log(resp);
+        //redirect the page
+        window.location.href='index.html';
+        return;
+  })
+  .catch( error => console.error(error) );
 }
 
 //show the announce in a popup
