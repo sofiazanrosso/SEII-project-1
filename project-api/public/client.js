@@ -71,12 +71,17 @@ $(document).ready(function () {
   */
 
 const urlApi = 'http://localhost:3000';
-//when the page is loaded, I insert the cards 
+//when the page is loaded, I insert the cards
+
+/*
+
 $(document).ready(function () {
-    loadCards();    
+    loadAnnouncements();    
 });
 
-function loadCards(){
+*/
+
+function loadAnnouncements(){
   /*
   var xhttp= new XMLHttpRequest();
   xhttp.onreadystatechange=function(){
@@ -132,13 +137,41 @@ fetch(urlApi+"/announcements")
   });
 }
 
+function loadFlyers(){
+  fetch(urlApi+"/flyers")
+  .then(response=>response.json())  //convert the response to json and pass it to the next promise
+  .then(res => 
+    {
+      //obtains the number of flyers
+      let count=res.count;
+      let flyers=res.flyer;
+      var cards="<div class='card-deck'>";
+      //with column the layout will change dinamicaly with the insertion of other cards
+      //var cards="<div class='card-column'>";
+      for(let i=0;i<count;i++){
+        cards+="<div class='card bg-success'>";
+        cards+="<div class='card-body text-center'>";
+        cards+="<h3 class='card-title'> Author: "+flyers[i].author+"</h3>";
+        cards+="<p class='card-text'> Publish date: "+flyers[i].publish_date+"</p>";
+        cards+="<p class='card-text'> Expiry date: "+flyers[i].expiry_date+"</p>";
+        cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+flyers[i].content+"\")'>See Flyer</a>";
+        cards+="</div></div>";
+      }
+      cards+="</div>";
+      document.getElementById('root').innerHTML=cards;
+    });
+}
+
+
 function selectCat(id) {
-  //window.alert(id);
   fetch(urlApi+ "/categories/"+ id)
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
   .then(res => 
     {
-      document.getElementById('root').innerHTML=res.orders[0]._id;
+      let count=res.count;
+      for(let i=0;i<count;i++){
+        document.getElementById('root').innerHTML=res.announcement[i].author;
+      }
     });
 }
 
@@ -146,3 +179,7 @@ function selectCat(id) {
 function show(text){
   window.alert(text);
 }
+
+
+
+
