@@ -87,10 +87,17 @@ router.get('/:id', (req, res, next) => {
 //DELETE request for a given id
 router.delete('/:id', (req, res, next) => {
     const id = req.params.id;
-    Product.remove({_id: id})
+    Flyer.remove({_id: id})
     .exec()
-    .then(res => {
-        res.status(200).json(result);
+    .then(result => {
+        res.status(200).json({
+            message: 'Flyer deleted',
+            request: {
+                type: 'DELETE',
+                url: 'http://localhost:3000',
+                data: {author: 'String', content: 'String'}
+            }
+        });
     })
     .catch(err => {
         console.log(err);

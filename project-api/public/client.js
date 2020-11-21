@@ -129,8 +129,8 @@ fetch(urlApi+"/announcements")
       //res+="<p class='card-text'>"+announcements[i].content+"</p>";
       cards+="<p class='card-text'> Publish date: "+announcements[i].publish_date+"</p>";
       cards+="<p class='card-text'> Expiry date: "+announcements[i].expiry_date+"</p>";
-      cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+announcements[i].content+"\")'>See Announce</a>";
-      cards+="<a class='btn btn-primary stretched-link' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
+      cards+="<a class='btn btn-primary' onclick='show(\""+announcements[i].content+"\")'>See Announce</a>";
+      cards+="<a class='btn btn-primary' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
     }
     cards+="</div>";
@@ -155,7 +155,8 @@ function loadFlyers(){
         cards+="<h3 class='card-title'> Author: "+flyers[i].author+"</h3>";
         cards+="<p class='card-text'> Publish date: "+flyers[i].publish_date+"</p>";
         cards+="<p class='card-text'> Expiry date: "+flyers[i].expiry_date+"</p>";
-        cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+flyers[i].content+"\")'>See Flyer</a>";
+        cards+="<a class='btn btn-primary' onclick='show(\""+flyers[i].content+"\")'>See Flyer</a>";
+        cards+="<a class='btn btn-primary' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
         cards+="</div></div>";
       }
       cards+="</div>";
@@ -178,6 +179,19 @@ function selectCat(id) {
 
 function deleteAnnouncement(id){
   fetch(urlApi+"/announcements/"+id, {
+    method: 'DELETE'
+  })
+  .then((resp) => {
+        console.log(resp);
+        //redirect the page
+        window.location.href='index.html';
+        return;
+  })
+  .catch( error => console.error(error) );
+}
+
+function deleteFlyer(id){
+  fetch(urlApi+"/flyers/"+id, {
     method: 'DELETE'
   })
   .then((resp) => {
@@ -231,8 +245,8 @@ function printAll(announcements,flyers){
     //res+="<p class='card-text'>"+announcements[i].content+"</p>";
     cards+="<p class='card-text'> Publish date: "+annArray[i].publish_date+"</p>";
     cards+="<p class='card-text'> Expiry date: "+annArray[i].expiry_date+"</p>";
-    cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+annArray[i].content+"\")'>See Announce</a>";
-    cards+="<a class='btn btn-primary stretched-link' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
+    cards+="<a class='btn btn-primary' onclick='show(\""+annArray[i].content+"\")'>See Announce</a>";
+    cards+="<a class='btn btn-primary' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
     cards+="</div></div>";
   }
   cards+="<h2>Flyers</h2>";
@@ -242,7 +256,8 @@ function printAll(announcements,flyers){
     cards+="<h3 class='card-title'> Author: "+flyArray[i].author+"</h3>";
     cards+="<p class='card-text'> Publish date: "+flyArray[i].publish_date+"</p>";
     cards+="<p class='card-text'> Expiry date: "+flyArray[i].expiry_date+"</p>";
-    cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+flyArray[i].content+"\")'>See Flyer</a>";
+    cards+="<a class='btn btn-primary' onclick='show(\""+flyArray[i].content+"\")'>See Flyer</a>";
+    cards+="<a class='btn btn-primary' onclick='deleteFlyer(\""+flyArray[i]._id+"\")'>Delete Flyer</a>";
     cards+="</div></div>";
   }  
   cards+="</div>";
