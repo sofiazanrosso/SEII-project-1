@@ -119,9 +119,9 @@ fetch(urlApi+"/announcements")
     //obtains the number of announcements
     let count=res.count;
     let announcements=res.announcement;
-    var cards="<div class='card-deck'>";
+    //var cards="<div class='card-deck'>";
     //with column the layout will change dinamicaly with the insertion of other cards
-    //var cards="<div class='card-column'>";
+    var cards="<div class='card-column'>";
     for(let i=0;i<count;i++){
       cards+="<div class='card bg-success'>";
       cards+="<div class='card-body text-center'>";
@@ -146,9 +146,9 @@ function loadFlyers(){
       //obtains the number of flyers
       let count=res.count;
       let flyers=res.flyer;
-      var cards="<div class='card-deck'>";
+      //var cards="<div class='card-deck'>";
       //with column the layout will change dinamicaly with the insertion of other cards
-      //var cards="<div class='card-column'>";
+      var cards="<div class='card-column'>";
       for(let i=0;i<count;i++){
         cards+="<div class='card bg-success'>";
         cards+="<div class='card-body text-center'>";
@@ -187,6 +187,66 @@ function deleteAnnouncement(id){
         return;
   })
   .catch( error => console.error(error) );
+}
+
+function loadAll(){
+  var ann;
+  fetch(urlApi+"/announcements")
+  .then(announcement => announcement.json())
+  .then(data=>{
+      ann=data;
+      return fetch(urlApi+"/flyers");
+  })
+  .then(flyers=> flyers.json())
+  .then(fly=>{
+      //console.log(ann.count,fly.count);
+      printAll(ann,fly);        
+  })
+  .catch(err=>console.log(err));
+  /*
+ Promise.all([
+  fetch(urlApi+"/announcements"),
+  fetch(urlApi+"/flyers")
+  ])
+  .then(responses =>{
+     return Promise.all(responses.map(response=> response.json()));
+  })
+  .then(data => console.log(data))
+  .catch(err=>console.log(err));
+  */
+}
+
+
+function printAll(announcements,flyers){
+  let countAnn=announcements.count;
+  let countFly=flyers.count;
+  let annArray=announcements.announcement;
+  let flyArray=flyers.flyer;
+  var cards="<div class='card-column'>";
+  cards+="<h2>Announcements</h2>";
+  for(let i=0;i<countAnn;i++){
+    cards+="<div class='card bg-success'>";
+    cards+="<div class='card-body text-center'>";
+    cards+="<h3 class='card-title'> Author: "+annArray[i].author+"</h3>";
+    //res+="<p class='card-text'>"+announcements[i].content+"</p>";
+    cards+="<p class='card-text'> Publish date: "+annArray[i].publish_date+"</p>";
+    cards+="<p class='card-text'> Expiry date: "+annArray[i].expiry_date+"</p>";
+    cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+annArray[i].content+"\")'>See Announce</a>";
+    cards+="<a class='btn btn-primary stretched-link' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
+    cards+="</div></div>";
+  }
+  cards+="<h2>Flyers</h2>";
+  for(let i=0;i<countFly;i++){
+    cards+="<div class='card bg-success'>";
+    cards+="<div class='card-body text-center'>";
+    cards+="<h3 class='card-title'> Author: "+flyArray[i].author+"</h3>";
+    cards+="<p class='card-text'> Publish date: "+flyArray[i].publish_date+"</p>";
+    cards+="<p class='card-text'> Expiry date: "+flyArray[i].expiry_date+"</p>";
+    cards+="<a class='btn btn-primary stretched-link' onclick='show(\""+flyArray[i].content+"\")'>See Flyer</a>";
+    cards+="</div></div>";
+  }  
+  cards+="</div>";
+  document.getElementById('root').innerHTML=cards;
 }
 
 //show the announce in a popup
