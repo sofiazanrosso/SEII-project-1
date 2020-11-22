@@ -1,7 +1,30 @@
 const urlApi = 'http://localhost:3000';
 
-//da prendere dal database
-var categories = [ "sassi", "libri", "gruppi studio" ];
+//var categories = [ "sassi", "libri", "gruppi studio" ];
+
+// var categories = [];
+
+// function makeCatArray() {
+//     var catchoices;
+//     fetch(urlApi+"/categories")
+//         .then(response=>response.json())
+//         .then( res => {
+//             count = res.count;
+//             catlist = res.category;
+//             catchoices = [];
+//             for (let i=0; i<count; i++) {
+//                 catchoices[i] = catlist[i].name;
+//                 //qui funziona
+//                 console.log(catchoices);
+//             }
+//             // return catchoices;
+//         })
+//         .catch( error => console.error(error) );
+//     return catchoices;
+// }
+
+// categories = [] + makeCatArray();
+// console.log(categories); //undefined
 
 //function to add an announcement
 function addAnnouncement(){
@@ -103,9 +126,29 @@ function addFlyer(){
 }
 
 function loadCategories(){
-    var catSel = document.getElementById("cat");
-    for (var x in categories){
-        console.log(categories[x]);
-        catSel.options[catSel.options.length] = new Option(categories[x]);
-    }
+
+    var categories = [];
+
+    fetch(urlApi+"/categories")
+        .then(response=>response.json())
+        .then( res => {
+            count = res.count;
+            catlist = res.category;
+
+            for (let i=0; i<count; i++) {
+                categories[i] = catlist[i].name;
+                //qui funziona
+                console.log(categories);
+            }
+
+            var catSel = document.getElementById("cat");
+            for (var x in categories){
+                console.log(categories[x]);
+                catSel.options[catSel.options.length] = new Option(categories[x]);
+            }
+
+        })
+        .catch( error => console.error(error) );
+
+    
 }
