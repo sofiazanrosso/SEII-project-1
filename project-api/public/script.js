@@ -127,26 +127,26 @@ function addFlyer(){
 
 function loadCategories(){
 
-    var categories = [];
+    const catSel = document.getElementById("cat");
 
     fetch(urlApi+"/categories")
         .then(response=>response.json())
         .then( res => {
-            count = res.count;
-            catlist = res.category;
+            
+            res.category.forEach(x => catSel.add(new Option(x.name, x.name)))            
+            
+            // count = res.count;
+            // catlist = res.category;
+            // for (let i=0; i<count; i++) {
+            //     categories[i] = catlist[i].name;
+            //     //qui funziona
+            //     console.log(categories);
+            // }
 
-            for (let i=0; i<count; i++) {
-                categories[i] = catlist[i].name;
-                //qui funziona
-                console.log(categories);
-            }
-
-            var catSel = document.getElementById("cat");
-            for (var x in categories){
-                console.log(categories[x]);
-                catSel.options[catSel.options.length] = new Option(categories[x]);
-            }
-
+            // for (var x in categories){
+            //     console.log(categories[x]);
+            //     catSel.options[catSel.options.length] = new Option(categories[x]);
+            // }
         })
         .catch( error => console.error(error) );
 
