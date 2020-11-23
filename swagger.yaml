@@ -311,8 +311,6 @@ definitions:
       expiryDate:
         type: "string"
         format: "date-time"
-    xml:
-      name: "Announcement"
   
   Flyer:
     type: "object"
@@ -341,9 +339,6 @@ definitions:
         type: "string"
       name:
         type: "string"
-      
-    xml:
-      name: "Category"
   
   Board:
     type: "object"
