@@ -53,7 +53,7 @@ app.use('/board', boardRoute);
 app.use('/search', searchRoute);
 
 // TEMP
-app.use('/img', imageRoute);
+app.use('/imgages', imageRoute);
 
 /*
 app.use((req,res,next)=>{
