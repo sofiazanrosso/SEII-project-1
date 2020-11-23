@@ -1,0 +1,68 @@
+body {
+    background-color: rgb(224, 224, 224);
+}
+
+h1 {
+    color: rgb(31, 31, 31);
+    text-align: center;
+}
+
+p {
+    color: rgb(31, 31, 31);
+}
+
+.btn {
+    font-size: 15px;
+    border: 0px;
+    padding: 10px;
+    margin: 3px;    
+}
+
+.btn-primary {
+    background-color: darkcyan;
+}
+
+.btn-primary:hover {
+    background-color: rgb(11, 187, 187);
+}
+
+.btn-secondary {
+    background-color: rgb(0, 88, 139);
+}
+
+.btn-secondary:hover {
+    background-color: rgb(25, 123, 180);
+}
+
+.btn-danger {
+    background-color: brown;
+}
+
+.btn-danger:hover {
+    background-color: rgb(197, 86, 86);
+}
+
+.card{
+    border: 0px;
+}
+
+.bg-success{
+    background-color: rgb(231, 254, 255);
+    border-color: rgb(132, 190, 192);
+    border-radius: 2px;
+}
+
+.bg-primary {
+    background-color: rgb(231, 254, 255);
+    border-color: rgb(132, 190, 192);
+    border-radius: 2px;
+}
+
+/* .card-body {} */
+/*
+.card-header {
+    color: rgb(31, 31, 31);
+    text-align: center;
+}*/
+/*
+.card-footer{} */

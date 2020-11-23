@@ -41,12 +41,12 @@ function printAnnouncement(count,announcements){
     for(let i=0;i<count;i++){
       cards+="<div class='card bg-success'>";
       cards+="<div class='card-body text-center'>";
-      cards+="<h3 class='card-title'> Author: "+announcements[i].author+"</h3>";
+      cards+="<h3 class='card-header'> Author: "+announcements[i].author+"</h3>";
       //res+="<p class='card-text'>"+announcements[i].content+"</p>";
-      cards+="<p class='card-text'> Publish date: "+announcements[i].publish_date+"</p>";
-      cards+="<p class='card-text'> Expiry date: "+announcements[i].expiry_date+"</p>";
+      cards+="<p class='card-footer'> Publish date: "+announcements[i].publish_date+"</p>";
+      cards+="<p class='card-footer'> Expiry date: "+announcements[i].expiry_date+"</p>";
       cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
-      cards+="<a class='btn btn-primary' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
+      cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
     }
     cards+="</div>";
@@ -59,11 +59,11 @@ function printFlyers(count,flyers){
   for(let i=0;i<count;i++){
     cards+="<div class='card bg-success'>";
     cards+="<div class='card-body text-center'>";
-    cards+="<h3 class='card-title'> Author: "+flyers[i].author+"</h3>";
-    cards+="<p class='card-text'> Publish date: "+flyers[i].publish_date+"</p>";
-    cards+="<p class='card-text'> Expiry date: "+flyers[i].expiry_date+"</p>";
+    cards+="<h3 class='card-header'> Author: "+flyers[i].author+"</h3>";
+    cards+="<p class='card-footer'> Publish date: "+flyers[i].publish_date+"</p>";
+    cards+="<p class='card-footer'> Expiry date: "+flyers[i].expiry_date+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
-    cards+="<a class='btn btn-primary' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
+    cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
     cards+="</div></div>";
   }
   cards+="</div>";
