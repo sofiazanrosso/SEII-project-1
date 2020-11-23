@@ -77,9 +77,8 @@ function selectCat(id) {
   .then(res => 
     {
       let count=res.count;
-      for(let i=0;i<count;i++){
-        document.getElementById('root').innerHTML=res.announcement[i].author;
-      }
+      let announcements=res.announcement;
+      printAnnouncement(count,announcements);
     });
 }
 
