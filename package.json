@@ -1,0 +1,23 @@
+{
+  "name": "seii-project-1",
+  "version": "1.0.0",
+  "description": "We want to develop an online service for a university digital bulletin board (study groups, extra courses, events, rents).\r We want to deliver both a web version of this service and a client application.",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^26.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sofiazanrosso/SEII-project-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sofiazanrosso/SEII-project-1/issues"
+  },
+  "homepage": "https://github.com/sofiazanrosso/SEII-project-1#readme"
+}
