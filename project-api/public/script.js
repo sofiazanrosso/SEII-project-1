@@ -26,6 +26,8 @@ function addAnnouncement() {
         .then((resp) => {
             console.log(resp);
             console.log(newCategory);
+            //redirect the page
+            window.location.href = 'index.html';
         })
         .catch(error => console.error(error));
 }
