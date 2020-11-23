@@ -1,0 +1,353 @@
+swagger: '2.0'
+
+info:
+  version: '1.0'
+  title: "SEII-project-1-swagger"
+  description: SEII-project-1 is a simple API allowing to view the university's digital bulletin board.
+  license:
+    name: MIT
+    url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
+    
+host: localhost:3000
+
+tags:
+- name: "announcements"
+  description: "announcements in the digital bulletin board"
+- name: "flyers"
+  description: "flyers in the digital bulletin board"
+- name: "categories"
+  description: "categories of announcements and flyers"
+- name: "board"
+  description: "main page of the digital bulletin board containing announcements and flyers"
+
+paths:
+
+  /announcements:
+  
+    post:
+      tags:
+      - "announcements"
+      summary: "Add a new announcement"
+      description: "You may want to post a new announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "addAnn"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Announcement that needs to be added to the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Announcement"
+      responses:
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "announcements"
+      summary: "View announcements"
+      description: "You may want to view all announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "viewAllAnn"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Announcement"
+        "500":
+          description: "Error"
+      
+  /announcements/{annid}:
+  
+    get:
+      tags:
+      - "announcements"
+      summary: "View a specific announcement"
+      description: "You may want to view a specific announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "viewAnn"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Announcement"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+    
+    delete:
+      tags:
+      - "announcements"
+      summary: "Delete a specific announcement"
+      description: "You may want to delete a specific announcement."
+      operationId: "deleteAnn"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+      
+  /flyers:
+    post:
+      tags:
+      - "flyers"
+      summary: "Add a new flyer"
+      description: "You may want to post a new flyer. The attributes are author, category, content, publish and expiry dates and the url."
+      operationId: "addFly"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "FLyers that needs to be added to the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Flyer"
+      responses:
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "flyers"
+      summary: "View all flyers"
+      description: "You may want to view all flyers. The attributes are author, category, content, publish and expiry dates and the url."
+      operationId: "viewAllFly"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Flyer"
+        "500":
+          description: "Error"
+      
+  /flyers/{flyid}:
+  
+    get:
+      tags:
+      - "flyers"
+      summary: "View a specific announcement"
+      description: "You may want to view a specific flyers. The attributes are author, category, content, publish and expiry dates and the url."
+      operationId: "viewFly"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "flyid"
+        in: "path"
+        description: "The ID of a specific flyer."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Flyer"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+    
+    delete:
+      tags:
+      - "flyers"
+      summary: "Delete a specific flyer"
+      description: "You may want to delete a specific flyer."
+      operationId: "deleteFly"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "flyid"
+        in: "path"
+        description: "The ID of a specific flyer."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"  
+    
+  /cateogories:
+    post:
+      tags:
+      - "cateogories"
+      summary: "Add a new category"
+      description: "You may want to post a new category. The attributes are name and id."
+      operationId: "addCat"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Categories needs to be displayed on the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Category"
+      responses:
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "cateogories"
+      summary: "View all categories"
+      description: "You may want to view all categories. The attributes are name and id."
+      operationId: "viewAllCat"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Category"
+        "500":
+          description: "Error"
+      
+  /categories/{catid}:
+  
+    get:
+      tags:
+      - "cateogories"
+      summary: "View annoucements of a specific cateogory"
+      description: "You may want to view a only a certain category of flyers and announcements. The attributes are name and id."
+      operationId: "viewCat"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "catid"
+        in: "path"
+        description: "Announcements and flyers are fetched and the specific category ID is selected."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Category"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+    
+    delete:
+      tags:
+      - "cateogories"
+      summary: "Delete a specific cateogory"
+      description: "You may want to delete a specific category."
+      operationId: "deleteCat"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "catid"
+        in: "path"
+        description: "The ID of a specific category."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"  
+    
+      
+definitions:
+  Announcement:
+    type: "object"
+    properties:
+      annid:
+        type: "string"
+      title:
+        type: "string"
+      author:
+        type: "string"
+      category:
+        type: "string"
+      content:
+        type: "string"
+      publishDate:
+        type: "string"
+        format: "date-time"
+      expiryDate:
+        type: "string"
+        format: "date-time"
+  
+  Flyer:
+    type: "object"
+    properties:
+      flyid: 
+        type: "string"
+      title:
+        type: "string"
+      author:
+        type: "string"
+      category:
+        type: "string"
+      content:
+        type: "string"
+      publishDate:
+        type: "string"
+        format: "date-time"
+      expiryDate:
+        type: "string"
+        format: "date-time"
+     
+  Category:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+  
+  Board:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      annid:
+        type: "object"
+      flyid:
+        type: "object"
