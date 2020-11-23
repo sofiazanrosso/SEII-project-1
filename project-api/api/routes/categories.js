@@ -6,7 +6,13 @@ const router = express.Router();
 const Category = require('../models/category');
 const Announcement = require('../models/announcement');
 
-//get all categories
+/*
+    GET all categories.
+    You may want to view all categories.
+    The attributes are:
+        name (String)
+        id (String)
+*/
 router.get('/', (req, res, next) => {
     Category.find()
     .select('_id name')
@@ -35,7 +41,13 @@ router.get('/', (req, res, next) => {
     });
 });
 
-//post a new category
+/* 
+    POST a new category.
+    You may want to add a new category.
+    The attributes are:
+        name (String)
+        id (String)
+*/
 router.post('/', (req, res,next) => {
     const category= new Category({
         _id: new mongoose.Types.ObjectId(),
@@ -60,8 +72,13 @@ router.post('/', (req, res,next) => {
     });
 });
 
-//GET request for an individual category
-
+/*
+    GET request for an individual category.
+    You may want to view a only a certain category of flyers and announcements. 
+    The attributes are:
+        name (String)
+        id (String)
+*/
 router.get('/:id', (req, res, next) => {
 
     // Da controllare
@@ -97,45 +114,6 @@ router.get('/:id', (req, res, next) => {
             error:err
         });
     });
-
-
-
-
-    /*
-    //extract the id
-    const id = req.params.id;
-    Category.find()
-    .select('_id ann_ids fly_ids')
-    .exec()
-    .then(docs => {
-        console.log("From database", docs);
-        /* const response = {
-            how to retrive data from the database? 
-        }*/
-        /*
-        if (docs) {
-            //Announcement.findById(id)
-            res.status(200).json({
-                count: docs.length,
-                orders: docs.map ( doc => {
-                    return {
-                        _id: doc._id,
-                        announcements: doc.ann_ids,
-                        flyers: doc.fly_ids
-                        //get?
-                    }
-                })
-            });
-            
-        } else {
-            res.status(404).json({ message: 'No valid entry found for given id'});
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-    });
-    */
 });
 
 module.exports = router;

@@ -5,7 +5,17 @@ const router = express.Router();
 const Flyer= require('../models/flyer');
 const Category= require('../models/category');
 
-//get all flyers
+/*
+    GET all flyers.
+    You may want to view all flyers. 
+    The attributes are:
+        author (String)
+        category (String)
+        content (String)
+        publish date (String)
+        expiry date (String)
+        url
+*/ 
 router.get('/', (req, res, next) => {
     Flyer.find()
     .exec()
@@ -37,7 +47,17 @@ router.get('/', (req, res, next) => {
     });
 });
 
-//post a new flyer
+/*
+    POST a new flyer.
+    You may want to add a new flyer. 
+    The attributes are:
+        author (String)
+        category (String)
+        content (String)
+        publish date (String)
+        expiry date (String)
+        url
+*/
 router.post('/', (req, res,next) => {
     const flyer= new Flyer({
         _id: new mongoose.Types.ObjectId(),
@@ -64,7 +84,17 @@ router.post('/', (req, res,next) => {
     });
 });
 
-//GET request for an individual flyer
+/* 
+    GET request for an individual flyer.
+    You may want to view a specific flyer. 
+    The attributes are:
+        author (String)
+        category (String)
+        content (String)
+        publish date (String)
+        expiry date (String)
+        url
+*/
 router.get('/:id', (req, res, next) => {
     //extract the id
     const id = req.params.id;
@@ -84,7 +114,10 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-//DELETE request for a given id
+/* 
+    DELETE request for a given id.
+    You may want to delete a specific flyer.
+*/
 router.delete('/:id', (req, res, next) => {
     const id = req.params.id;
     Flyer.remove({_id: id})
