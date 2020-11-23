@@ -1,120 +1,186 @@
 swagger: '2.0'
+
 info:
   version: '1.0'
   title: "SEII-project-1-swagger"
-  description: Polls is a simple API allowing consumers to view polls and vote in them.
+  description: SEII-project-1 is a simple API allowing to view the university's digital bulletin board.
   license:
     name: MIT
     url: https://github.com/apiaryio/polls-api/blob/master/LICENSE
-host: polls.apiblueprint.org
-basePath: /
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+    
+host: localhost:3000
+
+tags:
+- name: "announcements"
+  description: "announcements in the digital bulletin board"
+- name: "flyers"
+  description: "flyers in the digital bulletin board"
+- name: "categories"
+  description: "categories of announcements and flyers"
+- name: "board"
+  description: "main page of the digital bulletin board containing announcements and flyers"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://swagger.io"
+
 paths:
-  /questions:
-    x-summary: Questions Collection
-    get:
-      summary: List All Questions
-      responses:
-        200:
-          description: Successful Response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Question'
-          examples:
-            application/json:
-              - question: Favourite programming language?
-                published_at: '2015-08-05T08:40:51.620Z'
-                choices:
-                  - choice: Swift
-                    votes: 2048
-                  - choice: Python
-                    votes: 1024
-                  - choice: Objective-C
-                    votes: 512
-                  - choice: Ruby
-                    votes: 256
+
+  /announcements:
+  
     post:
-      description: >-
-        You may create your own question using this action. It takes a JSON
-        object containing a question and a collection of answers in the
-        form of choices.
-      summary: Create a New Question
+      tags:
+      - "announcements"
+      summary: "Add a new announcement"
+      description: "You may want to post a new announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "addAnn"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
       parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/QuestionRequest'
+      - in: "body"
+        name: "body"
+        description: "Announcement that needs to be added to the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Announcement"
       responses:
-        201:
-          description: ''
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "announcements"
+      summary: "View announcements"
+      description: "You may want to view all announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "viewAllAnn"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
           schema:
-            $ref: '#/definitions/Question'
-          examples:
-            application/json:
-                question: Favourite programming language?
-                published_at: '2015-08-05T08:40:51.620Z'
-                choices:
-                  - choice: Swift
-                    votes: 0
-                  - choice: Python
-                    votes: 0
-                  - choice: Objective-C
-                    votes: 0
-                  - choice: Ruby
-                    votes: 0
+            $ref: "#/definitions/Announcement"
+        "500":
+          description: "Error"
+      
+  /announcements/{annid}:
+  
+    get:
+      tags:
+      - "announcements"
+      summary: "View a specific announcement"
+      description: "You may want to view a specific announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      operationId: "viewAnn"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Announcement"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+    
+    delete:
+      tags:
+      - "announcements"
+      summary: "Delete a specific announcement"
+      description: "You may want to delete a specific announcement."
+      operationId: "deleteAnn"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+      
 definitions:
-  Question:
-    title: Question
-    type: object
+  Announcement:
+    type: "object"
     properties:
-      question:
-        type: string
-      published_at:
-        type: string
-      choices:
-        type: array
-        items:
-          $ref: '#/definitions/Choice'
-    required:
-      - question
-      - published_at
-      - choices
-  Choice:
-    title: Choice
-    type: object
+      annid:
+        type: "string"
+      title:
+        type: "string"
+      author:
+        type: "string"
+      category:
+        type: "string"
+      content:
+        type: "string"
+      publishDate:
+        type: "string"
+        format: "date-time"
+      expiryDate:
+        type: "string"
+        format: "date-time"
+    xml:
+      name: "Announcement"
+  
+  Flyer:
+    type: "object"
     properties:
-      votes:
-        type: integer
-        format: int32
-      choice:
-        type: string
-    required:
-      - votes
-      - choice
-  QuestionRequest:
-    title: Question Request
-    type: object
+      flyid: 
+        type: "string"
+      title:
+        type: "string"
+      author:
+        type: "string"
+      category:
+        type: "string"
+      content:
+        type: "string"
+      publishDate:
+        type: "string"
+        format: "date-time"
+      expiryDate:
+        type: "string"
+        format: "date-time"
+     
+  Category:
+    type: "object"
     properties:
-      question:
-        type: string
-      choices:
-        type: array
-        items:
-          type: string
-    required:
-      - question
-      - choices
-    example:
-      question: Favourite programming language?
-      choices:
-        - Swift
-        - Python
-        - Objective-C
-        - Ruby
+      id:
+        type: "string"
+      name:
+        type: "string"
+      annid:
+        type: "object"
+      flyid:
+        type: "object"
+      
+    xml:
+      name: "Category"
+  
+  Board:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      annid:
+        type: "object"
+      flyid:
+        type: "object"
