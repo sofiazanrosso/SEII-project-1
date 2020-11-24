@@ -39,7 +39,7 @@ function loadFlyers(){
 function printAnnouncement(count,announcements){
   var cards="<div class='card-column'>";
     for(let i=0;i<count;i++){
-      cards+="<div class='card bg-success'>";
+      cards+="<div class='card'>";
       cards+="<div class='card-body text-center'>";
       cards+="<h3 class='card-header'> Author: "+announcements[i].author+"</h3>";
       //res+="<p class='card-text'>"+announcements[i].content+"</p>";
@@ -57,7 +57,7 @@ function printAnnouncement(count,announcements){
 function printFlyers(count,flyers){
   var cards="<div class='card-column'>";
   for(let i=0;i<count;i++){
-    cards+="<div class='card bg-success'>";
+    cards+="<div class='card>";
     cards+="<div class='card-body text-center'>";
     cards+="<h3 class='card-header'> Author: "+flyers[i].author+"</h3>";
     cards+="<p class='card-footer'> Publish date: "+flyers[i].publish_date+"</p>";
@@ -144,25 +144,25 @@ function printAll(announcements,flyers){
   var cards="<div class='card-column'>";
   cards+="<h2>Announcements</h2>";
   for(let i=0;i<countAnn;i++){
-    cards+="<div class='card bg-success'>";
+    cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h3 class='card-title'> Author: "+annArray[i].author+"</h3>";
     //res+="<p class='card-text'>"+announcements[i].content+"</p>";
     cards+="<p class='card-text'> Publish date: "+annArray[i].publish_date+"</p>";
     cards+="<p class='card-text'> Expiry date: "+annArray[i].expiry_date+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+annArray[i]._id+"\")'>See Announce</a>";
-    cards+="<a class='btn btn-primary' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
+    cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
     cards+="</div></div>";
   }
   cards+="<h2>Flyers</h2>";
   for(let i=0;i<countFly;i++){
-    cards+="<div class='card bg-success'>";
+    cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h3 class='card-title'> Author: "+flyArray[i].author+"</h3>";
     cards+="<p class='card-text'> Publish date: "+flyArray[i].publish_date+"</p>";
     cards+="<p class='card-text'> Expiry date: "+flyArray[i].expiry_date+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
-    cards+="<a class='btn btn-primary' onclick='deleteFlyer(\""+flyArray[i]._id+"\")'>Delete Flyer</a>";
+    cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyArray[i]._id+"\")'>Delete Flyer</a>";
     cards+="</div></div>";
   }  
   cards+="</div>";
@@ -190,7 +190,7 @@ function show(text,id){
 
 function printSingleAnnouncement(response){
   var cards="<div class='card-column'>";  
-  cards+="<div class='card bg-success'>";
+  cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
   cards+="<h3 class='card-title'> Author: "+response.author+"</h3>";
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
@@ -203,7 +203,7 @@ function printSingleAnnouncement(response){
 
 function printSingleFlyer(response){
   var cards="<div class='card-column'>";  
-  cards+="<div class='card bg-success'>";
+  cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
   cards+="<h3 class='card-title'> Author: "+response.author+"</h3>";
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
@@ -215,5 +215,12 @@ function printSingleFlyer(response){
 }
 
 
+function loadCategories() {
 
+    const catSel = document.getElementById("cat");
 
+    fetch(urlApi + "/categories")
+        .then(response => response.json())
+        .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
+        .catch(error => console.error(error));
+}
