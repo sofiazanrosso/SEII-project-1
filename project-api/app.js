@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/',express.static('public'));
+app.use('/',express.static('project-api/public'));
 
 //CORS
 app.use((req,res,next)=>{
