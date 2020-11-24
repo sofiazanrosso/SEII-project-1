@@ -10,7 +10,7 @@ function addAnnouncement() {
     const newExpiryDate = document.getElementById("expiry_date").value;
     const newPublishDate = document.getElementById("publish_date").value;
 
-    fetch(urlApi + "announcements", {
+    fetch(urlApi + "/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(

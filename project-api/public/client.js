@@ -1,4 +1,5 @@
-const urlApi = 'http://localhost:3000';
+//const urlApi = 'http://localhost:3000';
+const urlApi = '';
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
     loadAll();    
