@@ -1,21 +1,11 @@
 {
-  "name": "seii-project-1",
+  "name": "seii-project",
   "version": "1.0.0",
-  "description": "We want to develop an online service for a university digital bulletin board (study groups, extra courses, events, rents).\r We want to deliver both a web version of this service and a client application.",
-  "main": "index.js",
-  "dependencies": {
-    "chai": "^4.2.0",
-    "express": "^4.17.1",
-    "mocha": "^8.2.1",
-    "mongoose": "^5.10.13",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.6",
-    "supertest": "^6.0.1"
-  },
-  "devDependencies": {},
+  "description": "Description",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd project-api/ && npm start"
+    "test": "mocha",
+    "start": "cd project-api && nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +16,16 @@
   "bugs": {
     "url": "https://github.com/sofiazanrosso/SEII-project-1/issues"
   },
-  "homepage": "https://github.com/sofiazanrosso/SEII-project-1#readme"
+  "homepage": "https://github.com/sofiazanrosso/SEII-project-1#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "fs-extra": "^9.0.1",
+    "mocha": "^8.2.1",
+    "mongoose": "^5.10.13",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
+  }
 }

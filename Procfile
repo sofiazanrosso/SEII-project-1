@@ -1,1 +1,1 @@
-web: cd project-api/ && npm start
+web: node project-api/server.js
