@@ -1,47 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset='utf-8'>
-    <title>Board</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta charset='utf-8'>
+  <title>Board</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body onload="loadCategories()">  
+
+<body onload="loadCategories()">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="script.js"></script>
 
   <h1>ADD FLYER</h1>
   <div class="container">
     <form action="flyers" method="post" name="add" id="add">
+
+      <!-- Author -->
       <div class="form-group">
         <label for="insertAuthor">Insert author</label>
-        <input type="text" class="form-text" id="author">
+        <input name="author" type="text" class="form-text" id="author">
       </div>
+
+      <!-- Title -->
       <div class="form-group">
-        <!-- select category -->
-        Category: <select name="categories" id="cat">
+        <label for="insertTitle">Insert title</label>
+        <input name="title" type="text" class="form-text" id="title">
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        Category: <select name="category" id="cat">
           <option value="" selected="selected">Select category</option>
         </select>
       </div>
+
+      <!-- Image file -->
       <div class="form-group">
-        <label for="insertContent">Insert content</label>
-        <textarea class="form-control" id="content"></textarea>
+        <input name="image" type="file" id="fileinput" accept="image/*">
       </div>
+
+      <!-- Publish Date -->
       <div class="form-group row">
         <label for="insertPublishDate" class="col-2 col-form-label">Insert publish date</label>
         <div class="col-10">
-          <input class="form-control" type="date" value="1999-01-01" id="publish_date">
+          <input name="publish_date" class="form-control" type="date" value="1999-01-01" id="publish_date">
         </div>
       </div>
+
+      <!-- Expiry Date -->
       <div class="form-group row">
         <label for="insertExpiryDate" class="col-2 col-form-label">Insert expiry date</label>
         <div class="col-10">
-          <input class="form-control" type="date" value="1999-01-01" id="expiry_date">
+          <input name="expiry_date" class="form-control" type="date" value="1999-01-01" id="expiry_date">
         </div>
       </div>
+
       <button type="button" onclick="addFlyer()" class="btn btn-primary">Insert new announcement</button>
       <button type="reset" class="btn btn-danger">Reset</button>
     </form>
   </div>
+
+  
 </body>
+
 </html>
