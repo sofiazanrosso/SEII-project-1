@@ -54,9 +54,10 @@ router.get('/', (req, res, next) => {
                 query: query
             },
             count: docs.length,            
-            products: docs.map(doc => {
+            announcements: docs.map(doc => {
                 return {
                     _id: doc._id,
+                    author: doc.author,
                     content: doc.content,
                     publish_date: doc.publish_date,
                     expiry_date: doc.expiry_date,
