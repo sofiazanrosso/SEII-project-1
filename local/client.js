@@ -1,4 +1,4 @@
-const urlApi=window.location.origin;
+const urlApi= window.location.origin;
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
     loadAll();    
