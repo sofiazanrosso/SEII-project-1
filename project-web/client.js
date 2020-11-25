@@ -85,7 +85,7 @@ function deleteAnnouncement(id) {
     .then((resp) => {
       console.log(resp);
       //redirect the page
-      window.location.href = 'index.html';
+      window.location.href = 'template.html';
       return;
     })
     .catch(error => console.error(error));
@@ -98,7 +98,7 @@ function deleteFlyer(id) {
     .then((resp) => {
       console.log(resp);
       //redirect the page
-      window.location.href = 'index.html';
+      window.location.href = 'template.html';
       return;
     })
     .catch(error => console.error(error));
