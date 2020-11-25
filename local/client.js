@@ -62,6 +62,7 @@ function printFlyers(count,flyers){
     cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
+    cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
     cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publish_date+"<br>";
     cards+="Expiry date: "+flyers[i].expiry_date+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
@@ -168,6 +169,7 @@ function printAll(announcements,flyers){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
+    cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
     cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publish_date+"<br>";
     cardsF+="Expiry date: "+flyArray[i].expiry_date+"</p>";
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
