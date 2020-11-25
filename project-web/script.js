@@ -1,3 +1,5 @@
+//const urlApi=window.location.origin;
+const urlApi="";
 //function to add an announcement
 function addAnnouncement() {
     const newTitle = document.getElementById("title").value;
@@ -7,7 +9,7 @@ function addAnnouncement() {
     const newExpiryDate = document.getElementById("expiry_date").value;
     const newPublishDate = document.getElementById("publish_date").value;
 
-    fetch(window.location.origin + "/announcements", {
+    fetch(urlApi + "/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -35,7 +37,7 @@ function addFlyer() {
     var newPublishDate = document.getElementById("publish_date").value;
 
     //do the POST request with the data of the form
-    fetch(window.location.origin + "/flyers", {
+    fetch(urlApi + "/flyers", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -59,7 +61,7 @@ function loadCategories() {
 
     const catSel = document.getElementById("cat");
 
-    fetch(window.location.origin + "/categories")
+    fetch(urlApi + "/categories")
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
@@ -68,7 +70,7 @@ function loadCategories() {
 function searchAnnouncements() {
 
     // Create GET request with params
-    const paramsUrl = new URL(window.location.origin + '/search');
+    const paramsUrl = new URL(urlApi + '/search');
 
     // Params
     paramsUrl.searchParams.append("includes", document.getElementById('includes').value);

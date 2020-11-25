@@ -1,3 +1,5 @@
+//const urlApi=window.location.origin;
+const urlApi="";
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
   loadAll();
@@ -6,7 +8,7 @@ $(document).ready(function () {
 
 //function to load the announcements
 function loadAnnouncements() {
-  fetch(window.location.origin + "/announcements")
+  fetch(urlApi + "/announcements")
     .then(response => response.json())  //convert the response to json and pass it to the next promise
     .then(res => {
       //obtains the number of announcements
@@ -20,7 +22,7 @@ function loadAnnouncements() {
 
 //function to load the flyers
 function loadFlyers() {
-  fetch(window.location.origin + "/flyers")
+  fetch(urlApi + "/flyers")
     .then(response => response.json())  //convert the response to json and pass it to the next promise
     .then(res => {
       //obtains the number of flyers
@@ -69,7 +71,7 @@ function printFlyers(count, flyers) {
 
 
 function selectCat(id) {
-  fetch(window.location.origin + "/categories/" + id)
+  fetch(urlApi + "/categories/" + id)
     .then(response => response.json())  //convert the response to json and pass it to the next promise
     .then(res => {
       let count = res.count;
@@ -79,7 +81,7 @@ function selectCat(id) {
 }
 
 function deleteAnnouncement(id) {
-  fetch(window.location.origin + "/announcements/" + id, {
+  fetch(urlApi + "/announcements/" + id, {
     method: 'DELETE'
   })
     .then((resp) => {
@@ -92,7 +94,7 @@ function deleteAnnouncement(id) {
 }
 
 function deleteFlyer(id) {
-  fetch(window.location.origin + "/flyers/" + id, {
+  fetch(urlApi + "/flyers/" + id, {
     method: 'DELETE'
   })
     .then((resp) => {
@@ -106,11 +108,11 @@ function deleteFlyer(id) {
 
 function loadAll() {
   var ann;
-  fetch(window.location.origin + "/announcements")
+  fetch(urlApi + "/announcements")
     .then(announcement => announcement.json())
     .then(data => {
       ann = data;
-      return fetch(window.location.origin + "/flyers");
+      return fetch(urlApi + "/flyers");
     })
     .then(flyers => flyers.json())
     .then(fly => {
@@ -120,8 +122,8 @@ function loadAll() {
     .catch(err => console.log(err));
   /*
  Promise.all([
-  fetch(urlwindow.location.origin+"/announcements"),
-  fetch(window.location.origin+"/flyers")
+  fetch(urlurlApi+"/announcements"),
+  fetch(urlApi+"/flyers")
   ])
   .then(responses =>{
      return Promise.all(responses.map(response=> response.json()));
@@ -171,7 +173,7 @@ function show(text, id) {
   if (text === "announcement") path = "/announcements/";
   else path = "/flyers/";
 
-  fetch(window.location.origin + path + id)
+  fetch(urlApi + path + id)
     .then(response => response.json())  //convert the response to json and pass it to the next promise
     .then(res => {
       if (text === "announcement")
