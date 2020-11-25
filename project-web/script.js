@@ -1,5 +1,5 @@
-//const urlApi=window.location.origin;
-const urlApi="";
+const urlApi=window.location.origin;
+//const urlApi="";
 //function to add an announcement
 function addAnnouncement() {
     const newTitle = document.getElementById("title").value;
