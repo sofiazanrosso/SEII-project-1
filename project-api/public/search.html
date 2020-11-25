@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Search</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body onload="loadDates()">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+    <h1>SEARCH</h1>
+    <div class="container">
+        <form action="search" method="get" name="search" id="search">
+            <!-- <button type="button" onclick="randomSearch()" class="btn btn-primary">Generate random</button> -->
+
+            <div class="form-group">
+                <label for="insertText">Text (in Title or Content)</label>
+                <input type="text" class="form-text" id="includes" name="includes">
+            </div>
+
+            <div class="form-group row">
+                <label for="insertPublishDate" class="col-2 col-form-label">Publish date, from - to</label>
+                <div class="col-10">
+                    <input class="form-control" type="date" id="from_publish" name="from_publish">
+                    <input class="form-control" type="date" id="to_publish" name="to_publish">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="insertExpiryDate" class="col-2 col-form-label">Expiry date, from - to</label>
+                <div class="col-10">
+                    <input class="form-control" type="date" id="from_expiry" name="from_expiry">
+                    <input class="form-control" type="date" id="to_expiry" name="to_expiry">
+                </div>
+            </div>
+
+            <button type="button" onclick="searchAnnouncements()" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <h2>RESULT</h2>
+    <div id="root" class="container"></div>
+
+</body>
+
+</html>

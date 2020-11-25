@@ -1,6 +1,3 @@
-//const urlApi = 'http://localhost:3000';
-const urlApi = '';
-
 //function to add an announcement
 function addAnnouncement() {
     const newTitle = document.getElementById("title").value;
@@ -10,7 +7,7 @@ function addAnnouncement() {
     const newExpiryDate = document.getElementById("expiry_date").value;
     const newPublishDate = document.getElementById("publish_date").value;
 
-    fetch(urlApi + "/announcements", {
+    fetch(urlwindow.location.origin + "/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -38,7 +35,7 @@ function addFlyer() {
     var newPublishDate = document.getElementById("publish_date").value;
 
     //do the POST request with the data of the form
-    fetch(urlApi + "/flyers", {
+    fetch(window.location.origin + "/flyers", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -62,8 +59,63 @@ function loadCategories() {
 
     const catSel = document.getElementById("cat");
 
-    fetch(urlApi + "/categories")
+    fetch(window.location.origin + "/categories")
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
+}
+
+function searchAnnouncements() {
+
+    // Create GET request with params
+    const paramsUrl = new URL(window.location.origin + '/search');
+
+    // Params
+    paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
+    paramsUrl.searchParams.append("caseSensitive", "false");
+    paramsUrl.searchParams.append("from_publish", document.getElementById('from_publish').value);
+    paramsUrl.searchParams.append("to_publish", document.getElementById('to_publish').value);
+    paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
+    paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
+
+    console.log(paramsUrl.href);
+
+
+
+    // GET request
+    fetch(paramsUrl)
+        .then(res => res.json())
+        .then(data => {
+
+            // Fill html
+            var cards = "<div class='card-deck'>";
+
+            data.announcements.forEach(x => {
+                cards += "<div class='card bg-success'>";
+                cards += "<div class='card-body text-center'>";
+                cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
+                cards += "<p class='card-text'> Publish date: " + x.publish_date + "</p>";
+                cards += "<p class='card-text'> Expiry date: " + x.expiry_date + "</p>";
+                cards += "<a class='btn btn-primary stretched-link' onclick='show(\"" + x.content + "\")'>See Announce</a>";
+                cards += "</div></div>";
+            });
+
+            cards += "</div>";
+            document.getElementById('root').innerHTML = cards;
+        });
+}
+
+function loadDates() {
+
+    const minDate = '1999-01-01';
+    const d = new Date();
+    const maxDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+
+    // From
+    document.getElementById('from_publish').value = minDate;
+    document.getElementById('from_expiry').value = minDate;
+
+    // To
+    document.getElementById('to_publish').value = maxDate;
+    document.getElementById('to_expiry').value = maxDate;
 }
