@@ -16,7 +16,7 @@
     <script src="client.js"></script>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <button class="nav-link" onclick="loadAll()">Home<span class="sr-only">(current)</span></button>
+        <a class="nav-link btn btn-dark" href="template.html" role="button">Home<span class="sr-only"></span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,21 +24,17 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <!--<a class="nav-link" onclick="loadAnnouncements()">Announcements<span class="sr-only">(current)</span></a>-->
-              <button class="nav-link" onclick="loadAnnouncements()">Announcements<span class="sr-only">(current)</span></button>
+              <button class="nav-link btn-dark" onclick="loadAnnouncements()">Announcements<span class="sr-only"></span></button>
             </li>
-            <li class="nav-item">
-              <button class="nav-link" onclick="loadFlyers()">Flyers<span class="sr-only">(current)</span></button>
+            <li class="nav-item active">
+              <button class="nav-link btn-dark" onclick="loadFlyers()">Flyers<span class="sr-only"></span></button>
             </li>
             <!-- <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>-->
-            <li class="nav-item dropdown">
-                <!--<div class="form-group">
-                      <select name="categories" id="cat">
-                      <option value="" selected="selected">Select category</option>
-                    </select>
-                  </div>-->
+
+            <!-- NEED TO FIX
+            <li class="nav-item dropdown btn-dark">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
               <div class="dropdown-menu" aria-labelledby="dropdown01" id="cat">
                 <a class="dropdown-item" href="#">Action</a>
@@ -47,11 +43,15 @@
 
               </div>
             </li>
+          -->
           </ul>
+        <!--
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
+        -->
+        
         </div>
       </nav>
       
@@ -62,19 +62,20 @@
           <div class="container">
             <h1 class="display-5">University Bulletin Board</h1>
             <p>This is a web version of the bulleting board we are used to see in the coffee room of the univeristy.</p>
-            <p><a class="btn btn-primary btn-lg" href="https://www.unitn.it/" role="button">University Website &raquo;</a></p>
-            <p><a class="btn btn-primary btn-lg" href="https://www.esse3.unitn.it/Home.do" role="button">Esse3 &raquo;</a></p>
-        </div>
+            <p><a class="btn btn-primary btn-lg" href="https://www.unitn.it/" role="button">University Website &raquo;</a>
+            <a class="btn btn-primary btn-lg" href="https://www.esse3.unitn.it/Home.do" role="button">Esse3 &raquo;</a></p>
+          </div>
+          <div class="container">
+            <a class="btn btn-info" href="add.html" role="button">Add announcement</a>
+            <a class="btn btn-info" href="addFly.html" role="button">Add flyer</a>
+            <br><br>
+          </div>
         </div>
 
-        <div class="container">
-          <br>
-          <a class="btn btn-info" href="add.html" role="button">Add announcement</a>
-          <br><br>
-          <a class="btn btn-info" href="addFly.html" role="button">Add flyer</a>
-        </div>
+        
 
         <div class="container" id="cat">
+          <h5>Categories:</h5>
           <a class="btn btn-secondary" onclick="selectCat( '5fbbf40c795ed2391cb71979' )" role="button">Secretariat</a>
           <a class="btn btn-secondary" onclick="selectCat( '5fbbf3e9795ed2391cb71977' )" role="button">Rents</a>
           <a class="btn btn-secondary" onclick="selectCat( '5fbbf441795ed2391cb7197b' )" role="button">Study groups</a>
@@ -87,39 +88,22 @@
         </div>
       
         <div class="container" id="root">
-          <!-- Example row of columns -->
           <div class="row">
-          
-  
-
-
-            <!--
-            <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            <div class="col-8">
+              <div class="containerA" id="rootA"></div>
             </div>
-            <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+              <div class="col-4">
+              <div class="containerF" id="rootF"></div>
             </div>
-            <div class="col-md-4">
-              <h2>Heading</h2>
-              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-              <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-            </div>
-          -->
           </div>
-      
-          <hr>
-      
+
+          <hr> 
         </div> <!-- /container -->
       
       </main>
       
       <footer class="container">
-        <p>&copy; Software Engineering Project - Group 1</p>
+        <p>Software Engineering Project - Group 1 [Godi, Vincoli, Zanrosso, Xompero]</p>
       </footer>
 
 </body>
