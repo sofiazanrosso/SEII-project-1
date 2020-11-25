@@ -106,5 +106,5 @@ dist
 
 
 
-# uploads FOLDER
-tmp/uploads
+# tmp FOLDER
+tmp

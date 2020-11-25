@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <title>Bulletin Board</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="client.js"></script>
+
+  <h1>UNIVERSITY BULLETIN BOARD</h1>
+
+  <div class="container">
+    <br>
+    <a class="btn btn-primary" onclick="loadAll()" role="button">All</a>
+    <a class="btn btn-primary" onclick="loadAnnouncements()" role="button">Announcements</a>
+    <a class="btn btn-primary" onclick="loadFlyers()" role="button">Flyers</a>
+  </div>
+
+  
+  <div class='sidenav'>
+    <br>
+    <p>Categorie:</p>
+    <a class="btn btn-primary" onclick="selectCat( '5fafb1e46adb2b2e08a00acd' )" role="button">Sassi</a>
+    <a class="btn btn-primary" onclick="selectCat( '5fb6e0ba2ae29813947c65aa' )" role="button">Libri</a>
+    <a class="btn btn-primary" onclick="selectCat( '5fb6e0cb2ae29813947c65ab' )" role="button">Gruppi studio</a>
+  </div>
+  
+  <div id="root" class="container"></div>  
+
+  <div class="container">
+    <br>
+    <a class="btn btn-primary" href="add.html" role="button">Add announcement</a>
+    <br><br>
+    <a class="btn btn-primary" href="addFly.html" role="button">Add flyer</a>
+  </div>
+  
+</body>
+</html>
