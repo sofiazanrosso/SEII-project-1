@@ -13,23 +13,15 @@ chai.should();
 chai.use(chaiHttp);
 
 // contains the resource
-describe('announcements API', () => {
+describe('-- flyers API --', () => {
 
     // test the GET route
-    describe("GET /routes/announcements", () => {
-        it("it should GET all the announcements", (done) => {
+    describe("GET /routes/flyers", () => {
+        it("it should GET all the flyers", (done) => {
             chai.request(app)
-            .get("/announcements")
+            .get("/flyers")
             .end((err, res) => {
                 res.should.have.status(200);
-                done();
-            });
-        });
-        it("it should NOT GET all the announcements", (done) => {
-            chai.request(app)
-            .get("/announements")
-            .end((err, res) => {
-                res.should.have.status(404);
                 done();
             });
         });
@@ -38,9 +30,8 @@ describe('announcements API', () => {
     
 
     // test the POST route
-    describe("POST /routes/announcements", () => {
-        it("it should POST an announcement", (done) => {
-            // announcement created properly for testing
+    describe("POST /routes/flyers", () => {
+        it("it should POST a flyer", (done) => {
             const ann = {
                 title: "Testing",
                 author: "Name Surname",
@@ -50,7 +41,7 @@ describe('announcements API', () => {
                 expiry_date: "03/02/01"
             };
             chai.request(app)
-            .post("/announcements")
+            .post("/flyers")
             .send(ann)
             .end((err, response) => {
                 response.should.have.status(201);                
