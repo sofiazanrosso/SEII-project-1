@@ -4,8 +4,8 @@
   "description": "Description",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
-    "start": "nodemon server.js"
+    "test": "mocha project-api/test/**/*.test.js --exit",
+    "start": "cd project-api && nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,11 @@
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "fs-extra": "^9.0.1",
+    "mocha": "^8.2.1",
     "mongoose": "^5.10.13",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
   }
 }

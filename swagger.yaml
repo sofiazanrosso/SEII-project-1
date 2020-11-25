@@ -28,7 +28,7 @@ paths:
       tags:
       - "announcements"
       summary: "Add a new announcement"
-      description: "You may want to post a new announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
       operationId: "addAnn"
       consumes:
       - "application/json"
@@ -117,7 +117,7 @@ paths:
       tags:
       - "flyers"
       summary: "Add a new flyer"
-      description: "You may want to post a new flyer. The attributes are author, category, content, publish and expiry dates and the url."
+      description: "You may want to add a new flyer. The attributes are author, category, content, publish and expiry dates and the url."
       operationId: "addFly"
       consumes:
       - "application/json"
@@ -158,8 +158,8 @@ paths:
     get:
       tags:
       - "flyers"
-      summary: "View a specific announcement"
-      description: "You may want to view a specific flyers. The attributes are author, category, content, publish and expiry dates and the url."
+      summary: "View a specific flyer"
+      description: "You may want to view a specific flyer. The attributes are author, category, content, publish and expiry dates and the url."
       operationId: "viewFly"
       produces:
       - "application/json"
@@ -206,7 +206,7 @@ paths:
       tags:
       - "cateogories"
       summary: "Add a new category"
-      description: "You may want to post a new category. The attributes are name and id."
+      description: "You may want to add a new category. The attributes are name and id."
       operationId: "addCat"
       consumes:
       - "application/json"

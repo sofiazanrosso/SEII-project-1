@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const fs = require('fs-extra');
 const { Buffer } = require('safe-buffer');
-const upload = multer({ limits: { fileSize:  1024*1024*16 }, dest: '../uploads/' });
+const upload = multer({ limits: { fileSize:  1024*1024*16 }, dest: '../tmp/uploads/' });
 
 const router = express.Router();
 
