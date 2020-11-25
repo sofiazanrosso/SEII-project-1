@@ -27,7 +27,7 @@ function addAnnouncement() {
             console.log(resp);
             console.log(newCategory);
             //redirect the page
-            window.location.href = 'index.html';
+            window.location.href = 'template.html';
         })
         .catch(error => console.error(error));
 }
@@ -54,7 +54,7 @@ function addFlyer() {
         .then((resp) => {
             console.log(resp);
             //redirect the page
-            window.location.href = 'index.html';
+            window.location.href = 'template.html';
             return;
         })
         .catch(error => console.error(error)); // If there is any error you will catch them here

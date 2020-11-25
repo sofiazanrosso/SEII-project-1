@@ -6,6 +6,11 @@ p {
     color: rgb(31, 31, 31);
 }
 
+h3 {
+    float: left;
+    margin: 30px;
+}
+
 .btn {
     font-size: 15px;
     border: 0px;
@@ -22,11 +27,11 @@ p {
 }
 
 .btn-secondary {
-    background-color: rgb(0, 88, 139);
+    background-color: rgb(94, 99, 102);
 }
 
 .btn-secondary:hover {
-    background-color: rgb(25, 123, 180);
+    background-color: rgb(168, 169, 170);
 }
 
 .btn-danger {
@@ -37,10 +42,34 @@ p {
     background-color: rgb(197, 86, 86);
 }
 
-.card{
+.btn-dark{
+    background-color: rgb(52, 58, 64);
+    box-shadow: 0px;
+    border: 0px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card-columns {
+    columns: auto;
+    display: inline-block;
+    margin: 0px;
+    
+}
+
+.card {
     border-width: 0px;
-    background-color:  rgb(233, 236, 239);
-    margin: 30px;
+    /*background-color:  rgb(233, 236, 239);*/
+    margin: 0px;
+    max-width: 350px;
+    min-width: 350px;
+}
+
+.card .card-header {
+    background: none;
+    box-shadow: none;
 }
 
 .card .card-body {
@@ -50,10 +79,22 @@ p {
     margin: 10px;
 }
 
+.card .card-title {
+    padding: 10px;
+    position: relative;
+}
 
-/*
-.card .bg-primary {
-    background-color: rgb(231, 254, 255);
-    border-color: rgb(132, 190, 192);
-    border-radius: 2px;
-}*/
+.card .card-text {
+    padding: 5px;
+    position: relative;
+}
+
+.jumbotron {
+    padding-bottom: 30px;
+}
+
+.footer {
+    float: bottom;
+    position: relative;
+
+}
