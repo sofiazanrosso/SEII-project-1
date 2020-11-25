@@ -4,14 +4,14 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
 
-const announcementRoute = require('./api/routes/announcements');
-const flyerRoute = require('./api/routes/flyers');
-const categoryRoute = require('./api/routes/categories');
-const boardRoute = require('./api/routes/board');
-const searchRoute = require('./api/routes/search');
+const announcementRoute = require('./project-api/api/routes/announcements');
+const flyerRoute = require('./project-api/api/routes/flyers');
+const categoryRoute = require('./project-api/api/routes/categories');
+const boardRoute = require('./project-api/api/routes/board');
+const searchRoute = require('./project-api/api/routes/search');
 
 // TEMP
-const imageRoute = require('./api/routes/images');
+const imageRoute = require('./project-api/api/routes/images');
 
 // const category = require('./api/models/category');
 
@@ -28,7 +28,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', express.static('project-web'));
+app.use('/', express.static('local'));
 
 //CORS
 app.use((req, res, next) => {

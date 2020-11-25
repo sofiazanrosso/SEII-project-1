@@ -1,1 +1,1 @@
-web: node project-api/server.js
+web: node server.js

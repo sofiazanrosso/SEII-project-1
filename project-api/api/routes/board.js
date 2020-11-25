@@ -9,7 +9,7 @@ const Flyer= require('../models/flyer');
 const Announcement = require('../models/announcement');
 const Board = require ('../models/board');
 const board = require('../models/board');
-const { response } = require('../../app');
+const { response } = require('../../../app');
 
 
 /* 
