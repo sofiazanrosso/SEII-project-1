@@ -1,3 +1,5 @@
+/*rgb(206, 19, 45)*/
+
 body {
     padding-top: 3.5rem;
 }
@@ -97,4 +99,14 @@ h3 {
     float: bottom;
     position: relative;
 
+}
+
+#formBox {
+    /*float: center;
+    background-color: rgb(233, 236, 239);*/
+    max-width: 900px;
+    min-width: 900px;
+    max-height: 700px;
+    min-height: 700px;
+    padding: 5px;
 }

@@ -33,10 +33,11 @@ function addAnnouncement() {
 
 //function to add a new flyer
 function addFlyer() {
-    var newAuthor = document.getElementById("author").value;
-    var newContent = document.getElementById("content").value;
-    var newExpiryDate = document.getElementById("expiry_date").value;
-    var newPublishDate = document.getElementById("publish_date").value;
+    const newAuthor = document.getElementById("author").value;
+    const newContent = document.getElementById("fileimage").value;
+    const newCategory = document.getElementById("cat").value;
+    const newExpiryDate = document.getElementById("expiry_date").value;
+    const newPublishDate = document.getElementById("publish_date").value;
 
     //do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -46,6 +47,7 @@ function addFlyer() {
             {
                 author: newAuthor,
                 content: newContent,
+                category: newCategory,
                 publish_date: newPublishDate,
                 expiry_date: newExpiryDate
             }),
@@ -92,21 +94,22 @@ function searchAnnouncements() {
         .then(data => {
 
             // Fill html
-            var cards = "<div class='card-deck'>";
+            var cards = "<div class='card-columns'>";
 
             data.announcements.forEach(x => {
-                cards += "<div class='card bg-success'>";
+                cards += "<div class='card'>";
                 cards += "<div class='card-body text-center'>";
-                cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
-                cards += "<p class='card-text'> Publish date: " + x.publish_date + "</p>";
-                cards += "<p class='card-text'> Expiry date: " + x.expiry_date + "</p>";
-                cards += "<a class='btn btn-primary stretched-link' onclick='show(\"" + x.content + "\")'>See Announce</a>";
+                cards += "<div class='card-header text-center'><h4>" + x.title + "</h4></div>";
+                cards +="<h5 class='card-title'> Author: "+ x.author +"</h5>";
+                cards +="<p class='card-text text-muted'> Publish date: " + x.publish_date + "<br>";
+                cards +="Expiry date: " + x.expiry_date + "</p>";
+                cards +="<a class='btn btn-primary' onclick='show(\"announcement\",\""+ x.content + "\")'>See Announce</a>";
                 cards += "</div></div>";
             });
 
             cards += "</div>";
             document.getElementById('root').innerHTML = cards;
-        });
+        });   
 }
 
 function loadDates() {
