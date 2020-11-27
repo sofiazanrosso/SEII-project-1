@@ -1,16 +1,18 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
-const Category= require('../models/category');
 
-// general schema for an announcement
+// Announcement Schema
 const announcementSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    title: {type: String, require: true},
-    author: { type: String, required:true},
-    category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'},      // reference to Category's model
-    content: {type: String, required:true},
-    publish_date: {type: String, required:true},
-    expiry_date: {type: String, required:true}
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    content: { type: String, required: true },
+    publish_date: { type: Date, required: true },
+    expiry_date: { type: Date, required: true }
 });
 
-module.exports = mongoose.model('Announcement',announcementSchema);
+// Announcement Model
+const Announcement = mongoose.model('Announcement', announcementSchema);F
+
+module.exports = Announcement;

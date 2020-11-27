@@ -1,4 +1,4 @@
-const urlApi=window.location.origin;
+const urlApi = window.location.origin;
 //const urlApi="";
 //function to add an announcement
 function addAnnouncement() {
@@ -82,6 +82,7 @@ function searchAnnouncements() {
     paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
     paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
 
+    console.log("API REQ:");
     console.log(paramsUrl.href);
 
 
@@ -90,6 +91,9 @@ function searchAnnouncements() {
     fetch(paramsUrl)
         .then(res => res.json())
         .then(data => {
+
+            console.log('aaaaaaa');
+            console.log(data);
 
             // Fill html
             var cards = "<div class='card-deck'>";

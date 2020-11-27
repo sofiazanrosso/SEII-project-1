@@ -43,6 +43,8 @@ router.get('/', (req, res, next) => {
         query["expiry_date"] = d;
     }
 
+    console.log('Query created:');
+    console.log(JSON.stringify(query));
 
     Announcement
         .find(query)
@@ -51,7 +53,8 @@ router.get('/', (req, res, next) => {
             const response = {
                 debug: {
                     caseSensitive: caseSensitiveOptions !== 'i',
-                    query: query
+                    query: query,
+                    queryStr: JSON.stringify(query)
                 },
                 count: docs.length,
                 announcements: docs.map(doc => {
@@ -69,6 +72,7 @@ router.get('/', (req, res, next) => {
                     }
                 })
             }
+            console.log(JSON.stringify(response));
             res.status(200).json(response);
         })
         .catch(err => {

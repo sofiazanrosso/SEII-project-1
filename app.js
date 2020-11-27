@@ -1,36 +1,40 @@
 const express = require('express');
+const app = express();
+const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const app = express();
 
-const announcementRoute = require('./project-api/api/routes/announcements');
-const flyerRoute = require('./project-api/api/routes/flyers');
-const categoryRoute = require('./project-api/api/routes/categories');
-const boardRoute = require('./project-api/api/routes/board');
-const searchRoute = require('./project-api/api/routes/search');
 
-// TEMP
-const imageRoute = require('./project-api/api/routes/images');
+// Configure dotenv
+dotenv.config();
 
-// const category = require('./api/models/category');
 
-// connection to the database mongoDB
-const uri = 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-pbzryp-shard-0&authSource=admin&retryWrites=true&w=majority';
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
+// DB Connection
+mongoose.connect(
+    process.env.DB_CONNECTION_STRING,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log('DB connection established.')
+);
 mongoose.Promise = global.Promise;
 
+
+// Import API routes
+const authRoute = require('./project-api/api/routes/auth');
+const categoryRoute = require('./project-api/api/routes/categories');
+const announcementRoute = require('./project-api/api/routes/announcements');
+const flyerRoute = require('./project-api/api/routes/flyers');
+const searchRoute = require('./project-api/api/routes/search');
+const imageRoute = require('./project-api/api/routes/images'); // TEMP -> DELETE THIS LINE //
+// const boardRoute = require('./project-api/api/routes/board'); // ???
+
+
+// Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/', express.static('local'));
-
-//CORS
+// Middleware CORS
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -41,36 +45,18 @@ app.use((req, res, next) => {
     next();
 });
 
-//method to manage the announcements
-app.use('/announcements', announcementRoute);
-//method to manage the flyers
-app.use('/flyers', flyerRoute);
-//method to manage the categories
+
+// Public Route
+app.use('/', express.static('local'));
+
+// APIs Routes
+app.use('/user', authRoute);
 app.use('/categories', categoryRoute);
-//method to manage the actual board
-app.use('/board', boardRoute);
-// Method to manage searches
+app.use('/announcements', announcementRoute);
+app.use('/flyers', flyerRoute);
 app.use('/search', searchRoute);
+app.use('/img', imageRoute); // TEMP -> DELETE THIS LINE //
+// app.use('/board', boardRoute); // ???
 
-// TEMP
-app.use('/img', imageRoute);
-
-/*
-app.use((req,res,next)=>{
-    const error=new Error('Not Found');
-    error.status(404);
-    next(error);
-})
-
-//if I have an error i print it
-app.use((error,req,res,next)=>{
-    res.status(error.status || 500);
-    res.json({
-        error: {
-            message: error.message
-        }
-    });
-});
-*/
 
 module.exports = app;
