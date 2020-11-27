@@ -1,4 +1,4 @@
-const urlApi=window.location.origin;
+const urlApi = window.location.origin;
 //const urlApi="";
 //function to add an announcement
 function addAnnouncement() {
@@ -33,8 +33,12 @@ function addAnnouncement() {
 
 //function to add a new flyer
 function addFlyer() {
+
+    console.log("addFlyer()");
+
     const newAuthor = document.getElementById("author").value;
-    const newContent = document.getElementById("fileimage").value;
+    const newContent = document.getElementById("content").value;
+    const newFile = document.getElementById("fileimage").value;
     const newCategory = document.getElementById("cat").value;
     const newExpiryDate = document.getElementById("expiry_date").value;
     const newPublishDate = document.getElementById("publish_date").value;
@@ -100,16 +104,16 @@ function searchAnnouncements() {
                 cards += "<div class='card'>";
                 cards += "<div class='card-body text-center'>";
                 cards += "<div class='card-header text-center'><h4>" + x.title + "</h4></div>";
-                cards +="<h5 class='card-title'> Author: "+ x.author +"</h5>";
-                cards +="<p class='card-text text-muted'> Publish date: " + x.publish_date + "<br>";
-                cards +="Expiry date: " + x.expiry_date + "</p>";
-                cards +="<a class='btn btn-primary' onclick='show(\"announcement\",\""+ x.content + "\")'>See Announce</a>";
+                cards += "<h5 class='card-title'> Author: " + x.author + "</h5>";
+                cards += "<p class='card-text text-muted'> Publish date: " + x.publish_date + "<br>";
+                cards += "Expiry date: " + x.expiry_date + "</p>";
+                cards += "<a class='btn btn-primary' onclick='show(\"announcement\",\"" + x.content + "\")'>See Announce</a>";
                 cards += "</div></div>";
             });
 
             cards += "</div>";
             document.getElementById('root').innerHTML = cards;
-        });   
+        });
 }
 
 function loadDates() {
