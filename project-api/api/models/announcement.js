@@ -13,6 +13,6 @@ const announcementSchema = mongoose.Schema({
 });
 
 // Announcement Model
-const Announcement = mongoose.model('Announcement', announcementSchema);F
+const Announcement = mongoose.model('Announcement', announcementSchema);
 
 module.exports = Announcement;

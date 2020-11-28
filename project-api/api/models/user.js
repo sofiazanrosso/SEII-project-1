@@ -24,8 +24,8 @@ const userSchema = mongoose.Schema({
     },
     registration_date: {
         type: Date,
-        default: Date.now,
-        immutable: true
+        immutable: true,
+        default: Date.now
     },
     last_login_date: {
         type: Date
@@ -33,7 +33,7 @@ const userSchema = mongoose.Schema({
 });
 
 // User Model
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 
 
 module.exports = User;
