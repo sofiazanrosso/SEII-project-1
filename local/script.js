@@ -6,8 +6,8 @@ function addAnnouncement() {
     const newAuthor = document.getElementById("author").value;
     const newContent = document.getElementById("content").value;
     const newCategory = document.getElementById("cat").value;
-    const newExpiryDate = document.getElementById("expiry_date").value;
-    const newPublishDate = document.getElementById("publish_date").value;
+    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     fetch(urlApi + "/announcements", {
         method: 'POST',
@@ -35,8 +35,8 @@ function addAnnouncement() {
 function addFlyer() {
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
-    var newExpiryDate = document.getElementById("expiry_date").value;
-    var newPublishDate = document.getElementById("publish_date").value;
+    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     //do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -122,4 +122,13 @@ function loadDates() {
     // To
     document.getElementById('to_publish').value = maxDate;
     document.getElementById('to_expiry').value = maxDate;
+}
+
+function setExpiryDate(){
+    const newPublishDate = document.getElementById("publish_date").value;    
+    var tmp=Date.parse(newPublishDate);
+    var exp=new Date(tmp);
+    exp.setMonth(exp.getMonth()+2);
+    exp=exp.toLocaleDateString();
+    document.getElementById("expiry_date").innerHTML=exp;
 }
