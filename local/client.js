@@ -1,3 +1,5 @@
+//const category = require("../project-api/api/models/category");
+
 const urlApi= window.location.origin;
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
@@ -226,12 +228,12 @@ function printSingleFlyer(response){
 }
 
 
-function loadCategories() {
+function loadCategoriesBtn() {
 
     const catSel = document.getElementById("cat");
 
     fetch(urlApi + "/categories")
         .then(response => response.json())
-        .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
+        .then(res => { res.category.forEach(x => catSel.innerHTML+='<a class="btn btn-secondary" onclick="selectCat( \'' + x._id + '\' )" role="button">'+ x.name +'</a> ' ) } ) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
 }
