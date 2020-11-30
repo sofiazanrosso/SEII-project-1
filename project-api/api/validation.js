@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 
 // Validation /auth/register
-const register = data => {
+module.exports.registerValidation = data => {
 
     const schema = Joi.object({
         email: Joi
@@ -16,7 +16,7 @@ const register = data => {
             .min(6)
             .max(1024)
             .required(),
-        display_name: Joi
+        displayName: Joi
             .string()
             .min(6)
             .max(255)
@@ -28,7 +28,7 @@ const register = data => {
 
 
 // Validation /auth/login
-const login = data => {
+module.exports.loginValidation = data => {
 
     const schema = Joi.object({
         email: Joi
@@ -44,7 +44,14 @@ const login = data => {
 };
 
 
-module.exports = {
-    registerValidation: register,
-    loginValidation: login
+// Validate /auth/revokeRefreshToken
+module.exports.revokeValidation = data => {
+
+    const schema = Joi.object({
+        _id: Joi
+            .string()
+            .required()
+    })
+
+    return schema.validate(data);
 };

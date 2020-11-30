@@ -1,10 +1,10 @@
 const express = require('express');
 const chaiHttp= require("chai-http");
 const chai = require("chai");
-const app = require('../app');
+const app = require('../../app');
 const Announcement= require('../api/models/announcement');
 const mocha = require("mocha");
-const { response } = require('../app');
+const { response } = require('../../app');
 
 // assertion style
 chai.should();
@@ -36,7 +36,7 @@ describe('announcements API', () => {
     });
 
     
-
+/*
     // test the POST route
     describe("POST /routes/announcements", () => {
         it("it should POST an announcement", (done) => {
@@ -59,6 +59,6 @@ describe('announcements API', () => {
         });
     });
 
-    
+    */
 
 });

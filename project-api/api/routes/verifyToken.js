@@ -1,29 +1,30 @@
 const jwt = require('jsonwebtoken');
 
 
-// Token verification middleware
+// access-token verification middleware
+// Permits only authorized access
 module.exports = (req, res, next) => {
 
-    // Look for token
-    const token = req.header('auth-token');
+    // Look for access-token in header
+    const token = req.header('authorization');
     if (!token) {
         // No token found in header request
         return res
             .status(401)
-            .send({ error: 'Access denied, token required' });
+            .send({ error: 'Access denied, authorization required' });
     }
 
     // Verify token
     try {
-        const verify = jwt.verify(toke, process.env.TOKEN_SECRET);
-        req.user = verify;
+        const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        req.payload = payload;
 
-        // Valid token, Go after middleware
+        // Valid token, go after middleware
         next();
     } catch {
         // Invalid token
         return res
             .status(400)
-            .send({ error: 'Invalid token' });
+            .send({ error: 'Access denied, invalid authorization' });
     }
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -12,7 +13,6 @@ const categoryRoute = require('./project-api/api/routes/categories');
 const announcementRoute = require('./project-api/api/routes/announcements');
 const flyerRoute = require('./project-api/api/routes/flyers');
 const searchRoute = require('./project-api/api/routes/search');
-const imageRoute = require('./project-api/api/routes/images'); // TEMP -> DELETE THIS LINE //
 // const boardRoute = require('./project-api/api/routes/board'); // ???
 
 
@@ -31,6 +31,7 @@ mongoose.Promise = global.Promise;
 
 // Middleware
 app.use(morgan('dev'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -56,8 +57,12 @@ app.use('/categories', categoryRoute);
 app.use('/announcements', announcementRoute);
 app.use('/flyers', flyerRoute);
 app.use('/search', searchRoute);
-app.use('/img', imageRoute); // TEMP -> DELETE THIS LINE //
 // app.use('/board', boardRoute); // ???
+
+
+// Temp
+app.use('/img', require('./project-api/api/routes/images'));
+app.use('/private', require('./project-api/api/routes/private'));
 
 
 module.exports = app;
