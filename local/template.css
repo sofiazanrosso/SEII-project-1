@@ -102,11 +102,22 @@ h3 {
 }
 
 #formBox {
-    /*float: center;
-    background-color: rgb(233, 236, 239);*/
-    max-width: 900px;
-    min-width: 900px;
-    max-height: 700px;
-    min-height: 700px;
-    padding: 5px;
+    float: center;
+    /*background-color: rgb(233, 236, 239);*/
+    /*max-width: 650px;
+    min-width: 650px;*/
+    max-height: 500px;
+    min-height: 500px; 
+    margin: auto;
+    width: 70%;
+    border: 3px solid green;
+    padding: 10px;
+    align-content: center;
+    vertical-align: middle;
+    
+
+}
+
+#searchResultBox {
+    margin-bottom: 30px;
 }

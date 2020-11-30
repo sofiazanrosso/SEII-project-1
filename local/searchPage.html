@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="insertText">Text (in Title or Content)</label>
                         <input type="text" class="form-text" id="includes" name="includes">
-                    </div>
+                    
         
                     <div class="form-group row">
                         <label for="insertPublishDate" class="col-2 col-form-label">Publish date</label>
@@ -59,22 +59,32 @@
         
                     <button type="button" onclick="searchAnnouncements()" class="btn btn-primary">Search</button>
                     <button type="reset" class="btn btn-danger">Reset</button>
-                </div>
+                  </div>
+
+              </div>
             </div>
-      
-          <hr>
-      
+          
+
+          <div class="container" id="searchResultBox">
+            <h2>Results</h2>
+            <div class="container" id="root"></div>
+          </div>
+        <hr>
+
         </div> <!-- /container -->
-      
+
+       
+
       </main>
 
     <!-- ---------------------------------------------------------------------------------------- -->
 
+    <footer class="container">
+      <hr>
+      <p>Software Engineering Project - Group 1 [Godi, Vincoli, Zanrosso, Xompero]</p>
+    </footer>
 
-    <h2>Results</h2>
-    <div class="container" id="root">
-    </div>
-
+    
 
 </body>
 
