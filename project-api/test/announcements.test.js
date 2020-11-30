@@ -4,7 +4,7 @@ const chai = require("chai");
 const app = require('../app');
 const Announcement= require('../api/models/announcement');
 const mocha = require("mocha");
-const { response } = require('../app');
+const { response } = require('../../app');
 
 // assertion style
 chai.should();
