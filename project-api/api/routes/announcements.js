@@ -70,7 +70,6 @@ router.post('/',(req,res,next)=>{
     var newExpDate = new Date(newPubDate);
     newExpDate.setMonth(newPubDate.getMonth()+2);
 
-    
     const announcement= new Announcement({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
@@ -83,9 +82,13 @@ router.post('/',(req,res,next)=>{
 
     announcement.save()
     .then(result=>{
+
+        if ( !(isDateValid(newPubDate)) || !(isDateValid(newExpDate))){
+            //throw new Error('Invalid date');
+            return Promise.reject('Invalid date inserted');
+        }
+
         console.log(result);
-        //console.log(typeof(newPubDate.getMonth()) + "    " + newPubDate.getMonth());
-        //console.log(typeof(newExpDate.getMonth()) + "    " + newExpDate.getMonth());
         res.status(201).json({
             message: "Announcement posted",
             announcementPosted: {
@@ -199,17 +202,16 @@ router.delete('/:id',(req,res,next)=>{
 });
 
 /*
-function isDateValid(date){
-    if ( !isNaN(date.getFullYear()) && !isNaN(date.getMonth()) && !isNaN(date.getDate())  ){
-        if ( date.getFullYear() >=  (new Date().getFullYear())) {       //year is valid
-            if ( (date.getMonth() >= 0) && (date.getMonth()<12) ){      //month is valid
-                if ( (date.getDate()>0) && (date.getDate()<=31 ) ) {
+    Function to check if a date is valid
+*/
 
-                }
-            }
-        }
+function isDateValid(date){
+    if (date == 'Invalid Date'){
+        return false;
+    } else {
+        return true;
     }
 };
-*/
+
 
 module.exports = router;
