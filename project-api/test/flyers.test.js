@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 describe('-- flyers API --', () => {
 
     // test the GET route
-    describe("GET /routes/flyers", () => {
+    describe("-- GET /routes/flyers --", () => {
         it("it should GET all the flyers", (done) => {
             chai.request(app)
             .get("/flyers")
@@ -30,7 +30,7 @@ describe('-- flyers API --', () => {
     
 
     // test the POST route
-    describe("POST /routes/flyers", () => {
+    describe("-- POST /routes/flyers --", () => {
         it("it should POST a flyer", (done) => {
             const ann = {
                 title: "Testing",

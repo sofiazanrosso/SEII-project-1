@@ -35,10 +35,10 @@ router.get('/', async (req, res, next) => {
             category: x.category,
             publishDate: x.publishDate,
             expiryDate: x.expiryDate,
-            request: {
+            /*request: {
                 type: 'GET',
                 url: window.location.origin + '/flyers/' + x._id
-            }
+            }*/
         }
     });
 

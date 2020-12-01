@@ -13,10 +13,10 @@ chai.should();
 chai.use(chaiHttp);
 
 // contains the resource
-describe('announcements API', () => {
+describe('-- announcements API --', () => {
 
     // test the GET route
-    describe("GET /routes/announcements", () => {
+    describe("-- GET /routes/announcements --", () => {
         it("it should GET all the announcements", (done) => {
             chai.request(app)
             .get("/announcements")
@@ -38,7 +38,7 @@ describe('announcements API', () => {
     
 
     // test the POST route
-    describe("POST /routes/announcements", () => {
+    describe("-- POST /routes/announcements --", () => {
         it("it should POST an announcement", (done) => {
             // announcement created properly for testing
             const ann = {

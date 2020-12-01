@@ -10,13 +10,8 @@ const categoryRoute = require('./project-api/api/routes/categories');
 const boardRoute = require('./project-api/api/routes/board');
 const searchRoute = require('./project-api/api/routes/search');
 
-// TEMP
-const imageRoute = require('./project-api/api/routes/images');
-
-// const category = require('./api/models/category');
-
 // connection to the database mongoDB
-const uri = 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/testFlyers?ssl=true&replicaSet=atlas-pbzryp-shard-0&authSource=admin&retryWrites=true&w=majority';
+const uri = 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-pbzryp-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -52,9 +47,6 @@ app.use('/categories', categoryRoute);
 app.use('/board', boardRoute);
 // Method to manage searches
 app.use('/search', searchRoute);
-
-// TEMP
-app.use('/img', imageRoute);
 
 /*
 app.use((req,res,next)=>{
