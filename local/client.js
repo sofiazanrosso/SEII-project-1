@@ -46,8 +46,8 @@ function printAnnouncement(count,announcements){
       cards+="<div class='card-body text-center'>";
       cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
       cards+="<h5 class='card-header'> Author: "+announcements[i].author+"</h5>";
-      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
-      cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
+      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publishDate+"<br>";
+      cards+="Expiry date: "+announcements[i].expiryDate+"</p>";
       cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
       cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
@@ -65,8 +65,8 @@ function printFlyers(count,flyers){
     cards+="<div class='card-body text-center'>";
     cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
     cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
-    cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publish_date+"<br>";
-    cards+="Expiry date: "+flyers[i].expiry_date+"</p>";
+    cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publishDate+"<br>";
+    cards+="Expiry date: "+flyers[i].expiryDate+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
     cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
     cards+="</div></div>";
@@ -155,8 +155,8 @@ function printAll(announcements,flyers){
     cardsA+= "<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
     cardsA+="<h5 class='card-title'> Author: "+annArray[i].author+"</h5>";
     //res+="<p class='card-text'>"+announcements[i].content+"</p>";
-    cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publish_date+"<br>";
-    cardsA+="Expiry date: "+annArray[i].expiry_date+"</p>";
+    cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publishDate+"<br>";
+    cardsA+="Expiry date: "+annArray[i].expiryDate+"</p>";
     cardsA+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+annArray[i]._id+"\")'>See Announce</a>";
     cardsA+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
     cardsA+="</div></div>";
@@ -172,8 +172,8 @@ function printAll(announcements,flyers){
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
     cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
-    cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publish_date+"<br>";
-    cardsF+="Expiry date: "+flyArray[i].expiry_date+"</p>";
+    cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publishDate+"<br>";
+    cardsF+="Expiry date: "+flyArray[i].expiryDate+"</p>";
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
     cardsF+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyArray[i]._id+"\")'>Delete Flyer</a>";
     cardsF+="</div></div>";
@@ -207,8 +207,8 @@ function printSingleAnnouncement(response){
   cards+="<div class='card-body text-center'>";
   cards+="<h3 class='card-title'> Author: "+response.author+"<br></h3>";
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
-  cards+="<p class='card-text'> Publish date: "+response.publish_date+"</p>";
-  cards+="<p class='card-text'> Expiry date: "+response.expiry_date+"</p>";
+  cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
+  cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;
@@ -220,8 +220,8 @@ function printSingleFlyer(response){
   cards+="<div class='card-body text-center'>";
   cards+="<h3 class='card-title'> Author: "+response.author+"<br></h3>";
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
-  cards+="<p class='card-text'> Publish date: "+response.publish_date+"</p>";
-  cards+="<p class='card-text'> Expiry date: "+response.expiry_date+"</p>";
+  cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
+  cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;

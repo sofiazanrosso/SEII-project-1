@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
         query["$or"] = [{ "title": { $regex: req.query.includes, $options: caseSensitiveOptions } }, { "content": { $regex: req.query.includes, $options: caseSensitiveOptions } }];
     }
 
-    // Range ammesso di publish_date
+    // Range ammesso di publishDate
     if (typeof req.query.from_publish !== 'undefined' || typeof req.query.to_publish !== 'undefined') {
         d = {};
         if (typeof req.query.from_publish !== 'undefined') {
@@ -28,10 +28,10 @@ router.get('/', (req, res, next) => {
         if (typeof req.query.to_publish !== 'undefined') {
             d["$lte"] = req.query.to_publish;
         }
-        query["publish_date"] = d;
+        query["publishDate"] = d;
     }
 
-    // Range ammesso di expiry_date
+    // Range ammesso di expiryDate
     if (typeof req.query.from_expiry !== 'undefined' || typeof req.query.to_expiry !== 'undefined') {
         d = {};
         if (typeof req.query.from_expiry !== 'undefined') {
@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => {
         if (typeof req.query.to_expiry !== 'undefined') {
             d["$lte"] = req.query.to_expiry;
         }
-        query["expiry_date"] = d;
+        query["expiryDate"] = d;
     }
 
 
@@ -59,8 +59,8 @@ router.get('/', (req, res, next) => {
                         _id: doc._id,
                         author: doc.author,
                         content: doc.content,
-                        publish_date: doc.publish_date,
-                        expiry_date: doc.expiry_date,
+                        publishDate: doc.publishDate,
+                        expiryDate: doc.expiryDate,
 
                         request: {
                             type: "GET",

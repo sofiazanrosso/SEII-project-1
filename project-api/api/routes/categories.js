@@ -96,8 +96,8 @@ router.get('/:id', (req, res, next) => {
                     _id: ann._id,
                     title: ann.title,
                     author: ann.author,
-                    publish_date: ann.publish_date,
-                    expiry_date: ann.expiry_date,
+                    publishDate: ann.publishDate,
+                    expiryDate: ann.expiryDate,
                     
                     request : {
                         type: 'GET',

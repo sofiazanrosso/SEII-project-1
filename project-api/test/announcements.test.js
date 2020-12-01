@@ -46,8 +46,8 @@ describe('announcements API', () => {
                 author: "Name Surname",
                 category: "5fbbf5b0795ed2391cb7197f",
                 content: "Content",
-                publish_date: "03/01/01",
-                expiry_date: "03/02/01"
+                publishDate: "03/01/01",
+                expiryDate: "03/02/01"
             };
             chai.request(app)
             .post("/announcements")

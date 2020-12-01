@@ -1,9 +1,14 @@
-const express = require('express');
+const router = require('express').Router();
 const mongoose = require('mongoose');
-const router = express.Router();
+const Category = require('../models/category');
+const Flyer = require('../models/flyer');
 
-const Flyer= require('../models/flyer');
-const Category= require('../models/category');
+// Bad Upload
+const multer = require('multer');
+const fs = require('fs-extra');
+const { Buffer } = require('safe-buffer');
+const upload = multer({ limits: { fileSize: 1024 * 1024 * 10 }, dest: './tmp/uploads/' });
+
 
 /*
     GET all flyers.
@@ -15,74 +20,33 @@ const Category= require('../models/category');
         publish date (String)
         expiry date (String)
         url
-*/ 
-router.get('/', (req, res, next) => {
-    Flyer.find()
-    .exec()
-    .then(doc => {
-        const response = {
-            count : doc.length,
-            flyer: doc.map(fly=>{
-                return {
-                    _id: fly._id,
-                    author: fly.author,
-                    category: fly.category,
-                    content: fly.content,
-                    publish_date: fly.publish_date,
-                    expiry_date: fly.expiry_date,
-                    request : {
-                        type: 'GET',
-                        url: 'http://localhost:3000/flyers/' + fly._id
-                    }
-                }
-            })
-        }
-        res.status(200).json(response);
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
-        });
-    });
-});
-
-/*
-    POST a new flyer.
-    You may want to add a new flyer. 
-    The attributes are:
-        author (String)
-        category (String)
-        content (String)
-        publish date (String)
-        expiry date (String)
-        url
 */
-router.post('/', (req, res,next) => {
-    const flyer= new Flyer({
-        _id: new mongoose.Types.ObjectId(),
-        author: req.body.author,
-        category: req.body.category,
-        content: req.body.content,
-        publish_date: req.body.publish_date,
-        expiry_date: req.body.expiry_date
+router.get('/', async (req, res, next) => {
+
+    // Query
+    const flyers = await Flyer.find().select('_id author title category publishDate expiryDate');
+
+    // Map
+    const flyersMap = flyers.map(x => {
+        return {
+            _id: x._id,
+            author: x.author,
+            title: x.content,
+            category: x.category,
+            publishDate: x.publishDate,
+            expiryDate: x.expiryDate,
+            request: {
+                type: 'GET',
+                url: window.location.origin + '/flyers/' + x._id
+            }
+        }
     });
 
-    //mongoose method to save models
-    flyer.save().then(result => {
-        console.log(result);
-        res.status(201).json({
-            message: 'POST request to /flyers',
-            createFlyer: result
-        });
-    })
-    .catch( err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
-        })
-    });
+    // Response
+    res.send(flyersMap);
+
 });
+
 
 /* 
     GET request for an individual flyer.
@@ -95,49 +59,102 @@ router.post('/', (req, res,next) => {
         expiry date (String)
         url
 */
-router.get('/:id', (req, res, next) => {
-    //extract the id
+router.get('/:id', async (req, res, next) => {
+
+    // Take Flyer id
     const id = req.params.id;
-    Flyer.findById(id)
-    .exec()
-    .then(doc => {
-        console.log("From database", doc);
-        if (doc) {
-            res.status(200).json(doc);
-        } else {
-            res.status(404).json({ message: 'No valid entry found for given id'});
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-    });
+
+    // Query
+    const flyer = await Flyer.findById(id);
+
+    // Response
+    if (flyer) {
+        res.status(200).json(doc);
+    } else {
+        res.status(404).json({ message: 'No valid entry found for given id' });
+    }
 });
+
+
+/*
+    POST a new flyer.
+    You may want to add a new flyer. 
+    The attributes are:
+        author (String)
+        category (String)
+        content (String)
+        publish date (String)
+        expiry date (String)
+        url
+*/
+router.post('/', upload.single('image'), (req, res, next) => {
+
+    // Image file
+    if (req.file == null) {
+        return res.status(500).json({ error: 'Errore file' });
+    }
+
+    // Read image from temp location
+    const newImg = fs.readFileSync(req.file.path);
+
+    // Encode image to base64 for mongoDB storage
+    const encImg = newImg.toString('base64');
+
+    // Create Flyer
+    const flyer = new Flyer({
+        // _id: new mongoose.Types.ObjectId(),
+        author: req.body.author,
+        category: req.body.category,
+        title: req.body.title,
+        image: {
+            name: req.file.path,
+            mimeType: req.body.mimeType,
+            buffer: Buffer(encImg, 'base64')
+        },
+        publishDate: req.body.publishDate,
+        expiryDate: req.body.expiryDate
+    });
+
+    // Post
+    flyer
+        .save()
+        .then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: 'POST request to /flyers',
+                result: result
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err })
+        });
+});
+
 
 /* 
     DELETE request for a given id.
     You may want to delete a specific flyer.
 */
 router.delete('/:id', (req, res, next) => {
+
+    // Take Flyer id
     const id = req.params.id;
-    Flyer.remove({_id: id})
-    .exec()
-    .then(result => {
-        res.status(200).json({
-            message: 'Flyer deleted',
-            request: {
-                type: 'DELETE',
-                url: 'http://localhost:3000',
-                data: {author: 'String', content: 'String'}
-            }
-        });
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({
-            error: err
+
+    // Query
+    Flyer.remove({ _id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Flyer deleted'
+            });
         })
-    });
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
 });
 
 

@@ -32,8 +32,8 @@ router.get('/',(req,res,next)=>{
                     author: ann.author,
                     category: ann.category,
                     content: ann.content,
-                    publish_date: ann.publish_date,
-                    expiry_date: ann.expiry_date,
+                    publishDate: ann.publishDate,
+                    expiryDate: ann.expiryDate,
                     request : {
                         type: 'GET',
                         url: 'http://localhost:3000/announcements/'+ann._id
@@ -60,8 +60,8 @@ router.get('/',(req,res,next)=>{
         author (String)
         category (id)
         content (String)
-        publish_date (String)
-        expiry_date (String)
+        publishDate (String)
+        expiryDate (String)
 */
 router.post('/',(req,res,next)=>{
     
@@ -71,8 +71,8 @@ router.post('/',(req,res,next)=>{
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
-        publish_date: req.body.publish_date,
-        expiry_date: req.body.expiry_date
+        publishDate: req.body.publishDate,
+        expiryDate: req.body.expiryDate
     });
 
     announcement.save()
@@ -86,8 +86,8 @@ router.post('/',(req,res,next)=>{
                 author: result.author,
                 category: result.category,
                 content: result.content,
-                publish_date: result.publish_date,
-                expiry_date: result.expiry_date,
+                publishDate: result.publishDate,
+                expiryDate: result.expiryDate,
                 request: {
                     type: 'POST',
                     url: "http://localhost:3000/announcement/"+result._id

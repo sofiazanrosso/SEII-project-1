@@ -6,8 +6,8 @@ function addAnnouncement() {
     const newAuthor = document.getElementById("author").value;
     const newContent = document.getElementById("content").value;
     const newCategory = document.getElementById("cat").value;
-    const newExpiryDate = document.getElementById("expiry_date").value;
-    const newPublishDate = document.getElementById("publish_date").value;
+    const newExpiryDate = document.getElementById("expiryDate").value;
+    const newPublishDate = document.getElementById("publishDate").value;
 
     fetch(urlApi + "/announcements", {
         method: 'POST',
@@ -18,8 +18,8 @@ function addAnnouncement() {
                 author: newAuthor,
                 content: newContent,
                 category: newCategory,
-                publish_date: newPublishDate,
-                expiry_date: newExpiryDate
+                publishDate: newPublishDate,
+                expiryDate: newExpiryDate
             }),
     })
         .then((resp) => {
@@ -35,8 +35,8 @@ function addAnnouncement() {
 function addFlyer() {
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
-    var newExpiryDate = document.getElementById("expiry_date").value;
-    var newPublishDate = document.getElementById("publish_date").value;
+    var newExpiryDate = document.getElementById("expiryDate").value;
+    var newPublishDate = document.getElementById("publishDate").value;
 
     //do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -46,8 +46,8 @@ function addFlyer() {
             {
                 author: newAuthor,
                 content: newContent,
-                publish_date: newPublishDate,
-                expiry_date: newExpiryDate
+                publishDate: newPublishDate,
+                expiryDate: newExpiryDate
             }),
     })
         .then((resp) => {
@@ -98,8 +98,8 @@ function searchAnnouncements() {
                 cards += "<div class='card bg-success'>";
                 cards += "<div class='card-body text-center'>";
                 cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
-                cards += "<p class='card-text'> Publish date: " + x.publish_date + "</p>";
-                cards += "<p class='card-text'> Expiry date: " + x.expiry_date + "</p>";
+                cards += "<p class='card-text'> Publish date: " + x.publishDate + "</p>";
+                cards += "<p class='card-text'> Expiry date: " + x.expiryDate + "</p>";
                 cards += "<a class='btn btn-primary stretched-link' onclick='show(\"" + x.content + "\")'>See Announce</a>";
                 cards += "</div></div>";
             });
