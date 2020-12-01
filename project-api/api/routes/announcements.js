@@ -65,19 +65,27 @@ router.get('/',(req,res,next)=>{
 */
 router.post('/',(req,res,next)=>{
     
+    var tempDate = req.body.publish_date;
+    var newPubDate = new Date (tempDate);
+    var newExpDate = new Date(newPubDate);
+    newExpDate.setMonth(newPubDate.getMonth()+2);
+
+    
     const announcement= new Announcement({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
-        publish_date: req.body.publish_date,
-        expiry_date: req.body.expiry_date
+        publish_date: newPubDate.getDate() + "/" + (newPubDate.getMonth()+1) + "/" + newPubDate.getFullYear(),
+        expiry_date: newExpDate.getDate() + "/" + (newExpDate.getMonth()+1) + "/" + newExpDate.getFullYear()
     });
 
     announcement.save()
     .then(result=>{
         console.log(result);
+        //console.log(typeof(newPubDate.getMonth()) + "    " + newPubDate.getMonth());
+        //console.log(typeof(newExpDate.getMonth()) + "    " + newExpDate.getMonth());
         res.status(201).json({
             message: "Announcement posted",
             announcementPosted: {
@@ -189,5 +197,19 @@ router.delete('/:id',(req,res,next)=>{
         });
     });
 });
+
+/*
+function isDateValid(date){
+    if ( !isNaN(date.getFullYear()) && !isNaN(date.getMonth()) && !isNaN(date.getDate())  ){
+        if ( date.getFullYear() >=  (new Date().getFullYear())) {       //year is valid
+            if ( (date.getMonth() >= 0) && (date.getMonth()<12) ){      //month is valid
+                if ( (date.getDate()>0) && (date.getDate()<=31 ) ) {
+
+                }
+            }
+        }
+    }
+};
+*/
 
 module.exports = router;
