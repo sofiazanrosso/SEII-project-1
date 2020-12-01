@@ -33,13 +33,39 @@ function addAnnouncement() {
 
 //function to add a new flyer
 function addFlyer() {
-    var newAuthor = document.getElementById("author").value;
-    var newContent = document.getElementById("content").value;
-    var newExpiryDate = document.getElementById("expiryDate").value;
-    var newPublishDate = document.getElementById("publishDate").value;
+    // var newAuthor = document.getElementById("author").value;
+    // var newContent = document.getElementById("content").value;
+    // var newExpiryDate = document.getElementById("expiryDate").value;
+    // var newPublishDate = document.getElementById("publishDate").value;
+
+    // new way
+    var formData = document.forms.namedItem('add');
+
+    var oData = new FormData (formData);
+    oData.append('mimeType', 'image/jpeg');
+
+    console.log(formData);
+    console.log(oData.values);
+
+    var oReq = new XMLHttpRequest();
+    oReq.open("POST", urlApi + "/flyers", true);
+
+    oReq.onload = function (oEvent) {
+        if (oReq.status = 200) {
+            console.log("YESSA");
+        } else {
+            console.log(oReq.status + " occurred when trying to upload your file");
+        }
+    };
+    console.log("funzia");
+    try {
+        oReq.send(oData);
+    } catch (err) {
+        console.log(err);
+    }
 
     //do the POST request with the data of the form
-    fetch(urlApi + "/flyers", {
+    /*fetch(urlApi + "/flyers", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
@@ -57,6 +83,7 @@ function addFlyer() {
             return;
         })
         .catch(error => console.error(error)); // If there is any error you will catch them here
+    */
 }
 
 function loadCategories() {

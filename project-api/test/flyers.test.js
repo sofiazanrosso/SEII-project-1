@@ -30,7 +30,7 @@ describe('-- flyers API --', () => {
     
 
     // test the POST route
-    describe("-- POST /routes/flyers --", () => {
+    /*describe("-- POST /routes/flyers --", () => {
         it("it should POST a flyer", (done) => {
             const ann = {
                 title: "Testing",
@@ -49,7 +49,7 @@ describe('-- flyers API --', () => {
             });
         });
     });
-
+    */
     
 
 });

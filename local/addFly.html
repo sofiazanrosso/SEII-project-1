@@ -44,6 +44,11 @@
         </div>
 
         <div class="form-group">
+          <label for="insertTitle">Insert title</label>
+          <input type="text" class="form-text" id="title" name="title">
+        </div>
+
+        <div class="form-group">
           <!-- select category -->
           Category: <select name="categories" id="cat">
             <option value="" selected="selected">Select category</option>
@@ -53,6 +58,7 @@
         <div class="form-group">
           <input name="image" type="file" id="fileinput" accept="image/*">
         </div>
+        
         <!--
           <div class="form-group">
           <label for="insertContent">Insert content</label>
@@ -63,14 +69,14 @@
         <div class="form-group row">
           <label for="insertPublishDate" class="col-2 col-form-label">Insert publish date</label>
           <div class="col-10">
-            <input class="form-control" type="date" value="1999-01-01" id="publishDate">
+            <input class="form-control" type="date" value="1999-01-01" id="publishDate" name="publishDate">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="insertExpiryDate" class="col-2 col-form-label">Insert expiry date</label>
           <div class="col-10">
-            <input class="form-control" type="date" value="1999-01-01" id="expiryDate">
+            <input class="form-control" type="date" value="1999-01-01" id="expiryDate" name="expiryDate">
           </div>
         </div>
 

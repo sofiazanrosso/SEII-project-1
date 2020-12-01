@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 // Flyer Schema
 const flyerSchema = mongoose.Schema({
-    // _id: {
-    //     type: mongoose.Schema.Types.ObjectId
-    // },
+    _id: {
+        type: mongoose.Schema.Types.ObjectId
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

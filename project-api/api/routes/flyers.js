@@ -31,10 +31,11 @@ router.get('/', async (req, res, next) => {
         return {
             _id: x._id,
             author: x.author,
-            title: x.content,
+            title: x.title,
             category: x.category,
+            image: x.image,
             publishDate: x.publishDate,
-            expiryDate: x.expiryDate,
+            expiryDate: x.expiryDate
             /*request: {
                 type: 'GET',
                 url: window.location.origin + '/flyers/' + x._id
@@ -102,7 +103,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
 
     // Create Flyer
     const flyer = new Flyer({
-        // _id: new mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         author: req.body.author,
         category: req.body.category,
         title: req.body.title,
