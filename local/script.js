@@ -9,6 +9,8 @@ function addAnnouncement() {
     const newExpiryDate = document.getElementById("expiry_date").innerHTML;
     const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
+    //TODO: Controllare che la data sia maggiore di quella odierna, e in caso positivo abilitare il btn add announcements
+
     fetch(urlApi + "/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,4 +133,13 @@ function setExpiryDate(){
     exp.setMonth(exp.getMonth()+2);
     exp=exp.toLocaleDateString();
     document.getElementById("expiry_date").innerHTML=exp;
+
+    var tmp = new Date(newPublishDate);
+    var today = new Date();
+    today.setDate(today.getDate()-1);
+    if (tmp < today){
+        window.alert("Invalid data");
+    } else {
+        document.getElementById("annBtn").disabled = false;
+    }
 }
