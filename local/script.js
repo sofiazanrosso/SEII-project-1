@@ -139,7 +139,27 @@ function setExpiryDate(){
     today.setDate(today.getDate()-1);
     if (tmp < today){
         window.alert("Invalid data");
+        document.getElementById("annBtn").disabled = true;
     } else {
         document.getElementById("annBtn").disabled = false;
     }
+}
+
+//function to check the expiry date of the announcements
+function checkExpiryDateAnn(){
+    fetch(urlApi+"/announcements")
+    .then(response=>response.json())  //convert the response to json and pass it to the next promise
+    .then(res => 
+    {
+      //obtains the number of announcements
+      let count=res.count;
+      let announcements=res.announcement;      
+      var today=new Date();
+      for(var i=0;i<count;i++){
+        var expiry_date=new Date(announcements[i].expiry_date);
+        if(today>expiry_date){
+            //hide the announcement
+        }
+      }
+    });
 }
