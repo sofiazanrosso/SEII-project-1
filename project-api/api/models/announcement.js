@@ -10,7 +10,8 @@ const announcementSchema = mongoose.Schema({
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },      // reference to Category's model
     content: { type: String, required:true },
     publish_date: { type: String, required:true },
-    expiry_date: { type: String }
+    expiry_date: { type: String },
+    expired: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Announcement',announcementSchema);

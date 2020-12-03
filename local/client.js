@@ -40,6 +40,7 @@ function printAnnouncement(count,announcements){
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>";
     for(let i=0;i<count;i++){
+      if (!isExpired(announcements[i].expiry_date)){
       cards+="<div class='card'>";
       cards+="<div class='card-body text-center'>";
       cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
@@ -49,6 +50,7 @@ function printAnnouncement(count,announcements){
       cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
       cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
+      }
     }
     cards+="</div></div>";
     document.getElementById('root').innerHTML=cards;
@@ -59,6 +61,7 @@ function printFlyers(count,flyers){
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>"
   for(let i=0;i<count;i++){
+    if (!isExpired(flyers[i].expiry_date)){
     cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
@@ -68,6 +71,7 @@ function printFlyers(count,flyers){
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
     cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
     cards+="</div></div>";
+    }
   }
   cards+="</div></div>";
   document.getElementById('root').innerHTML=cards;
@@ -148,16 +152,18 @@ function printAll(announcements,flyers){
   var cardsA="<h2>Announcements</h2>";
   cardsA+="<div class='card-columns'>";
   for(let i=0;i<countAnn;i++){
-    cardsA+="<div class= 'card'>";
-    cardsA+="<div class='card-body text-center'>";
-    cardsA+= "<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
-    cardsA+="<h5 class='card-title'> Author: "+annArray[i].author+"</h5>";
-    //res+="<p class='card-text'>"+announcements[i].content+"</p>";
-    cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publish_date+"<br>";
-    cardsA+="Expiry date: "+annArray[i].expiry_date+"</p>";
-    cardsA+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+annArray[i]._id+"\")'>See Announce</a>";
-    cardsA+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
-    cardsA+="</div></div>";
+    if (!isExpired(annArray[i].expiry_date)){
+      cardsA+="<div class= 'card'>";
+      cardsA+="<div class='card-body text-center'>";
+      cardsA+= "<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
+      cardsA+="<h5 class='card-title'> Author: "+annArray[i].author+"</h5>";
+      //res+="<p class='card-text'>"+announcements[i].content+"</p>";
+      cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publish_date+"<br>";
+      cardsA+="Expiry date: "+annArray[i].expiry_date+"</p>";
+      cardsA+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+annArray[i]._id+"\")'>See Announce</a>";
+      cardsA+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+annArray[i]._id+"\")'>Delete Announce</a>";
+      cardsA+="</div></div>";
+    }    
   }
   cardsA+="</div>";
   document.getElementById('rootA').innerHTML=cardsA;
@@ -166,6 +172,7 @@ function printAll(announcements,flyers){
   var cardsF ="<h2>Flyers</h2>";
   cardsF+="<div class='card-columns'>";
   for(let i=0;i<countFly;i++){
+    if (!isExpired(flyArray[i].expiry_date)){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
@@ -175,6 +182,7 @@ function printAll(announcements,flyers){
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
     cardsF+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyArray[i]._id+"\")'>Delete Flyer</a>";
     cardsF+="</div></div>";
+    }
   }  
   cardsF+="</div>";
   document.getElementById('rootF').innerHTML=cardsF;
@@ -234,4 +242,13 @@ function loadCategories() {
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
+}
+
+function isExpired(date){      
+    var today=new Date();
+    var expiry_date=new Date(date);
+    if((today>expiry_date) || (expiry_date=='Invalid Date')){
+        return true;
+    }
+    return false;
 }

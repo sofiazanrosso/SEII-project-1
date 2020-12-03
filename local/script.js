@@ -155,11 +155,15 @@ function checkExpiryDateAnn(){
       let count=res.count;
       let announcements=res.announcement;      
       var today=new Date();
+      var expired=[];
       for(var i=0;i<count;i++){
         var expiry_date=new Date(announcements[i].expiry_date);
-        if(today>expiry_date){
+        if((today>expiry_date) || (expiry_date=='Invalid Date')){
             //hide the announcement
+            expired.push(announcements[i]._id);
         }
       }
+      console.log(expired);
+
     });
 }

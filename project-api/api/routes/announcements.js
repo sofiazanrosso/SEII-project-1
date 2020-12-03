@@ -34,6 +34,7 @@ router.get('/',(req,res,next)=>{
                     content: ann.content,
                     publish_date: ann.publish_date,
                     expiry_date: ann.expiry_date,
+                    expired: ann.expired,
                     request : {
                         type: 'GET',
                         url: 'http://localhost:3000/announcements/'+ann._id
@@ -64,11 +65,11 @@ router.get('/',(req,res,next)=>{
         expiry_date (String)
 */
 router.post('/',(req,res,next)=>{
-    
+    //Dates are stored in the db as Strings, but to manage the expiry date we temporary manage them as Date type 
     var tempDate = req.body.publish_date;
     var newPubDate = new Date (tempDate);
     var newExpDate = new Date(newPubDate);
-    newExpDate.setMonth(newPubDate.getMonth()+2);
+    newExpDate.setMonth(newPubDate.getMonth()+2); //setting life of an announcement as 2 months
 
     const announcement= new Announcement({
         _id: new mongoose.Types.ObjectId(),
