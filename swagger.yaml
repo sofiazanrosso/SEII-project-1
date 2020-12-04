@@ -1,7 +1,7 @@
 swagger: '2.0'
 
 info:
-  version: '1.0'
+  version: '2.0'
   title: "SEII-project-1-swagger"
   description: SEII-project-1 is a simple API allowing to view the university's digital bulletin board.
   license:
@@ -17,8 +17,10 @@ tags:
   description: "flyers in the digital bulletin board"
 - name: "categories"
   description: "categories of announcements and flyers"
-- name: "board"
-  description: "main page of the digital bulletin board containing announcements and flyers"
+- name: "users"
+  description: "personal data of the user"
+- name: "auth"
+  description: "user authentication"
 
 paths:
 
@@ -28,7 +30,7 @@ paths:
       tags:
       - "announcements"
       summary: "Add a new announcement"
-      description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "addAnn"
       consumes:
       - "application/json"
@@ -51,7 +53,7 @@ paths:
       tags:
       - "announcements"
       summary: "View announcements"
-      description: "You may want to view all announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      description: "You may want to view all announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "viewAllAnn"
       produces:
       - "application/json"
@@ -70,7 +72,7 @@ paths:
       tags:
       - "announcements"
       summary: "View a specific announcement"
-      description: "You may want to view a specific announcement. The attributes are title, author, category, content, publish and expiry dates and the url."
+      description: "You may want to view a specific announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "viewAnn"
       produces:
       - "application/json"
@@ -117,7 +119,7 @@ paths:
       tags:
       - "flyers"
       summary: "Add a new flyer"
-      description: "You may want to add a new flyer. The attributes are author, category, content, publish and expiry dates and the url."
+      description: "You may want to add a new flyer. The attributes are author, category, title, image, publish and expiry dates and expired."
       operationId: "addFly"
       consumes:
       - "application/json"
@@ -140,7 +142,7 @@ paths:
       tags:
       - "flyers"
       summary: "View all flyers"
-      description: "You may want to view all flyers. The attributes are author, category, content, publish and expiry dates and the url."
+      description: "You may want to view all flyers. The attributes are author, category, title, image, publish and expiry dates and expired."
       operationId: "viewAllFly"
       produces:
       - "application/json"
@@ -159,7 +161,7 @@ paths:
       tags:
       - "flyers"
       summary: "View a specific flyer"
-      description: "You may want to view a specific flyer. The attributes are author, category, content, publish and expiry dates and the url."
+      description: "You may want to view a specific flyer. The attributes are author, category, content, publish and expiry dates and expired."
       operationId: "viewFly"
       produces:
       - "application/json"
@@ -206,7 +208,7 @@ paths:
       tags:
       - "cateogories"
       summary: "Add a new category"
-      description: "You may want to add a new category. The attributes are name and id."
+      description: "You may want to add a new category (reserved to admin). The attributes are name and id."
       operationId: "addCat"
       consumes:
       - "application/json"
@@ -272,7 +274,7 @@ paths:
       tags:
       - "cateogories"
       summary: "Delete a specific cateogory"
-      description: "You may want to delete a specific category."
+      description: "You may want to delete a specific category (reserved to admin)."
       operationId: "deleteCat"
       produces:
       - "application/json"
@@ -289,7 +291,61 @@ paths:
           description: "no value found"
         "500":
           description: "Error"  
-    
+  
+  /users/{userid}:
+    get:
+      tags:
+      - "user"
+      summary: "View information about the logged user"
+      description: "You may want to view information about the logged user. The attributes are email and name."
+      operationId: "viewUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "User is fetched and the specific category ID is selected."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+  
+  /users/{userid}/announcements/{annid}:
+    get:
+      tags:
+      - "user"
+      summary: "View a single announcement of the logged user"
+      description: "You may want to view a single announcement about the logged user. The attributes are ..."
+      operationId: "viewAnnUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userid"
+        in: "path"
+        description: "The specific user ID is selected."
+        required: true
+        type: "string"
+      - name: "annid"
+        in: "path"
+        description: "The specific announcement ID is selected."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
       
 definitions:
   Announcement:
@@ -305,32 +361,36 @@ definitions:
         type: "string"
       content:
         type: "string"
-      publishDate:
+      publish_date:
         type: "string"
         format: "date-time"
-      expiryDate:
+      expiry_date:
         type: "string"
         format: "date-time"
+      expired:
+        type: "boolean"
   
   Flyer:
     type: "object"
     properties:
       flyid: 
         type: "string"
-      title:
-        type: "string"
       author:
         type: "string"
       category:
         type: "string"
-      content:
+      title:
         type: "string"
-      publishDate:
+      image:
+        type: "object"
+      publish_date:
         type: "string"
         format: "date-time"
-      expiryDate:
+      expiry_date:
         type: "string"
         format: "date-time"
+      expired:
+        type: "boolean"
      
   Category:
     type: "object"
@@ -339,15 +399,13 @@ definitions:
         type: "string"
       name:
         type: "string"
-  
-  Board:
+        
+  User:
     type: "object"
     properties:
-      id:
+      userid:
+        type: "string"
+      email:
         type: "string"
       name:
         type: "string"
-      annid:
-        type: "object"
-      flyid:
-        type: "object"
