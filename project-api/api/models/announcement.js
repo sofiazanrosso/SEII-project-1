@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-// Announcement Schema
+// general schema for an announcement
 const announcementSchema = mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
@@ -38,7 +38,7 @@ const announcementSchema = mongoose.Schema({
 });
 
 
-// Announcement Model
+// announcement model
 const Announcement = mongoose.model('Announcement', announcementSchema);
 
 

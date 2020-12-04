@@ -6,6 +6,8 @@ const router = express.Router();
 const Category = require('../models/category');
 const Announcement = require('../models/announcement');
 
+// ------------------------------------------------------------
+
 /*
     GET all categories.
     You may want to view all categories.
@@ -41,6 +43,8 @@ router.get('/', (req, res, next) => {
     });
 });
 
+// ------------------------------------------------------------
+
 /* 
     POST a new category.
     You may want to add a new category.
@@ -71,6 +75,8 @@ router.post('/', (req, res,next) => {
         })
     });
 });
+
+// ------------------------------------------------------------
 
 /*
     GET request for an individual category.
@@ -115,5 +121,7 @@ router.get('/:id', (req, res, next) => {
         });
     });
 });
+
+// ------------------------------------------------------------
 
 module.exports = router;

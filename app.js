@@ -10,6 +10,8 @@ const categoryRoute = require('./project-api/api/routes/categories');
 const boardRoute = require('./project-api/api/routes/board');
 const searchRoute = require('./project-api/api/routes/search');
 
+// ------------------------------------------------------------
+
 // connection to the database mongoDB
 const uri = 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-pbzryp-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(uri, {
@@ -17,6 +19,8 @@ mongoose.connect(uri, {
     useUnifiedTopology: true
 });
 console.log("DB connected");
+
+// ------------------------------------------------------------
 
 mongoose.Promise = global.Promise;
 
@@ -37,6 +41,8 @@ app.use((req, res, next) => {
     next();
 });
 
+// ------------------------------------------------------------
+
 //method to manage the announcements
 app.use('/announcements', announcementRoute);
 //method to manage the flyers
@@ -47,6 +53,8 @@ app.use('/categories', categoryRoute);
 app.use('/board', boardRoute);
 // Method to manage searches
 app.use('/search', searchRoute);
+
+// ------------------------------------------------------------
 
 /*
 app.use((req,res,next)=>{

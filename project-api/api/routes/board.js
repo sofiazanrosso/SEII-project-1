@@ -11,6 +11,7 @@ const Board = require ('../models/board');
 const board = require('../models/board');
 const { response } = require('../../../app');
 
+// ------------------------------------------------------------
 
 /* 
     GET the board.
@@ -46,5 +47,7 @@ router.get('/', (req, res, next) => {
     });
         
 });
+
+// ------------------------------------------------------------
 
 module.exports = router;

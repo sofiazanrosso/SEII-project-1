@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Announcement = require('../models/announcement');
 
+// ------------------------------------------------------------
 
 router.get('/', (req, res, next) => {
 
@@ -77,5 +78,6 @@ router.get('/', (req, res, next) => {
         });
 });
 
+// ------------------------------------------------------------
 
 module.exports = router;

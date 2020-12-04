@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-// Flyer Schema
+// general schema for a flyer
 const flyerSchema = mongoose.Schema({
     // _id: {
     //     type: mongoose.Schema.Types.ObjectId
@@ -46,7 +46,7 @@ const flyerSchema = mongoose.Schema({
 });
 
 
-// Flyer Model
+// flyer model
 const Flyer = mongoose.model('Flyer', flyerSchema);
 
 

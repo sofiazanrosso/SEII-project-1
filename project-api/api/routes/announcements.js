@@ -4,6 +4,7 @@ const router = express.Router();
 
 const Announcement= require('../models/announcement');
 
+// ------------------------------------------------------------
 
 /* 
     GET all announcements.
@@ -52,6 +53,7 @@ router.get('/',(req,res,next)=>{
     
 });
 
+// ------------------------------------------------------------
 
 /*
     POST of an announcement.
@@ -103,6 +105,7 @@ router.post('/',(req,res,next)=>{
     });
 });
 
+// ------------------------------------------------------------
 
 /*
     GET a specific announcement.
@@ -135,6 +138,7 @@ router.get('/:id',(req,res,next)=>{
     });
 }); 
 
+// ------------------------------------------------------------
 
 /*
     PATCH method for an announcement.
@@ -163,6 +167,7 @@ router.patch('/:id',(req,res,next)=>{
     });
 });
 
+// ------------------------------------------------------------
 
 /*
     DELETE method for an announcement.
@@ -189,5 +194,7 @@ router.delete('/:id',(req,res,next)=>{
         });
     });
 });
+
+// ------------------------------------------------------------
 
 module.exports = router;

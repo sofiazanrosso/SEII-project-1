@@ -6,6 +6,7 @@ $(document).ready(function () {
     loadAll();    
 });
 
+// ------------------------------------------------------------
 
 //function to load the announcements
 function loadAnnouncements(){  
@@ -22,6 +23,8 @@ function loadAnnouncements(){
     });
 }
 
+// ------------------------------------------------------------
+
 //function to load the flyers
 function loadFlyers(){
   fetch(urlApi+"/flyers")
@@ -36,6 +39,8 @@ function loadFlyers(){
       printFlyers(count,flyers);
     });
 }
+
+// ------------------------------------------------------------
 
 //print the announcements
 function printAnnouncement(count,announcements){
@@ -56,6 +61,8 @@ function printAnnouncement(count,announcements){
     document.getElementById('root').innerHTML=cards;
 }
 
+// ------------------------------------------------------------
+
 //print the flyers
 function printFlyers(count,flyers){
   var cards="<div class='card-column'>";
@@ -75,7 +82,9 @@ function printFlyers(count,flyers){
   document.getElementById('root').innerHTML=cards;
 }
 
+// ------------------------------------------------------------
 
+// select the category
 function selectCat(id) {
   fetch(urlApi+ "/categories/"+ id)
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
@@ -87,6 +96,9 @@ function selectCat(id) {
     });
 }
 
+// ------------------------------------------------------------
+
+// delete an announcement
 function deleteAnnouncement(id){
   fetch(urlApi+"/announcements/"+id, {
     method: 'DELETE'
@@ -100,6 +112,9 @@ function deleteAnnouncement(id){
   .catch( error => console.error(error) );
 }
 
+// ------------------------------------------------------------
+
+// delete a flyer
 function deleteFlyer(id){
   fetch(urlApi+"/flyers/"+id, {
     method: 'DELETE'
@@ -113,6 +128,9 @@ function deleteFlyer(id){
   .catch( error => console.error(error) );
 }
 
+// ------------------------------------------------------------
+
+// load announcements and flyers
 function loadAll(){
   var ann;
   fetch(urlApi+"/announcements")
@@ -140,12 +158,16 @@ function loadAll(){
   */
 }
 
+// ------------------------------------------------------------
 
+// print annoouncements and flyers
 function printAll(announcements,flyers){
   let countAnn=announcements.count;
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
+
+  // print announcements
   //var cardsA="<div class='card-column'>";
   var cardsA="<h2>Announcements</h2>";
   cardsA+="<div class='card-columns'>";
@@ -164,6 +186,7 @@ function printAll(announcements,flyers){
   cardsA+="</div>";
   document.getElementById('rootA').innerHTML=cardsA;
 
+  // print flyers
   //var cardsF="<div class='card-column'>";
   var cardsF ="<h2>Flyers</h2>";
   cardsF+="<div class='card-columns'>";
@@ -181,6 +204,8 @@ function printAll(announcements,flyers){
   cardsF+="</div>";
   document.getElementById('rootF').innerHTML=cardsF;
 }
+
+// ------------------------------------------------------------
 
 //with the function i pass if it's an announcement or flyer
 function show(text,id){
@@ -201,6 +226,9 @@ function show(text,id){
     });
 }
 
+// ------------------------------------------------------------
+
+// print a single announcement 
 function printSingleAnnouncement(response){
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
@@ -214,6 +242,9 @@ function printSingleAnnouncement(response){
   document.getElementById('root').innerHTML=cards;
 }
 
+// ------------------------------------------------------------
+
+// print a single flyer
 function printSingleFlyer(response){
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
@@ -227,7 +258,9 @@ function printSingleFlyer(response){
   document.getElementById('root').innerHTML=cards;
 }
 
+// ------------------------------------------------------------
 
+// load categories' buttons
 function loadCategoriesBtn() {
 
     const catSel = document.getElementById("cat");
@@ -237,3 +270,5 @@ function loadCategoriesBtn() {
         .then(res => { res.category.forEach(x => catSel.innerHTML+='<a class="btn btn-secondary" onclick="selectCat( \'' + x._id + '\' )" role="button">'+ x.name +'</a> ' ) } ) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
 }
+
+// ------------------------------------------------------------

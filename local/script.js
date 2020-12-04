@@ -1,6 +1,9 @@
 const urlApi=window.location.origin;
 //const urlApi="";
-//function to add an announcement
+
+// ------------------------------------------------------------
+
+// function to add an announcement
 function addAnnouncement() {
     const newTitle = document.getElementById("title").value;
     const newAuthor = document.getElementById("author").value;
@@ -22,23 +25,25 @@ function addAnnouncement() {
                 expiryDate: newExpiryDate
             }),
     })
-        .then((resp) => {
-            console.log(resp);
-            console.log(newCategory);
-            //redirect the page
-            window.location.href = 'index.html';
-        })
-        .catch(error => console.error(error));
+    .then((resp) => {
+        console.log(resp);
+        console.log(newCategory);
+        //redirect the page
+        window.location.href = 'index.html';
+    })
+    .catch(error => console.error(error));
 }
 
-//function to add a new flyer
+// ------------------------------------------------------------
+
+// function to add a new flyer
 function addFlyer() {
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
     var newExpiryDate = document.getElementById("expiryDate").value;
     var newPublishDate = document.getElementById("publishDate").value;
 
-    //do the POST request with the data of the form
+    // do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,6 +64,9 @@ function addFlyer() {
         .catch(error => console.error(error)); // If there is any error you will catch them here
 }
 
+// ------------------------------------------------------------
+
+// function to load categories
 function loadCategories() {
 
     const catSel = document.getElementById("cat");
@@ -69,6 +77,9 @@ function loadCategories() {
         .catch(error => console.error(error));
 }
 
+// ------------------------------------------------------------
+
+// function to search announcements
 function searchAnnouncements() {
 
     // Create GET request with params
@@ -109,6 +120,10 @@ function searchAnnouncements() {
         });
 }
 
+
+// ------------------------------------------------------------
+
+// function to load dates
 function loadDates() {
 
     const minDate = '1999-01-01';
@@ -123,3 +138,5 @@ function loadDates() {
     document.getElementById('to_publish').value = maxDate;
     document.getElementById('to_expiry').value = maxDate;
 }
+
+// ------------------------------------------------------------

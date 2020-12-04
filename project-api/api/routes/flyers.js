@@ -9,6 +9,7 @@ const fs = require('fs-extra');
 const { Buffer } = require('safe-buffer');
 const upload = multer({ limits: { fileSize: 1024 * 1024 * 10 }, dest: './tmp/uploads/' });
 
+// ------------------------------------------------------------
 
 /*
     GET all flyers.
@@ -47,6 +48,7 @@ router.get('/', async (req, res, next) => {
 
 });
 
+// ------------------------------------------------------------
 
 /* 
     GET request for an individual flyer.
@@ -75,6 +77,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+// ------------------------------------------------------------
 
 /*
     POST a new flyer.
@@ -131,6 +134,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         });
 });
 
+// ------------------------------------------------------------
 
 /* 
     DELETE request for a given id.
@@ -157,5 +161,6 @@ router.delete('/:id', (req, res, next) => {
         });
 });
 
+// ------------------------------------------------------------
 
 module.exports = router;

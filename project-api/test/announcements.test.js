@@ -12,6 +12,10 @@ chai.should();
 // allows chai to do http request
 chai.use(chaiHttp);
 
+
+// ------------- announcements testing ------------- 
+
+
 // contains the resource
 describe('-- announcements API --', () => {
 

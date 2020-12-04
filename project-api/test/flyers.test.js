@@ -12,6 +12,8 @@ chai.should();
 // allows chai to do http request
 chai.use(chaiHttp);
 
+// flyers testing
+
 // contains the resource
 describe('-- flyers API --', () => {
 

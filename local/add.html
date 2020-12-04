@@ -16,6 +16,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="script.js"></script>
 
+  <!-- navigation bar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="nav-link btn btn-dark" href="index.html" role="button">Go back<span class="sr-only"></span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,31 +35,39 @@
     </div>
   </div>
 
+  <!-- container -->
+
   <div class="container" id="root">
+
+    <!-- add announcement -->
     <form action="announcements" method="post" name="add" id="add">
 
+      <!-- insert title -->
       <div class="form-group">
         <label for="insertTitle">Insert title</label>
         <input type="text" class="form-text" id="title">
       </div>
 
+      <!-- select category -->
       <div class="form-group">
-        <!-- select category -->
         Category: <select name="categories" id="cat">
           <option value="" selected="selected">Select category</option>
         </select>
       </div>
 
+      <!-- insert author -->
       <div class="form-group">
         <label for="insertAuthor">Insert author</label>
         <input type="text" class="form-text" id="author">
       </div>
 
+      <!-- insert content -->
       <div class="form-group">
         <label for="insertContent">Insert content</label>
         <textarea class="form-control" id="content"></textarea>
       </div>
 
+      <!-- insert publish date -->
       <div class="form-group row">
         <label for="insertPublishDate" class="col-2 col-form-label">Insert publish date</label>
         <div class="col-10">
@@ -66,6 +75,7 @@
         </div>
       </div>
 
+      <!-- insert expiry date -->
       <div class="form-group row">
         <label for="insertExpiryDate" class="col-2 col-form-label">Insert expiry date</label>
         <div class="col-10">
@@ -73,6 +83,7 @@
         </div>
       </div>
 
+      <!-- add announcement buttons -->
       <button type="button" onclick="addAnnouncement()" class="btn btn-primary">Insert new announcement</button>
       <button type="reset" class="btn btn-danger">Reset</button>
 
@@ -80,10 +91,11 @@
 
     <hr>
 
-  </div> <!-- /container -->
+  </div> 
+  
+  <!-- /container -->
 
 </main>
-
 
 <!-- ------------------------------------------------------------------ -->
  
