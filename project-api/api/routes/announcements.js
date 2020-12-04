@@ -77,8 +77,8 @@ router.post('/',(req,res,next)=>{
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
-        publish_date: newPubDate.getDate() + "/" + (newPubDate.getMonth()+1) + "/" + newPubDate.getFullYear(),
-        expiry_date: newExpDate.getDate() + "/" + (newExpDate.getMonth()+1) + "/" + newExpDate.getFullYear()
+        publish_date:  newPubDate.getFullYear() + "-" + (newPubDate.getMonth()+1) + "-" + newPubDate.getDate(),
+        expiry_date: newExpDate.getFullYear()+ "-" + (newExpDate.getMonth()+1) + "-" + newExpDate.getDate() 
     });
 
     announcement.save()
