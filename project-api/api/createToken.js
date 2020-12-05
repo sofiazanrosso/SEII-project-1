@@ -14,19 +14,3 @@ module.exports.createAccessToken = user => {
         }
     );
 };
-
-
-// Create new Refresh-Token for an User
-module.exports.createRefreshToken = user => {
-    console.log('creatin RefreshToken for ' + user);
-    return sign(
-        {
-            _id: user._id,
-            tokenVersion: user.tokenVersion
-        },
-        process.env.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: '1d'
-        }
-    );
-};

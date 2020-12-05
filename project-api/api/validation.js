@@ -42,16 +42,3 @@ module.exports.loginValidation = data => {
 
     return schema.validate(data);
 };
-
-
-// Validate /auth/revokeRefreshToken
-module.exports.revokeValidation = data => {
-
-    const schema = Joi.object({
-        _id: Joi
-            .string()
-            .required()
-    })
-
-    return schema.validate(data);
-};
