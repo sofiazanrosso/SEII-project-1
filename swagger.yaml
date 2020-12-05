@@ -17,7 +17,7 @@ tags:
   description: "flyers in the digital bulletin board"
 - name: "categories"
   description: "categories of announcements and flyers"
-- name: "users"
+- name: "user"
   description: "personal data of the user"
 - name: "auth"
   description: "user authentication"
@@ -25,35 +25,12 @@ tags:
 paths:
 
   /announcements:
-  
-    post:
-      tags:
-      - "announcements"
-      summary: "Add a new announcement"
-      description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
-      operationId: "addAnn"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "Announcement that needs to be added to the board"
-        required: true
-        schema:
-          $ref: "#/definitions/Announcement"
-      responses:
-        "201":
-          description: "Valid input"
-        "500":
-          description: "Invalid input"
     
     get:
       tags:
       - "announcements"
       summary: "View announcements"
-      description: "You may want to view all announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
+      description: "You may want to view all announcements. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "viewAllAnn"
       produces:
       - "application/json"
@@ -91,52 +68,8 @@ paths:
           description: "no value found"
         "500":
           description: "Error"
-    
-    delete:
-      tags:
-      - "announcements"
-      summary: "Delete a specific announcement"
-      description: "You may want to delete a specific announcement."
-      operationId: "deleteAnn"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "annid"
-        in: "path"
-        description: "The ID of a specific announcement."
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-        "404":
-          description: "no value found"
-        "500":
-          description: "Error"
       
   /flyers:
-    post:
-      tags:
-      - "flyers"
-      summary: "Add a new flyer"
-      description: "You may want to add a new flyer. The attributes are author, category, title, image, publish and expiry dates and expired."
-      operationId: "addFly"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "FLyers that needs to be added to the board"
-        required: true
-        schema:
-          $ref: "#/definitions/Flyer"
-      responses:
-        "201":
-          description: "Valid input"
-        "500":
-          description: "Invalid input"
     
     get:
       tags:
@@ -180,28 +113,6 @@ paths:
           description: "no value found"
         "500":
           description: "Error"
-    
-    delete:
-      tags:
-      - "flyers"
-      summary: "Delete a specific flyer"
-      description: "You may want to delete a specific flyer."
-      operationId: "deleteFly"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "flyid"
-        in: "path"
-        description: "The ID of a specific flyer."
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
-        "404":
-          description: "no value found"
-        "500":
-          description: "Error"  
     
   /cateogories:
     post:
@@ -292,7 +203,7 @@ paths:
         "500":
           description: "Error"  
   
-  /users/{userid}:
+  /user:
     get:
       tags:
       - "user"
@@ -301,12 +212,7 @@ paths:
       operationId: "viewUser"
       produces:
       - "application/json"
-      parameters:
-      - name: "userid"
-        in: "path"
-        description: "User is fetched and the specific category ID is selected."
-        required: true
-        type: "string"
+      parameters: []
       responses:
         "200":
           description: "successful operation"
@@ -317,21 +223,62 @@ paths:
         "500":
           description: "Error"
   
-  /users/{userid}/announcements/{annid}:
+  /user/announcements:
+  
+    post:
+      tags:
+      - "user"
+      - "announcements"
+      summary: "Add a new announcement of the logged user"
+      description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
+      operationId: "addAnnUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Announcement that needs to be added to the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Announcement"
+      responses:
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "announcements"
+      - "user"
+      summary: "View announcements of the logged user"
+      description: "You may want to view all announcements of the logged user. The attributes are title, author, category, content, publish and expiry dates and expired."
+      operationId: "viewAllAnnUser"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Announcement"
+        "500":
+          description: "Error"
+  
+  
+  /user/announcements/{annid}:
     get:
       tags:
       - "user"
+      - "announcements"
       summary: "View a single announcement of the logged user"
-      description: "You may want to view a single announcement about the logged user. The attributes are ..."
+      description: "You may want to view a single announcement about the logged user. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "viewAnnUser"
       produces:
       - "application/json"
       parameters:
-      - name: "userid"
-        in: "path"
-        description: "The specific user ID is selected."
-        required: true
-        type: "string"
       - name: "annid"
         in: "path"
         description: "The specific announcement ID is selected."
@@ -341,12 +288,218 @@ paths:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/Announcement"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+          
+    patch:
+      tags:
+      - "user"
+      - "announcements"
+      summary: "Update a specific announcement of the logged user"
+      description: "You may want to update a specific announcement of the logged user."
+      operationId: "patchAnnUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "202":
+          description: "successful operation"
         "404":
           description: "no value found"
         "500":
           description: "Error"
       
+    delete:
+      tags:
+      - "user"
+      - "announcements"
+      summary: "Delete a specific announcement of the logged user"
+      description: "You may want to delete a specific announcement of the logged user."
+      operationId: "deleteAnnUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "annid"
+        in: "path"
+        description: "The ID of a specific announcement."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"  
+    
+  /user/flyers:
+    post:
+      tags:
+      - "flyers"
+      - "user"
+      summary: "Add a new flyer of the logged user"
+      description: "You may want to add a new flyer of the logged user. The attributes are author, category, title, image, publish and expiry dates and expired."
+      operationId: "addFlyUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "FLyers that needs to be added to the board"
+        required: true
+        schema:
+          $ref: "#/definitions/Flyer"
+      responses:
+        "201":
+          description: "Valid input"
+        "500":
+          description: "Invalid input"
+    
+    get:
+      tags:
+      - "flyers"
+      - "user"
+      summary: "View all flyers of the logged user"
+      description: "You may want to view all flyers of the logged user. The attributes are author, category, title, image, publish and expiry dates and expired."
+      operationId: "viewAllFlyUser"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Flyer"
+        "500":
+          description: "Error"
+  
+  /user/flyers/{flyid}:
+    get:
+      tags:
+      - "user"
+      - "flyers"
+      summary: "View a single flyer of the logged user"
+      description: "You may want to view a single flyer about the logged user. The attributes are author, category, title,  image, publish and expiry dates and expired."
+      operationId: "viewFlyUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "flyid"
+        in: "path"
+        description: "The specific flyer ID is selected."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Flyer"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+  
+    patch:
+      tags:
+      - "user"
+      - "flyers"
+      summary: "Update a specific flyer of the logged user"
+      description: "You may want to update a specific flyer of the logged user."
+      operationId: "patchFlyUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "flyid"
+        in: "path"
+        description: "The ID of a specific flyer."
+        required: true
+        type: "string"
+      responses:
+        "202":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"
+      
+    delete:
+      tags:
+      - "user"
+      - "flyers"
+      summary: "Delete a specific flyer of the logged user"
+      description: "You may want to delete a specific flyer of the logged user."
+      operationId: "deleteFlyUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "flyid"
+        in: "path"
+        description: "The ID of a specific flyer."
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+        "404":
+          description: "no value found"
+        "500":
+          description: "Error"  
+          
+  /auth/register:
+    post:
+      tags:
+      - "auth"
+      summary: "New user registration"
+      description: "You may want to register a new user. The attributes are email, password, name."
+      operationId: "registerUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User's email, password, name"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "successful operation"
+        "500":
+          description: "Error"
+  
+  /auth/login:
+    post:
+      tags:
+      - "auth"
+      summary: "New user registration"
+      description: "You may want to register a new user. The attributes are email, password, display_name."
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User's email, password"
+        required: true
+        schema:
+          $ref: "#/definitions/UserLogin"
+      responses:
+        "201":
+          description: "successful operation"
+        "500":
+          description: "Error"  
+  
+  
 definitions:
   Announcement:
     type: "object"
@@ -383,6 +536,13 @@ definitions:
         type: "string"
       image:
         type: "object"
+        properties:
+          buffer:
+            type: "string"
+          mimeType:
+            type: "string"
+          name:
+            type: "string"
       publish_date:
         type: "string"
         format: "date-time"
@@ -408,4 +568,18 @@ definitions:
       email:
         type: "string"
       name:
+        type: "string"
+
+  UserLogin:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+        
+  ZZZ:
+    type: "object"
+    properties:
+      email:
         type: "string"
