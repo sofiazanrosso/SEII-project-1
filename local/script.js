@@ -83,29 +83,31 @@ function loadCategories() {
 function searchAnnouncements() {
 
     // Create GET request with params
-    const paramsUrl = new URL(urlApi + '/search');
+    const paramsUrl = new URL(urlApi + '/search/');
 
     // Params
-    paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
+    //paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
+    const params = document.getElementById('includes').value;
+    /*
     paramsUrl.searchParams.append("caseSensitive", "false");
     paramsUrl.searchParams.append("from_publish", document.getElementById('from_publish').value);
     paramsUrl.searchParams.append("to_publish", document.getElementById('to_publish').value);
     paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
     paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
-
+    */
     console.log(paramsUrl.href);
 
 
 
     // GET request
-    fetch(paramsUrl)
+    fetch(paramsUrl + params)
         .then(res => res.json())
         .then(data => {
 
             // Fill html
-            var cards = "<div class='card-deck'>";
+            var cards = "<div class='card-columns'>";
 
-            data.announcements.forEach(x => {
+            data.announcements.announcements.forEach(x => {
                 cards += "<div class='card bg-success'>";
                 cards += "<div class='card-body text-center'>";
                 cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
