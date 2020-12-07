@@ -25,6 +25,7 @@ console.log("DB connected");
 mongoose.Promise = global.Promise;
 
 app.use(morgan('dev'));
+app.use('/images', express.static('images'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 
 // general schema for a flyer
 const flyerSchema = mongoose.Schema({
-    // _id: {
-    //     type: mongoose.Schema.Types.ObjectId
-    // },
+    _id: {
+        type: mongoose.Schema.Types.ObjectId
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -21,7 +21,10 @@ const flyerSchema = mongoose.Schema({
         required: true
     },
     image: {
-        name: {
+        type: String,
+        required: true
+
+        /*name: {
             type: String,
             required: true
         },
@@ -32,7 +35,7 @@ const flyerSchema = mongoose.Schema({
         buffer: {
             type: Buffer,
             required: true
-        }
+        }*/
     },
     publishDate: {
         type: String,

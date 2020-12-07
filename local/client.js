@@ -194,7 +194,11 @@ function printAll(announcements,flyers){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
-    cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='"+urlApi+'/images/'+flyArray[i].image+"' role='img'></img>";
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+    // cardsF+="<img src='data:image/jpeg;"+flyArray[i].image+"'role='img'></img>";
+
     cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publishDate+"<br>";
     cardsF+="Expiry date: "+flyArray[i].expiryDate+"</p>";
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";

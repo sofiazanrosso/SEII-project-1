@@ -3,11 +3,47 @@ const mongoose = require('mongoose');
 const Category = require('../models/category');
 const Flyer = require('../models/flyer');
 
-// Bad Upload
+// ------------------------------------------------------------
+
 const multer = require('multer');
-const fs = require('fs-extra');
-const { Buffer } = require('safe-buffer');
-const upload = multer({ limits: { fileSize: 1024 * 1024 * 10 }, dest: './tmp/uploads/' });
+
+// where to store the images and the name of the saved file
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './images/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().getMilliseconds() + file.originalname + "");
+        // cb(null, file.originalname);
+    }
+});
+
+// type of images accepted
+const fileFilter = (req, file, cb) => {
+
+    if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+        cb(null, true);                                                         // accept the file
+    } else {
+        cb(new Error('type not accepted'), false);                              // reject the file
+    }
+    
+}
+
+const upload = multer({
+    storage: storage,
+    limits: { 
+        fileSize: 1024 * 1024 * 10 
+    },
+    fileFilter: fileFilter
+    //dest: 'images/' */
+});
+
+// ------------------------------------------------------------
+
+// Bad Upload
+
+// const fs = require('fs-extra');
+// const { Buffer } = require('safe-buffer');
 
 // ------------------------------------------------------------
 
@@ -17,7 +53,7 @@ const upload = multer({ limits: { fileSize: 1024 * 1024 * 10 }, dest: './tmp/upl
     The attributes are:
         author (String)
         category (String)
-        content (String)
+        image (String)
         publish date (String)
         expiry date (String)
         url
@@ -25,7 +61,7 @@ const upload = multer({ limits: { fileSize: 1024 * 1024 * 10 }, dest: './tmp/upl
 router.get('/', async (req, res, next) => {
 
     // Query
-    const flyers = await Flyer.find().select('_id author title category publishDate expiryDate');
+    const flyers = await Flyer.find().select('_id author title category image publishDate expiryDate');
 
     // Map
     const flyersMap = flyers.map(x => {
@@ -34,6 +70,7 @@ router.get('/', async (req, res, next) => {
             author: x.author,
             title: x.content,
             category: x.category,
+            image: x.image,
             publishDate: x.publishDate,
             expiryDate: x.expiryDate,
             /*request: {
@@ -56,7 +93,7 @@ router.get('/', async (req, res, next) => {
     The attributes are:
         author (String)
         category (String)
-        content (String)
+        image (String)
         publish date (String)
         expiry date (String)
         url
@@ -85,12 +122,14 @@ router.get('/:id', async (req, res, next) => {
     The attributes are:
         author (String)
         category (String)
-        content (String)
+        image (String)
         publish date (String)
         expiry date (String)
         url
 */
 router.post('/', upload.single('image'), (req, res, next) => {
+
+    console.log(req.file);
 
     // Image file
     if (req.file == null) {
@@ -98,22 +137,24 @@ router.post('/', upload.single('image'), (req, res, next) => {
     }
 
     // Read image from temp location
-    const newImg = fs.readFileSync(req.file.path);
+    // const newImg = fs.readFileSync(req.file.path);
 
     // Encode image to base64 for mongoDB storage
-    const encImg = newImg.toString('base64');
+    // const encImg = newImg.toString('base64');
 
     // Create Flyer
     const flyer = new Flyer({
-        // _id: new mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         author: req.body.author,
         category: req.body.category,
         title: req.body.title,
-        image: {
-            name: req.file.path,
-            mimeType: req.body.mimeType,
-            buffer: Buffer(encImg, 'base64')
+        image: req.file.path,                       // require the path
+        /*{
+            // name: req.file.path,
+            // mimeType: req.body.mimeType,
+            // buffer: Buffer(encImg, 'base64')
         },
+        */
         publishDate: req.body.publishDate,
         expiryDate: req.body.expiryDate
     });
