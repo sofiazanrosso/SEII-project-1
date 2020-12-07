@@ -19,10 +19,11 @@ const searchRoute = require('./project-api/api/routes/search');
 // Configure dotenv
 dotenv.config();
 
+const uri = 'mongodb://SEIIdb-1:seii-group-1@seii-project-1-shard-00-00.lxn68.mongodb.net:27017,seii-project-1-shard-00-01.lxn68.mongodb.net:27017,seii-project-1-shard-00-02.lxn68.mongodb.net:27017/<dbname>?authSource=admin&replicaSet=atlas-pbzryp-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true';
 
 // DB Connection
 mongoose.connect(
-    process.env.DB_CONNECTION_STRING,
+    uri,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log('DB connection established.')
 );
