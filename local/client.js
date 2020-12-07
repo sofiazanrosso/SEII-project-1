@@ -235,3 +235,34 @@ function loadCategories() {
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
 }
+
+
+function login(){
+  var username=document.getElementById("username").value;
+  var password=document.getElementById("password").value;
+  window.alert(username+" "+password);
+}
+
+//function for register a user with POST
+function register(){
+  var newEmail=document.getElementById("email").value;
+  var newPassword=document.getElementById("password").value;
+  var newDisplayName=document.getElementById("displayName").value;
+  fetch(urlApi+"/auth/register",{
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+        {
+          email: newEmail,
+          password: newPassword,
+          displayName: newDisplayName
+        })
+  })
+  .then((resp) => {
+    console.log(resp);
+    //redirect the page
+    window.alert("Register Successful!");
+    window.location.href = 'index.html';
+  })
+  .catch(error => console.error(error));
+}
