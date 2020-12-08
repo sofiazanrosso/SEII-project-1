@@ -237,11 +237,6 @@ function loadCategories() {
 }
 
 
-function login(){
-  var username=document.getElementById("username").value;
-  var password=document.getElementById("password").value;
-  window.alert(username+" "+password);
-}
 
 //function for register a user with POST
 function register(){
@@ -258,11 +253,45 @@ function register(){
           displayName: newDisplayName
         })
   })
-  .then((resp) => {
-    console.log(resp);
-    //redirect the page
-    window.alert("Register Successful!");
-    window.location.href = 'index.html';
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {    
+    if(data.error != null) window.alert(data.error);
+    else{
+      console.log(data);
+      //redirect the page
+      window.alert("Register Successful!");
+      window.location.href = 'index.html';
+    }
+  })
+  .catch(error => console.error(error));
+}
+
+
+function login(){
+  var newEmail=document.getElementById("email").value;
+  var newPassword=document.getElementById("password").value;
+
+  fetch(urlApi+"/auth/login",{
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+        {
+          email: newEmail,
+          password: newPassword
+        })
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data)=>{
+    if(data.error != null) window.alert(data.error);
+    else{
+      window.alert("Login successful!");
+      //console.log(data.accessToken);
+      window.location.href = 'index.html';
+    }
   })
   .catch(error => console.error(error));
 }
