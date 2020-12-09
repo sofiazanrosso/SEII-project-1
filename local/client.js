@@ -1,4 +1,7 @@
 const urlApi= window.location.origin;
+
+var userToken;
+
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
     loadAll();    
@@ -289,9 +292,23 @@ function login(){
     if(data.error != null) window.alert(data.error);
     else{
       window.alert("Login successful!");
-      //console.log(data.accessToken);
+      userToken=data.accessToken;
       window.location.href = 'index.html';
+      sessionStorage.setItem("token",userToken);
+      //console.log(userToken);
     }
   })
   .catch(error => console.error(error));
+}
+
+function checkAuth(){
+  //console.log(sessionStorage.getItem("token"));
+  var token=sessionStorage.getItem("token");
+  if(token != null){
+    //DO SOMETHING
+    
+  }else {
+    //DON'T do something
+  };
+  
 }
