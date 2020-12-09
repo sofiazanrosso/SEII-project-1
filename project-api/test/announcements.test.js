@@ -15,81 +15,79 @@ chai.should();
 // allows chai to do http request
 chai.use(chaiHttp);
 
+// ------------- announcements testing -------------
+
 // contains the resource
-describe('announcements API', () => {
+describe('-- announcements API --', () => {
 
     // test the GET route
     describe("GET /routes/announcements", () => {
+
         it("it should GET all the announcements", (done) => {
+
             chai.request(app)
-            .get("/announcements")
-            .end((err, res) => {
-                res.should.have.status(200);
-                done();
-            });
+                .get("/announcements")
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done(err);
+                });
+
         });
+
+
         it("it should NOT GET all the announcements", (done) => {
+
             chai.request(app)
-            .get("/announements")
-            .end((err, res) => {
-                res.should.have.status(404);
-                done();
-            });
+                .get("/announements")
+                .end((err, res) => {
+                    res.should.have.status(404);
+                    done(err);
+                });
+
         });
+        
     });
+
+    // ------------------------------------------------------------
 
     // test the GET (by id) route
     describe("GET(id) /routes/announcements/:id", () => {
         
-        
-        it("it should NOT GET a task by ID", (done) => {
-            const _id = 1;
-            chai.request(app)
-            .get("/announcements/" + _id)
-            .end((err, response) => {
-                response.should.have.status(500);
-                done();
-            });
-        });
+        it("it should NOT GET an announcement by ID", (done) => {
 
-	    it("it should GET a task by ID", (done) => {
-            // announcement created properly for testing
-
-            // var id = mongoose.Schema.Types.ObjectId('5fbda2a6201256080d79f10a');
-            // const id = 1;
-            const id = parseInt('5fbda2a6201256080d79f10a', 16);
+            const id = '5fbda2a6201256080d79ee3f';                          // invalid _id
             chai.request(app)
-                .get("api/routes/announcements/" + id)
+                .get("/announcements/" + id)
                 .end((err, response) => {
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + err + response);
-
-                    should.exist(response.body);
-                    response.body.should.have.property('_id');
-                    response.should.have.status(200);
-                    // expect(200);
-                    // response.body.should.be.a('object');
-                    
-                    // should(response.body).have.property('_id');
-                    // response.body.should.have.property('title');
-                    // response.body.should.have.property('author');
-                    // response.body.should.have.property('category');
-                    // response.body.should.have.property('content');
-                    // response.body.should.have.property('publish_date');
-                    // response.body.should.have.property('expiry_date');
-                    // response.body.should.have.property('_id').eq('5fbda2a6201256080d79f10a');
-                    response.body.should.have.property('_id').eq(parseInt('5fbda2a6201256080d79f10a', 16));
-                    // expect(response.body).to.eql(id);
-                    
-                done();
+                    response.should.have.status(404);
+                    done(err);
                 });
+
         });
+
+
+	    it("it should GET an announcement by ID", (done) => {
+
+            const id = '5fbda2a6201256080d79f10a';
+            chai.request(app)
+                .get("/announcements/" + id)
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    response.body.should.have.property('announcement').that.include.all.keys(['_id','author']);                    
+                    done(err);
+                });
+
+        }).timeout(5000);
         
     });
 
+    // ------------------------------------------------------------
+
     // test the POST route
     describe("POST /routes/announcements", () => {
+
         it("it should POST an announcement", (done) => {
-            // announcement created properly for testing
+            
             const ann = {
                 title: "Testing",
                 author: "Name Surname",
@@ -98,16 +96,50 @@ describe('announcements API', () => {
                 publish_date: "03/01/01",
                 expiry_date: "03/02/01"
             };
+
             chai.request(app)
-            .post("/announcements")
-            .send(ann)
-            .end((err, response) => {
-                response.should.have.status(201);                
-                done();
-            });
-        });
+                .post("/announcements")
+                .send(ann)
+                .end((err, response) => {
+                    response.should.have.status(201);                
+                    done(err);
+                });
+
+        }).timeout(5000);
+
     });
 
+    // ------------------------------------------------------------
+
+    // test the DELETE route
+    describe("DELETE /announcementes/:id", () => {
+
+        it("it should NOT DELETE an existing announcement", (done) => {
+
+            const annid = 1;                          // invalid _id
+            chai.request(app)
+                .del("/announcements/" + annid)
+                .end((err, response) => {
+                    response.should.have.status(500);
+                    done(err);
+                });
+
+        });
+
+
+        it("it should DELETE an existing announcement", (done) => {
+
+            const id = '5fbe361364aca743044da920';
+            chai.request(app)
+                .del("/announcements/" + id)
+                .end((err, response) => {
+                    response.should.have.status(200);
+                    done(err);
+                });
+
+        });
+    });
     
+    // ------------------------------------------------------------
 
 });
