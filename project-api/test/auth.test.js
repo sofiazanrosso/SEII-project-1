@@ -9,7 +9,7 @@ chai.should();
 chai.use(chaiHttp);
 
 // contains the resource
-describe.only('auth API', () => {
+describe('auth API', () => {
 
     describe("POST /routes/auth", ()=>{
         it("it should NOT register an user (user already taken)",(done)=>{
