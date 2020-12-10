@@ -1,6 +1,9 @@
 //const category = require("../project-api/api/models/category");
 
 const urlApi= window.location.origin;
+
+var userToken;
+
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
     loadAll();    
@@ -271,4 +274,76 @@ function loadCategoriesBtn() {
         .catch(error => console.error(error));
 }
 
-// ------------------------------------------------------------
+
+
+//function for register a user with POST
+function register(){
+  var newEmail=document.getElementById("email").value;
+  var newPassword=document.getElementById("password").value;
+  var newDisplayName=document.getElementById("displayName").value;
+  fetch(urlApi+"/auth/register",{
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+        {
+          email: newEmail,
+          password: newPassword,
+          displayName: newDisplayName
+        })
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {    
+    if(data.error != null) window.alert(data.error);
+    else{
+      console.log(data);
+      //redirect the page
+      window.alert("Register Successful!");
+      window.location.href = 'index.html';
+    }
+  })
+  .catch(error => console.error(error));
+}
+
+
+function login(){
+  var newEmail=document.getElementById("email").value;
+  var newPassword=document.getElementById("password").value;
+
+  fetch(urlApi+"/auth/login",{
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(
+        {
+          email: newEmail,
+          password: newPassword
+        })
+  })
+  .then((res) => {
+    return res.json();
+  })
+  .then((data)=>{
+    if(data.error != null) window.alert(data.error);
+    else{
+      window.alert("Login successful!");
+      userToken=data.accessToken;
+      window.location.href = 'index.html';
+      sessionStorage.setItem("token",userToken);
+      //console.log(userToken);
+    }
+  })
+  .catch(error => console.error(error));
+}
+
+function checkAuth(){
+  //console.log(sessionStorage.getItem("token"));
+  var token=sessionStorage.getItem("token");
+  if(token != null){
+    //DO SOMETHING
+    
+  }else {
+    //DON'T do something
+  };
+  
+}
