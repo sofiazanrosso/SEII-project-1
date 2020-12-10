@@ -63,7 +63,7 @@
         <div class="form-group row">
           <label for="insertPublishDate" class="col-2 col-form-label">Insert publish date</label>
           <div class="col-10">
-            <input class="form-control" type="date" value="1999-01-01" id="publish_date" onchange="setExpiryDate()">
+            <input class="form-control" type="date" id="publish_date" onchange="setExpiryDate()">
           </div>
         </div>
 
@@ -74,7 +74,7 @@
           </div>
         </div>
 
-        <button type="button" onclick="addFlyer()" class="btn btn-primary">Insert new flyer</button>
+        <button type="button" onclick="addFlyer()" class="btn btn-primary" disabled>Insert new flyer</button>
         <button type="reset" class="btn btn-danger">Reset</button>
 
       </form>
