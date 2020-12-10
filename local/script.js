@@ -25,8 +25,8 @@ function addAnnouncement() {
                 author: newAuthor,
                 content: newContent,
                 category: newCategory,
-                publishDate: newPublishDate,
-                expiryDate: newExpiryDate
+                publish_date: newPublishDate,
+                expiry_date: newExpiryDate
             }),
     })
     .then((resp) => {

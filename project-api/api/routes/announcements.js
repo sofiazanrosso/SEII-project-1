@@ -85,8 +85,7 @@ router.post('/',(req,res,next)=>{
 
     announcement.save()
     .then(result=>{
-
-        if ( !(isDateValid(newPubDate)) || !(isDateValid(newExpDate))){
+        if ( !isDateValid(newPubDate)){
             //throw new Error('Invalid date');
             return Promise.reject('Invalid date inserted');
         }
@@ -100,8 +99,8 @@ router.post('/',(req,res,next)=>{
                 author: result.author,
                 category: result.category,
                 content: result.content,
-                publishDate: result.publishDate,
-                expiryDate: result.expiryDate,
+                publish_date: result.publish_date,
+                expiry_date: result.expiry_date,
                 request: {
                     type: 'POST',
                     url: "http://localhost:3000/announcement/"+result._id

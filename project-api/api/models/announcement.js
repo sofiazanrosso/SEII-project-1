@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 // Announcement Schema
-/*const announcementSchema = mongoose.Schema({
+const announcementSchema = mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId
     },
@@ -24,11 +24,11 @@ const mongoose = require('mongoose');
         type: String,
         required: true
     },
-    publishDate: {
+    publish_date: {
         type: String
-        // required: true
+        //required: true
     },
-    expiryDate: {
+    expiry_date: {
         type: String
         // required: true
     },
@@ -37,8 +37,8 @@ const mongoose = require('mongoose');
         default: true
     }
 });
-*/
 
+/*
 const announcementSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     title: { type: String, require: true },
@@ -49,7 +49,7 @@ const announcementSchema = mongoose.Schema({
     expiry_date: { type: String },
     expired: {type: Boolean, default: false}
 });
-
+*/
 // announcement model
 const Announcement = mongoose.model('Announcement', announcementSchema);
 

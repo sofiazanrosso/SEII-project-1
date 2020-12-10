@@ -173,7 +173,7 @@ function printAll(announcements,flyers){
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
-
+  console.log(countAnn+" "+annArray[0].expiry_date);
   // print announcements
   //var cardsA="<div class='card-column'>";
   var cardsA="<h2>Announcements</h2>";
@@ -358,6 +358,7 @@ function checkAuth(){
 function isExpired(date){      
     var today=new Date();
     var expiry_date=new Date(date);
+    //console.log(expiry_date);
     if((today>expiry_date) || (expiry_date=='Invalid Date')){
         return true;
     }
