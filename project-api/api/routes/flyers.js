@@ -64,24 +64,27 @@ router.get('/', async (req, res, next) => {
     const flyers = await Flyer.find().select('_id author title category image publishDate expiryDate');
 
     // Map
-    const flyersMap = flyers.map(x => {
-        return {
-            _id: x._id,
-            author: x.author,
-            title: x.content,
-            category: x.category,
-            image: x.image,
-            publishDate: x.publishDate,
-            expiryDate: x.expiryDate,
-            /*request: {
-                type: 'GET',
-                url: window.location.origin + '/flyers/' + x._id
-            }*/
-        }
-    });
+    const response = {
+        count : flyers.length,
+        flyer: flyers.map(x => {
+            return {
+                _id: x._id,
+                author: x.author,
+                title: x.title,
+                category: x.category,
+                image: x.image,
+                publishDate: x.publishDate,
+                expiryDate: x.expiryDate,
+                /*request: {
+                    type: 'GET',
+                    url: window.location.origin + '/flyers/' + x._id
+                }*/
+            }
+        })
+    }
 
     // Response
-    res.send(flyersMap);
+    res.send(response);
 
 });
 
