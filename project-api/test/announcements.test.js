@@ -40,7 +40,7 @@ describe('-- announcements API --', () => {
     });
 
     
-
+/*
     // test the POST route
     describe("-- POST /routes/announcements --", () => {
         it("it should POST an announcement", (done) => {
@@ -63,6 +63,6 @@ describe('-- announcements API --', () => {
         });
     });
 
-    
+    */
 
 });

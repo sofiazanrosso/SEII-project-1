@@ -30,7 +30,7 @@ describe('-- flyers API --', () => {
     });
 
     
-
+/*
     // test the POST route
     /*describe("-- POST /routes/flyers --", () => {
         it("it should POST a flyer", (done) => {

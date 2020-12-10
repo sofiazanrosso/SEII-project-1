@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 
-// general schema for a flyer
+// Flyer Schema
 const flyerSchema = mongoose.Schema({
-    // _id: {
-    //     type: mongoose.Schema.Types.ObjectId
-    // },
+    _id: {
+        type: mongoose.Schema.Types.ObjectId
+    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
