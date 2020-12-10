@@ -61,7 +61,7 @@ app.use('/search', searchRoute);
 
 
 // Temp
-app.use('/img', require('./project-api/api/routes/images'));
+// app.use('/img', require('./project-api/api/routes/images'));
 app.use('/private', require('./project-api/api/routes/private'));
 
 // ------------------------------------------------------------
