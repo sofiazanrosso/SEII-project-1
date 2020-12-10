@@ -33,8 +33,9 @@ router.get('/',(req,res,next)=>{
                     author: ann.author,
                     category: ann.category,
                     content: ann.content,
-                    publishDate: ann.publishDate,
-                    expiryDate: ann.expiryDate,
+                    publish_date: ann.publish_date,
+                    expiry_date: ann.expiry_date,
+                    expired: ann.expired,
                     request : {
                         type: 'GET',
                         url: 'http://localhost:3000/announcements/'+ann._id
@@ -66,19 +67,30 @@ router.get('/',(req,res,next)=>{
         expiryDate (String)
 */
 router.post('/',(req,res,next)=>{
-    
+    //Dates are stored in the db as Strings, but to manage the expiry date we temporary manage them as Date type 
+    var tempDate = req.body.publish_date;
+    var newPubDate = new Date (tempDate);
+    var newExpDate = new Date(newPubDate);
+    newExpDate.setMonth(newPubDate.getMonth()+2); //setting life of an announcement as 2 months
+
     const announcement= new Announcement({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
-        publishDate: req.body.publishDate,
-        expiryDate: req.body.expiryDate
+        publish_date:  newPubDate.getFullYear() + "-" + (newPubDate.getMonth()+1) + "-" + newPubDate.getDate(),
+        expiry_date: newExpDate.getFullYear()+ "-" + (newExpDate.getMonth()+1) + "-" + newExpDate.getDate() 
     });
 
     announcement.save()
     .then(result=>{
+
+        if ( !(isDateValid(newPubDate)) || !(isDateValid(newExpDate))){
+            //throw new Error('Invalid date');
+            return Promise.reject('Invalid date inserted');
+        }
+
         console.log(result);
         res.status(201).json({
             message: "Announcement posted",
@@ -196,5 +208,18 @@ router.delete('/:id',(req,res,next)=>{
 });
 
 // ------------------------------------------------------------
+
+/*
+    Function to check if a date is valid
+*/
+
+function isDateValid(date){
+    if (date == 'Invalid Date'){
+        return false;
+    } else {
+        return true;
+    }
+};
+
 
 module.exports = router;

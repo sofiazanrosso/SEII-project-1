@@ -9,8 +9,12 @@ function addAnnouncement() {
     const newAuthor = document.getElementById("author").value;
     const newContent = document.getElementById("content").value;
     const newCategory = document.getElementById("cat").value;
-    const newExpiryDate = document.getElementById("expiryDate").value;
-    const newPublishDate = document.getElementById("publishDate").value;
+    // const newExpiryDate = document.getElementById("expiryDate").value;
+    // const newPublishDate = document.getElementById("publishDate").value;
+    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
+
+    //TODO: Controllare che la data sia maggiore di quella odierna, e in caso positivo abilitare il btn add announcements
 
     fetch(urlApi + "/announcements", {
         method: 'POST',
@@ -40,8 +44,10 @@ function addAnnouncement() {
 function addFlyer() {
     var newAuthor = document.getElementById("author").value;
     var newContent = document.getElementById("content").value;
-    var newExpiryDate = document.getElementById("expiryDate").value;
-    var newPublishDate = document.getElementById("publishDate").value;
+    // var newExpiryDate = document.getElementById("expiryDate").value;
+    // var newPublishDate = document.getElementById("publishDate").value;
+    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     // do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -144,3 +150,45 @@ function loadDates() {
 }
 
 // ------------------------------------------------------------
+
+function setExpiryDate(){
+    const newPublishDate = document.getElementById("publish_date").value;    
+    var tmp=Date.parse(newPublishDate);
+    var exp=new Date(tmp);
+    exp.setMonth(exp.getMonth()+2);
+    exp=exp.toLocaleDateString();
+    document.getElementById("expiry_date").innerHTML=exp;
+
+    var tmp = new Date(newPublishDate);
+    var today = new Date();
+    today.setDate(today.getDate()-1);
+    if (tmp < today){
+        window.alert("Invalid data");
+        document.getElementById("annBtn").disabled = true;
+    } else {
+        document.getElementById("annBtn").disabled = false;
+    }
+}
+
+//function to check the expiry date of the announcements
+function checkExpiryDateAnn(){
+    fetch(urlApi+"/announcements")
+    .then(response=>response.json())  //convert the response to json and pass it to the next promise
+    .then(res => 
+    {
+      //obtains the number of announcements
+      let count=res.count;
+      let announcements=res.announcement;      
+      var today=new Date();
+      var expired=[];
+      for(var i=0;i<count;i++){
+        var expiry_date=new Date(announcements[i].expiry_date);
+        if((today>expiry_date) || (expiry_date=='Invalid Date')){
+            //hide the announcement
+            expired.push(announcements[i]._id);
+        }
+      }
+      console.log(expired);
+
+    });
+}
