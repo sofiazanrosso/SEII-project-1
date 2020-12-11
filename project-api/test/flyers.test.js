@@ -31,17 +31,17 @@ describe('-- flyers API --', () => {
 
         }).timeout(5000);
 
-        /*
+        
         it("it should NOT GET all the flyers", (done) => {
 
             chai.request(app)
-                .get("/flyers")
+                .get("/flyer")
                 .end((err, res) => {
                     res.should.have.status(404);
                     done(err);
                 });
 
-        });*/
+        });
 
     });
 
@@ -70,11 +70,10 @@ describe('-- flyers API --', () => {
                 .get("/flyers/" + id)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('flyer').that.include.all.keys(['_id','category']);                   
+                    response.body.should.have.property('flyer').that.include.all.keys(['_id','author']);                   
                     done(err);
-                });
-            
-        }).timeout(10000);
+                });            
+        }).timeout(30000);
         
         
     });
