@@ -73,7 +73,13 @@ router.get('/:id', (req, res, next) => {
     .then(doc => {
         console.log("From database", doc);
         if (doc) {
-            res.status(200).json(doc);
+            res.status(200).json({
+                flyer: doc,
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/flyers'
+                }
+            });
         } else {
             res.status(404).json({ message: 'No valid entry found for given id'});
         }

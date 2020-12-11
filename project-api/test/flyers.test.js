@@ -62,7 +62,7 @@ describe('-- flyers API --', () => {
 
         });
 
-        /*
+        
 	    it("it should GET a flyer by ID", (done) => {
 
             const id = '5fcf414d27b61d4660d6610b';
@@ -70,12 +70,12 @@ describe('-- flyers API --', () => {
                 .get("/flyers/" + id)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('flyer').that.include.all.keys(['_id','author']);                    
+                    response.body.should.have.property('flyer').that.include.all.keys(['_id','category']);                   
                     done(err);
                 });
             
-        }).timeout(5000);
-        */
+        }).timeout(10000);
+        
         
     });
 
