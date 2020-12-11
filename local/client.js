@@ -77,7 +77,10 @@ function printFlyers(count,flyers){
     cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
-    cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
+    //cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
+    //needs the path of the image for printing it
+    if(flyers[i].image==null) cards+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
+    else cards+="<img  width='100%' height='180' src='"+flyers[i].image+"' role='img'></img>";
     cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publishDate+"<br>";
     cards+="Expiry date: "+flyers[i].expiryDate+"</p>";
     cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
@@ -204,7 +207,11 @@ function printAll(announcements,flyers){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
-    cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='"+urlApi+'/images/'+flyArray[i].image+"' role='img'></img>";
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+    // cardsF+="<img src='data:image/jpeg;"+flyArray[i].image+"'role='img'></img>";
+
     cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publishDate+"<br>";
     cardsF+="Expiry date: "+flyArray[i].expiryDate+"</p>";
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
@@ -264,6 +271,7 @@ function printSingleFlyer(response){
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
   cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
   cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
+  cards+="LOL";
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;

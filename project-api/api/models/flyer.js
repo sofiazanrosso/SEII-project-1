@@ -21,7 +21,10 @@ const flyerSchema = mongoose.Schema({
         required: true
     },
     image: {
-        name: {
+        type: String,
+        required: true
+
+        /*name: {
             type: String,
             required: true
         },
@@ -32,7 +35,7 @@ const flyerSchema = mongoose.Schema({
         buffer: {
             type: Buffer,
             required: true
-        }
+        }*/
     },
     publishDate: {
         type: String,

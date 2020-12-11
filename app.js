@@ -32,6 +32,7 @@ mongoose.Promise = global.Promise;
 // Middleware
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use('/images', express.static('images'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
