@@ -121,7 +121,7 @@ describe('-- announcements API --', () => {
             chai.request(app)
                 .del("/announcements/" + annid)
                 .end((err, response) => {
-                    response.should.have.status(404);
+                    response.should.have.status(500);
                     done(err);
                 });
 

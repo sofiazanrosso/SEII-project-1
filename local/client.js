@@ -55,8 +55,8 @@ function printAnnouncement(count,announcements){
       cards+="<div class='card-body text-center'>";
       cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
       cards+="<h5 class='card-header'> Author: "+announcements[i].author+"</h5>";
-      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publishDate+"<br>";
-      cards+="Expiry date: "+announcements[i].expiryDate+"</p>";
+      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
+      cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
       cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
       cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
       cards+="</div></div>";
@@ -73,7 +73,7 @@ function printFlyers(count,flyers){
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>"
   for(let i=0;i<count;i++){
-    if (!isExpired(flyers[i].expiry_date)){
+    if (!isExpired(flyers[i].expiryDate)){
     cards+="<div class='card'>";
     cards+="<div class='card-body text-center'>";
     cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
@@ -203,7 +203,7 @@ function printAll(announcements,flyers){
   var cardsF ="<h2>Flyers</h2>";
   cardsF+="<div class='card-columns'>";
   for(let i=0;i<countFly;i++){
-    if (!isExpired(flyArray[i].expiry_date)){
+    if (!isExpired(flyArray[i].expiryDate)){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
@@ -211,6 +211,8 @@ function printAll(announcements,flyers){
     // cardsF+="<img class='card-img-top' width='100%' height='180' source='"+urlApi+'/images/'+flyArray[i].image+"' role='img'></img>";
     // cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
     // cardsF+="<img src='data:image/jpeg;"+flyArray[i].image+"'role='img'></img>";
+    if(flyArray[i].image==null) cardsF+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
+    else cardsF+="<img  width='100%' height='180' src='"+flyArray[i].image+"' role='img'></img>";
 
     cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publishDate+"<br>";
     cardsF+="Expiry date: "+flyArray[i].expiryDate+"</p>";
@@ -253,8 +255,8 @@ function printSingleAnnouncement(response){
   cards+="<div class='card-body text-center'>";
   cards+="<h3 class='card-title'> Author: "+response.author+"<br></h3>";
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
-  cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
-  cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
+  cards+="<p class='card-text'> Publish date: "+response.publish_date+"</p>";
+  cards+="<p class='card-text'> Expiry date: "+response.expiry_date+"</p>";
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;
@@ -271,7 +273,6 @@ function printSingleFlyer(response){
   cards+="<p class='card-text'> Content: "+response.content+"</p>";
   cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
   cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
-  cards+="LOL";
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;
