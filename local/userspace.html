@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset='utf-8'>
+    <title>Board</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="template.css">
+
+</head>
+<body onload="loadCategoriesBtn()">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="client.js"></script>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="nav-link btn btn-dark" href="index.html" role="button">Home<span class="sr-only"></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <!-- navigation bar to load only announcements or only flyers -->
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <button class="nav-link btn-dark" onclick="loadAnnouncements()">Announcements<span class="sr-only"></span></button>
+            </li>
+            <li class="nav-item active">
+              <button class="nav-link btn-dark" onclick="loadFlyers()">Flyers<span class="sr-only"></span></button>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>-->
+
+            <!-- NEED TO FIX
+            <li class="nav-item dropdown btn-dark">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01" id="cat">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+
+              </div>
+            </li>
+          -->
+          </ul>
+        <!--
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        -->
+        
+        </div>
+      </nav>
+      
+      <main role="main">
+      
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <div class="container">
+            <h1 class="display-5">Your personal space</h1>
+            <p>This is where you can find all of your posts even the expired ones.</p>
+          </div>
+          <div class="container">
+            <a class="btn btn-info" href="add.html" role="button">Add announcement</a>
+            <a class="btn btn-info" href="addFly.html" role="button">Add flyer</a>
+            <br><br>
+          </div>
+        </div>
+      
+        <!-- announcements and flyers columns -->
+        <div class="container" id="root">
+          <hr> 
+        </div> 
+      
+      </main>
+      
+      <!-- group description -->
+      <footer class="container">
+        <p>Software Engineering Project - Group 1 [Godi, Vincoli, Zanrosso, Xompero]</p>
+      </footer>
+
+</body>
+
+</html>
