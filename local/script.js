@@ -5,6 +5,7 @@ const urlApi = window.location.origin;
 
 // function to add an announcement
 function addAnnouncement() {
+
     const newTitle = document.getElementById("title").value;
     const newAuthor = document.getElementById("author").value;
     const newContent = document.getElementById("content").value;
@@ -36,18 +37,21 @@ function addAnnouncement() {
         window.location.href = 'index.html';
     })
     .catch(error => console.error(error));
+
 }
 
 // ------------------------------------------------------------
 
 // function to add a new flyer
 function addFlyer() {
+
+    var newTitle = document.getElementById("title").value;
     var newAuthor = document.getElementById("author").value;
-    var newContent = document.getElementById("content").value;
+    // var newImage = document.getElementById("image").value;
     // var newExpiryDate = document.getElementById("expiryDate").value;
     // var newPublishDate = document.getElementById("publishDate").value;
-    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
-    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
+    const newExpiryDate = document.getElementById("expiryDate").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publishDate").value).toLocaleDateString();
 
     // do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -55,19 +59,22 @@ function addFlyer() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
             {
+                title: newTitle,
                 author: newAuthor,
-                content: newContent,
+                // image: newImage,
                 publishDate: newPublishDate,
                 expiryDate: newExpiryDate
-            }),
+            }
+        )
     })
-        .then((resp) => {
-            console.log(resp);
-            //redirect the page
-            window.location.href = 'index.html';
-            return;
-        })
-        .catch(error => console.error(error)); // If there is any error you will catch them here
+    .then((resp) => {
+        console.log(resp);
+        //redirect the page
+        window.location.href = 'index.html';
+        return;
+    })
+    .catch(error => console.error(error)); // If there is any error you will catch them here
+
 }
 
 // ------------------------------------------------------------
@@ -81,6 +88,7 @@ function loadCategories() {
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
+
 }
 
 // ------------------------------------------------------------
@@ -101,12 +109,10 @@ function searchAnnouncements() {
     paramsUrl.searchParams.append("to_publish", document.getElementById('to_publish').value);
     paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
     paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
-
     */
+
     console.log("API REQ:");
     console.log(paramsUrl.href);
-
-
 
     // GET request
     fetch(paramsUrl + params)
@@ -132,6 +138,7 @@ function searchAnnouncements() {
             cards += "</div>";
             document.getElementById('root').innerHTML = cards;
         });
+
 }
 
 
@@ -151,11 +158,13 @@ function loadDates() {
     // To
     document.getElementById('to_publish').value = maxDate;
     document.getElementById('to_expiry').value = maxDate;
+
 }
 
 // ------------------------------------------------------------
 
 function setExpiryDate(){
+
     const newPublishDate = document.getElementById("publish_date").value;    
     var tmp=Date.parse(newPublishDate);
     var exp=new Date(tmp);
@@ -172,10 +181,14 @@ function setExpiryDate(){
     } else {
         document.getElementById("annBtn").disabled = false;
     }
+
 }
+
+// ------------------------------------------------------------
 
 //function to check the expiry date of the announcements
 function checkExpiryDateAnn(){
+
     fetch(urlApi+"/announcements")
     .then(response=>response.json())  //convert the response to json and pass it to the next promise
     .then(res => 
@@ -195,4 +208,5 @@ function checkExpiryDateAnn(){
       console.log(expired);
 
     });
+
 }

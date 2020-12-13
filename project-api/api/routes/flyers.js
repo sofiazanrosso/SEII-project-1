@@ -112,7 +112,7 @@ router.get('/:id', async (req, res, next) => {
     // Response
     if (flyer) {
         res.status(200).json({
-            flyer: doc,
+            flyer: flyer,
             request: {
                 type: 'GET',
                 url: 'http://localhost:3000/flyers'

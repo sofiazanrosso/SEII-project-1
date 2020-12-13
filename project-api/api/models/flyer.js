@@ -7,8 +7,9 @@ const flyerSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'User',
+        type: String,
         required: true,
         immutable: true
     },
