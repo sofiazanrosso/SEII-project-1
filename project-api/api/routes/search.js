@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router = express.Router();
 
 const Announcement = require('../models/announcement');
+const Flyer = require('../models/flyer');
 
 
 router.get('/:includes', async (req, res, next) => {
@@ -18,7 +19,7 @@ router.get('/:includes', async (req, res, next) => {
     });
 
     // Flyers query
-    const flyers = await Announcement.find(
+    const flyers = await Flyer.find(
         { "title": { $regex: lookfor, $options: 'i' } }
     );
 

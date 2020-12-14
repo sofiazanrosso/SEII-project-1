@@ -45,21 +45,21 @@ function loadFlyers(){
 
 // ------------------------------------------------------------
 
-//print the announcements
+// print the announcements
 function printAnnouncement(count,announcements){
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>";
     for(let i=0;i<count;i++){
       if (!isExpired(announcements[i].expiry_date)){
-      cards+="<div class='card'>";
-      cards+="<div class='card-body text-center'>";
-      cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
-      cards+="<h5 class='card-header'> Author: "+announcements[i].author+"</h5>";
-      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publishDate+"<br>";
-      cards+="Expiry date: "+announcements[i].expiryDate+"</p>";
-      cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
-      cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
-      cards+="</div></div>";
+        cards+="<div class='card'>";
+        cards+="<div class='card-body text-center'>";
+        cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
+        cards+="<h5 class='card-header'> Author: "+announcements[i].author+"</h5>";
+        cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
+        cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
+        cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
+        cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
+        cards+="</div></div>";
       }
     }
     cards+="</div></div>";
@@ -68,22 +68,27 @@ function printAnnouncement(count,announcements){
 
 // ------------------------------------------------------------
 
-//print the flyers
+// print the flyers
 function printFlyers(count,flyers){
+
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>"
   for(let i=0;i<count;i++){
-    if (!isExpired(flyers[i].expiry_date)){
-    cards+="<div class='card'>";
-    cards+="<div class='card-body text-center'>";
-    cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
-    cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
-    cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publishDate+"<br>";
-    cards+="Expiry date: "+flyers[i].expiryDate+"</p>";
-    cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
-    cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
-    cards+="</div></div>";
+    if (!isExpired(flyers[i].expiryDate)){
+      cards+="<div class='card'>";
+      cards+="<div class='card-body text-center'>";
+      cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
+      //cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
+      //needs the path of the image for printing it
+      if(flyers[i].image==null) cards+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
+      else cards+="<img  width='100%' height='180' src='"+ changePath(flyers[i].image) +"' role='img'></img>";
+      cards+="<p class='card-text text-muted'> Publish date: "+flyers[i].publishDate+"<br>";
+      cards+="Expiry date: "+flyers[i].expiryDate+"</p>";
+      cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
+      cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
+      cards+="</div></div>";
     }
+
   }
   cards+="</div></div>";
   document.getElementById('root').innerHTML=cards;
@@ -169,11 +174,14 @@ function loadAll(){
 
 // print annoouncements and flyers
 function printAll(announcements,flyers){
+
   let countAnn=announcements.count;
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
   console.log(countAnn+" "+annArray[0].expiry_date);
+
+  // -------------------
   // print announcements
   //var cardsA="<div class='card-column'>";
   var cardsA="<h2>Announcements</h2>";
@@ -182,8 +190,8 @@ function printAll(announcements,flyers){
     if (!isExpired(annArray[i].expiry_date)){
       cardsA+="<div class= 'card'>";
       cardsA+="<div class='card-body text-center'>";
-      cardsA+= "<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
-      cardsA+="<h5 class='card-title'> Author: "+annArray[i].author+"</h5>";
+      cardsA+="<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
+      cardsA+="<h5 class='card-title'>"+annArray[i].author+"</h5>";
       //res+="<p class='card-text'>"+announcements[i].content+"</p>";
       cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publish_date+"<br>";
       cardsA+="Expiry date: "+annArray[i].expiry_date+"</p>";
@@ -195,16 +203,23 @@ function printAll(announcements,flyers){
   cardsA+="</div>";
   document.getElementById('rootA').innerHTML=cardsA;
 
+  // -------------------
   // print flyers
   //var cardsF="<div class='card-column'>";
   var cardsF ="<h2>Flyers</h2>";
   cardsF+="<div class='card-columns'>";
   for(let i=0;i<countFly;i++){
-    if (!isExpired(flyArray[i].expiry_date)){
+    if (!isExpired(flyArray[i].expiryDate)){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
     cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
-    cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='"+urlApi+'/images/'+flyArray[i].image+"' role='img'></img>";
+    // cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
+    // cardsF+="<img src='data:image/jpeg;"+flyArray[i].image+"'role='img'></img>";
+    if(flyArray[i].image==null) cardsF+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
+    else cardsF+="<img  width='100%' height='180' src='"+ changePath(flyArray[i].image) +"' role='img'></img>";
+
     cardsF+="<p class='card-text text-muted'> Publish date: "+flyArray[i].publishDate+"<br>";
     cardsF+="Expiry date: "+flyArray[i].expiryDate+"</p>";
     cardsF+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyArray[i]._id+"\")'>See Flyer</a>";
@@ -233,7 +248,7 @@ function show(text,id){
         printSingleAnnouncement(res.announcement);
       else 
         //document.getElementById('root').innerHTML=res.content;  
-        printSingleFlyer(res);
+        printSingleFlyer(res.flyer);
     });
 }
 
@@ -241,18 +256,26 @@ function show(text,id){
 
 // print a single announcement 
 function printSingleAnnouncement(response){
+
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
-  cards+="<h3 class='card-title'> Author: "+response.author+"<br></h3>";
-  cards+="<p class='card-text'> Content: "+response.content+"</p>";
-  cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
-  cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
+
+  cards+="<h2 class='card-title text-center'>"+response.title+"</h2>";                                  // title
+  cards+="<h5 class='card-text'>"+response.author+"</h5><hr class='red-line'>";                         // author
+  cards+="<p class='card-text'>"+response.content+"</p>";                                               // content
+  cards+="<p class='card-text'> Publish date: "+response.publish_date+"</p>";                                          // publish date
+  cards+="<p class='card-text'> Expiry date: "+response.expiry_date+"</p>";                                           // expiry date
+
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;
+
 }
 
+// ------------------------------------------------------------
+//                      NON FUNZIONA
+//          I CAMPI STAMPATI SONO TUTTI UNDEFINED
 // ------------------------------------------------------------
 
 // print a single flyer
@@ -260,13 +283,17 @@ function printSingleFlyer(response){
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
-  cards+="<h3 class='card-title'> Author: "+response.author+"<br></h3>";
-  cards+="<p class='card-text'> Content: "+response.content+"</p>";
+
+  cards+="<h2 class='card-title text-center'> Title: "+response.title+"</h2>";
+  cards+="<h5 class='card-title'> Author: "+response.author+"<br></h5><hr class='red-line'>";
+  // cards+="<p class='card-text'> Image: "+response.image+"</p>";
   cards+="<p class='card-text'> Publish date: "+response.publishDate+"</p>";
   cards+="<p class='card-text'> Expiry date: "+response.expiryDate+"</p>";
+
   cards+="</div></div>";
   cards+="</div>";
   document.getElementById('root').innerHTML=cards;
+
 }
 
 // ------------------------------------------------------------
@@ -280,15 +307,18 @@ function loadCategoriesBtn() {
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.innerHTML+='<a class="btn btn-secondary" onclick="selectCat( \'' + x._id + '\' )" role="button">'+ x.name +'</a> ' ) } ) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
+
 }
 
-
+// ------------------------------------------------------------
 
 //function for register a user with POST
 function register(){
+
   var newEmail=document.getElementById("email").value;
   var newPassword=document.getElementById("password").value;
   var newDisplayName=document.getElementById("displayName").value;
+
   fetch(urlApi+"/auth/register",{
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -312,10 +342,13 @@ function register(){
     }
   })
   .catch(error => console.error(error));
+
 }
 
+// ------------------------------------------------------------
 
 function login(){
+
   var newEmail=document.getElementById("email").value;
   var newPassword=document.getElementById("password").value;
 
@@ -342,9 +375,13 @@ function login(){
     }
   })
   .catch(error => console.error(error));
+
 }
 
+// ------------------------------------------------------------
+
 function checkAuth(){
+
   //console.log(sessionStorage.getItem("token"));
   var token=sessionStorage.getItem("token");
   if(token != null){
@@ -355,7 +392,11 @@ function checkAuth(){
   };
   
 }
+
+// ------------------------------------------------------------
+
 function isExpired(date){      
+
     var today=new Date();
     var expiry_date=new Date(date);
     //console.log(expiry_date);
@@ -363,4 +404,22 @@ function isExpired(date){
         return true;
     }
     return false;
+
+}
+
+// ------------------------------------------------------------
+
+function changePath(oldPath){
+
+  // oldPath tipo "images\\7trasferimento.jpg"
+  // newPath tipo "../images/7trasferimento.jpg"
+
+  console.log(oldPath);
+  if(oldPath.startsWith("images\\")){
+    oldPath = oldPath.substring(7);
+  }
+  const newPath = "../images/" + oldPath;
+  console.log(newPath);
+  return newPath;
+
 }

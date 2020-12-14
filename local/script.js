@@ -5,6 +5,7 @@ const urlApi = window.location.origin;
 
 // function to add an announcement
 function addAnnouncement() {
+
     const newTitle = document.getElementById("title").value;
     const newAuthor = document.getElementById("author").value;
     const newContent = document.getElementById("content").value;
@@ -36,14 +37,16 @@ function addAnnouncement() {
         window.location.href = 'index.html';
     })
     .catch(error => console.error(error));
+
 }
 
 // ------------------------------------------------------------
 
 // function to add a new flyer
 function addFlyer() {
+
     var newAuthor = document.getElementById("author").value;
-    var newContent = document.getElementById("content").value;
+    // var newImage = document.getElementById("image").value;
     // var newExpiryDate = document.getElementById("expiryDate").value;
     // var newPublishDate = document.getElementById("publishDate").value;
     const newExpiryDate = document.getElementById("expiry_date").innerHTML;
@@ -56,18 +59,20 @@ function addFlyer() {
         body: JSON.stringify(
             {
                 author: newAuthor,
-                content: newContent,
+                // image: newImage,
                 publishDate: newPublishDate,
                 expiryDate: newExpiryDate
-            }),
+            }
+        )
     })
-        .then((resp) => {
-            console.log(resp);
-            //redirect the page
-            window.location.href = 'index.html';
-            return;
-        })
-        .catch(error => console.error(error)); // If there is any error you will catch them here
+    .then((resp) => {
+        console.log(resp);
+        //redirect the page
+        window.location.href = 'index.html';
+        return;
+    })
+    .catch(error => console.error(error)); // If there is any error you will catch them here
+
 }
 
 // ------------------------------------------------------------
@@ -81,6 +86,7 @@ function loadCategories() {
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.add(new Option(x.name, x._id))) }) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
+
 }
 
 // ------------------------------------------------------------
@@ -89,23 +95,25 @@ function loadCategories() {
 function searchAnnouncements() {
 
     // Create GET request with params
-    const paramsUrl = new URL(urlApi + '/search');
+    const paramsUrl = new URL(urlApi + '/search/');
 
     // Params
-    paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
+    //paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
+    const params = document.getElementById('includes').value;
+    
+    /*
     paramsUrl.searchParams.append("caseSensitive", "false");
     paramsUrl.searchParams.append("from_publish", document.getElementById('from_publish').value);
     paramsUrl.searchParams.append("to_publish", document.getElementById('to_publish').value);
     paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
     paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
+    */
 
     console.log("API REQ:");
     console.log(paramsUrl.href);
 
-
-
     // GET request
-    fetch(paramsUrl)
+    fetch(paramsUrl + params)
         .then(res => res.json())
         .then(data => {
 
@@ -113,9 +121,9 @@ function searchAnnouncements() {
             console.log(data);
 
             // Fill html
-            var cards = "<div class='card-deck'>";
+            var cards = "<div class='card-columns'>";
 
-            data.announcements.forEach(x => {
+            data.announcements.announcements.forEach(x => {
                 cards += "<div class='card bg-success'>";
                 cards += "<div class='card-body text-center'>";
                 cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
@@ -128,6 +136,7 @@ function searchAnnouncements() {
             cards += "</div>";
             document.getElementById('root').innerHTML = cards;
         });
+
 }
 
 
@@ -147,11 +156,13 @@ function loadDates() {
     // To
     document.getElementById('to_publish').value = maxDate;
     document.getElementById('to_expiry').value = maxDate;
+
 }
 
 // ------------------------------------------------------------
 
 function setExpiryDate(){
+
     const newPublishDate = document.getElementById("publish_date").value;    
     var tmp=Date.parse(newPublishDate);
     var exp=new Date(tmp);
@@ -168,10 +179,14 @@ function setExpiryDate(){
     } else {
         document.getElementById("annBtn").disabled = false;
     }
+
 }
+
+// ------------------------------------------------------------
 
 //function to check the expiry date of the announcements
 function checkExpiryDateAnn(){
+
     fetch(urlApi+"/announcements")
     .then(response=>response.json())  //convert the response to json and pass it to the next promise
     .then(res => 
@@ -188,7 +203,6 @@ function checkExpiryDateAnn(){
             expired.push(announcements[i]._id);
         }
       }
-      console.log(expired);
-
     });
+
 }

@@ -2,7 +2,7 @@ const express = require('express');
 const chaiHttp= require("chai-http");
 const chai = require("chai");
 const app = require('../../app');
-const Announcement= require('../api/models/announcement');
+const Category= require('../api/models/category');
 const mocha = require("mocha");
 const { response } = require('../../app');
 //const { response } = require('../app');
@@ -17,30 +17,30 @@ chai.should();
 chai.use(chaiHttp);
 
 
-// ------------- announcements testing ------------- 
+// ------------- categories testing ------------- 
 
 
 // contains the resource
-describe('-- announcements API --', () => {
+describe('-- categories API --', () => {
 
     // test the GET route
-    describe("-- GET /routes/announcements --", () => {
-        it("it should GET all the announcements", (done) => {
+    describe("-- GET /routes/categories --", () => {
+        it("it should GET all the categories", (done) => {
 
             chai.request(app)
-                .get("/announcements")
+                .get("/categories")
                 .end((err, res) => {
                     res.should.have.status(200);
                     done(err);
                 });
 
-        }).timeout(10000);
+        });
 
 
-        it("it should NOT GET all the announcements", (done) => {
+        it("it should NOT GET all the categories", (done) => {
 
             chai.request(app)
-                .get("/announements")
+                .get("/cathegories")
                 .end((err, res) => {
                     res.should.have.status(404);
                     done(err);
@@ -53,53 +53,51 @@ describe('-- announcements API --', () => {
     // ------------------------------------------------------------
 
     // test the GET (by id) route
-    describe("GET(id) /routes/announcements/:id", () => {
-        
-        it("it should NOT GET an announcement by ID", (done) => {
+    describe("GET(id) /routes/categories/:id", () => {
+        /*
+        it("it should NOT GET a category by ID", (done) => {
 
-            const id = '5fbda2a6201256080d79ee3f';                          // invalid _id
+            const id = "1aaaa11a111aa1111aa1111";                          // invalid _id
             chai.request(app)
-                .get("/announcements/" + id)
+                .get("/categories/" + id)
                 .end((err, response) => {
                     response.should.have.status(404);
                     done(err);
                 });
 
         });
+        */
 
+        
+	    it("it should GET a category by ID and return announcements and flyers", (done) => {
 
-	    it("it should GET an announcement by ID", (done) => {
-
-            const id = '5fbfe8f1b67e19497c141f39';
+            const id = '5fbbf40c795ed2391cb71979';
             chai.request(app)
-                .get("/announcements/" + id)
+                .get("/categories/" + id)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('announcement').that.include.all.keys(['_id','author']);                    
+                    response.body.should.have.property('announcement');                    
                     done(err);
                 });
 
         }).timeout(10000);
         
     });
+    
 
     // ------------------------------------------------------------
-    /*
+    /*  FUNZIONA, MA DISTURBA IL DATABASE
     // test the POST route
-    describe("-- POST /routes/announcements --", () => {
-        it("it should POST an announcement", (done) => {
+    describe("-- POST /routes/categories --", () => {
+        it("it should POST a category", (done) => {
             
-            const ann = {
-                title: "Testing",
-                author: "Name Surname",
-                category: "5fbbf415795ed2391cb7197a",
-                content: "Content",
-                publishDate: "01/01/2022"
+            const cat = {
+                name : "Test Category"
             };
 
             chai.request(app)
-                .post("/announcements")
-                .send(ann)
+                .post("/categories")
+                .send(cat)
                 .end((err, response) => {
                     response.should.have.status(201);                
                     done(err);
@@ -109,28 +107,27 @@ describe('-- announcements API --', () => {
 
     });
     */
-
     // ------------------------------------------------------------
 
     // test the DELETE route
-    describe("DELETE /announcements/:id", () => {
+    describe("DELETE /categories/:id", () => {
 
         it("it should NOT DELETE an existing announcement", (done) => {
 
             const annid = 1;                          // invalid _id
             chai.request(app)
-                .del("/announcements/" + annid)
+                .del("/categories/" + annid)
                 .end((err, response) => {
-                    response.should.have.status(500);
+                    response.should.have.status(404);
                     done(err);
                 });
 
         });
 
+        /*
+        it("it should DELETE an existing category", (done) => {
 
-        it("it should DELETE an existing announcement", (done) => {
-
-            const id = '5fbe361364aca743044da920';
+            const id = '5fbbf402795ed2391cb71978';
             chai.request(app)
                 .del("/announcements/" + id)
                 .end((err, response) => {
@@ -139,6 +136,7 @@ describe('-- announcements API --', () => {
                 });
 
         });
+        */
     });
     
     // ------------------------------------------------------------

@@ -11,6 +11,11 @@ h3 {
     margin: 30px;
 }
 
+.red-line {
+    background-color: #ce132d;
+    border: 3px solid #ce132d;
+}
+
 .btn {
     font-size: 15px;
     border: 0px;
@@ -19,7 +24,7 @@ h3 {
 }
 
 .btn-primary {
-    background-color: darkcyan;
+    background-color: #ce132d;
 }
 
 .btn-primary:hover {
@@ -27,7 +32,8 @@ h3 {
 }
 
 .btn-secondary {
-    background-color: rgb(94, 99, 102);
+    background-color: #dadada;
+    color: black;
 }
 
 .btn-secondary:hover {
@@ -43,13 +49,17 @@ h3 {
 }
 
 .btn-dark{
-    background-color: rgb(52, 58, 64);
+    background-color:#dadada;
     box-shadow: 0px;
     border: 0px;
     font-size: 20px;
-    color: rgb(255, 255, 255);
+    color:black;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.btn-success {
+    background-color: #ce132d;
 }
 
 .card-columns {
@@ -91,10 +101,45 @@ h3 {
 
 .jumbotron {
     padding-bottom: 30px;
+    background-color: #ffffff;
+}
+
+.float-left {
+    margin-right: 30px;
+    margin-bottom: 50px;
 }
 
 .footer {
     float: bottom;
     position: relative;
+    background-color: #cccccc;
+}
 
+#formBox {
+    float: center;
+    /*background-color: rgb(233, 236, 239);*/
+    /*max-width: 650px;
+    min-width: 650px;*/
+    max-height: 500px;
+    min-height: 500px; 
+    margin: auto;
+    width: 70%;
+    border: 2px solid ce132d;
+    padding: 10px;
+    align-content: center;
+    vertical-align: middle;
+
+
+}
+
+#searchResultBox {
+    margin-bottom: 30px;
+}
+
+.navbar-dark {
+    background-color: #dadada;
+}
+
+.nav-link {
+    color: black;
 }

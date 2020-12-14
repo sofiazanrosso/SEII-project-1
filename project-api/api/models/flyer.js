@@ -7,8 +7,9 @@ const flyerSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'User',
+        type: String,
         required: true,
         immutable: true
     },
@@ -21,7 +22,10 @@ const flyerSchema = mongoose.Schema({
         required: true
     },
     image: {
-        name: {
+        type: String,
+        required: true
+
+        /*name: {
             type: String,
             required: true
         },
@@ -32,16 +36,15 @@ const flyerSchema = mongoose.Schema({
         buffer: {
             type: Buffer,
             required: true
-        }
+        }*/
     },
     publishDate: {
         type: String,
-        required: true,
+        //required: true,
         default: Date.now
     },
     expiryDate: {
-        type: String,
-        required: true
+        type: String
     }
 });
 

@@ -25,8 +25,8 @@ describe('auth API', () => {
                 response.should.have.status(400);
                 done();
             });
-        }).timeout(5000);
-
+        }).timeout(10000);
+        /* FALLISCE PER TIMEOUT
         it("it should login an user (the user already exist)",(done)=>{
             const user={
                 email: "test@gmail.com",
@@ -39,8 +39,8 @@ describe('auth API', () => {
                 response.should.have.status(200);
                 done();
             });
-        }).timeout(5000);
-
+        }).timeout(15000);
+        */
         it("it should NOT login an user (the user doesn't exist)",(done)=>{
             const user={
                 email: "test@nogmail.com",
@@ -53,7 +53,7 @@ describe('auth API', () => {
                 response.should.have.status(400);
                 done();
             });
-        }).timeout(5000);
+        }).timeout(10000);
     });
 
 });

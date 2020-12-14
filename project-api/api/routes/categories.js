@@ -124,4 +124,31 @@ router.get('/:id', (req, res, next) => {
 
 // ------------------------------------------------------------
 
+/* 
+    DELETE request for a given id.
+    You may want to delete a specific category.
+*/
+router.delete('/:id', (req, res, next) => {
+
+    // Take category id
+    const id = req.params.id;
+
+    // Query
+    Category.remove({ _id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Category deleted'
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+});
+
+// ------------------------------------------------------------
+
 module.exports = router;
