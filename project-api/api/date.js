@@ -14,7 +14,7 @@ module.exports.dateToday = () =>
 
 // Returns a boolean indicating if date is of today or a future day
 module.exports.dateNotPast = dateString =>
-    this.today().localeCompare(dateString) < 1;
+    this.dateToday().localeCompare(dateString) < 1;
 
 
 // Tries to find out if the given date exists in reality
@@ -26,5 +26,8 @@ module.exports.dateExists = dateString =>
 module.exports.dateAddMonths = (dateString, months) => {
     const dateObject = new Date(dateString);
     const dateAdd = dateObject.setMonth(dateObject.getMonth() + months);
-    return this.dateToString(dateAdd);
+    return this.dateToString(new Date(dateAdd));
 }
+
+
+

@@ -66,8 +66,13 @@ router.route('/announcements/')
                 // Send generic error
                 return res.status(500).json({ error: 'Internal server error', details: err });
             });
+        // Check that [auhtor + title] is unique
+
+        // ################################################################################
+
         // Accuraccurate dates validation
         if (req.body.publish_date) {
+            console.log('inside');
             if (!dateExists(req.body.publish_date)) {
                 return res.status(400).send({ error: 'Can\'t parse publish_date' });
             }
@@ -76,6 +81,7 @@ router.route('/announcements/')
             }
         }
         if (req.body.expiry_date) {
+            console.log('inside');
             if (!dateExists(req.body.expiry_date)) {
                 return res.status(400).send({ error: 'Can\'t parse expiry_date' });
             }
@@ -91,7 +97,7 @@ router.route('/announcements/')
             title: req.body.title,
             content: req.body.content,
             publish_date: req.body.publish_date || dateToday(),
-            expiry_date: req.body.expiry_date || dateAddMonths(req.body.publish_date || dateToday()),
+            expiry_date: req.body.expiry_date || dateAddMonths(req.body.publish_date || dateToday(), 2),
         });
         // Save Announcement
         announcement.save()
