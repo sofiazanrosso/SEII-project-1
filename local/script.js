@@ -45,13 +45,12 @@ function addAnnouncement() {
 // function to add a new flyer
 function addFlyer() {
 
-    var newTitle = document.getElementById("title").value;
     var newAuthor = document.getElementById("author").value;
     // var newImage = document.getElementById("image").value;
     // var newExpiryDate = document.getElementById("expiryDate").value;
     // var newPublishDate = document.getElementById("publishDate").value;
-    const newExpiryDate = document.getElementById("expiryDate").innerHTML;
-    const newPublishDate = ""+new Date(document.getElementById("publishDate").value).toLocaleDateString();
+    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     // do the POST request with the data of the form
     fetch(urlApi + "/flyers", {
@@ -59,7 +58,6 @@ function addFlyer() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
             {
-                title: newTitle,
                 author: newAuthor,
                 // image: newImage,
                 publishDate: newPublishDate,
@@ -205,8 +203,6 @@ function checkExpiryDateAnn(){
             expired.push(announcements[i]._id);
         }
       }
-      console.log(expired);
-
     });
 
 }

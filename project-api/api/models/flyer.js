@@ -40,12 +40,11 @@ const flyerSchema = mongoose.Schema({
     },
     publishDate: {
         type: String,
-        required: true,
+        //required: true,
         default: Date.now
     },
     expiryDate: {
-        type: String,
-        required: true
+        type: String
     }
 });
 

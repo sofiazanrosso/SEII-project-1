@@ -248,7 +248,7 @@ function show(text,id){
         printSingleAnnouncement(res.announcement);
       else 
         //document.getElementById('root').innerHTML=res.content;  
-        printSingleFlyer(res);
+        printSingleFlyer(res.flyer);
     });
 }
 
@@ -280,7 +280,6 @@ function printSingleAnnouncement(response){
 
 // print a single flyer
 function printSingleFlyer(response){
-
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
