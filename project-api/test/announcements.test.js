@@ -86,17 +86,18 @@ describe('-- announcements API --', () => {
     });
 
     // ------------------------------------------------------------
-    /*
+    
     // test the POST route
     describe("-- POST /routes/announcements --", () => {
         it("it should POST an announcement", (done) => {
             
             const ann = {
                 title: "Testing",
-                author: "Name Surname",
+                author: "4e616d65205375726e616d65",
                 category: "5fbbf415795ed2391cb7197a",
                 content: "Content",
-                publishDate: "01/01/2022"
+                publish_date: "2020-12-14",
+                expiry_date: "2020-12-16"
             };
 
             chai.request(app)
@@ -110,7 +111,7 @@ describe('-- announcements API --', () => {
         }).timeout(10000);
 
     });
-    */
+    
 
     // ------------------------------------------------------------
 
@@ -119,7 +120,7 @@ describe('-- announcements API --', () => {
 
         it("it should NOT DELETE an existing announcement", (done) => {
 
-            const annid = 1;                          // invalid _id
+            const annid = '1';                          // invalid _id
             chai.request(app)
                 .del("/announcements/" + annid)
                 .end((err, response) => {
