@@ -7,6 +7,7 @@ var userToken;
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
     loadAll();    
+    checkAuth();
 });
 
 // ------------------------------------------------------------
@@ -283,11 +284,6 @@ function printSingleAnnouncement(response){
 
 }
 
-// ------------------------------------------------------------
-//                      NON FUNZIONA
-//          I CAMPI STAMPATI SONO TUTTI UNDEFINED
-// ------------------------------------------------------------
-
 // print a single flyer
 function printSingleFlyer(response){
   /*
@@ -405,14 +401,18 @@ function login(){
 // ------------------------------------------------------------
 
 function checkAuth(){
-
+  
   //console.log(sessionStorage.getItem("token"));
   var token=sessionStorage.getItem("token");
   if(token != null){
     //DO SOMETHING
+    document.getElementById("linkAddAnn").style.pointerEvents="all";
+    document.getElementById("linkAddFly").style.pointerEvents="all";
     
   }else {
     //DON'T do something
+    document.getElementById("linkAddAnn").style.pointerEvents="none";
+    document.getElementById("linkAddFly").style.pointerEvents="none";
   };
   
 }
