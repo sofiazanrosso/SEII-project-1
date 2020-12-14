@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     } catch {
         // Invalid token
         return res
-            .status(400)
+            .status(401)
             .send({ error: 'Access denied, invalid authorization' });
     }
 }

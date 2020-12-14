@@ -1,0 +1,5 @@
+{
+    "mocha.files.glob": "project-api/test/**/*.test.js",
+    "instantMongo.dbName": "testDB",
+    "instantMongo.port": 43837
+}

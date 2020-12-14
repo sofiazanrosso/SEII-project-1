@@ -16,10 +16,6 @@ const userSchema = mongoose.Schema({
         min: 6,
         max: 1024
     },
-    tokenVersion: {
-        type: Number,
-        default: 0
-    },
     displayName: {
         type: String,
         required: true,
@@ -35,15 +31,6 @@ const userSchema = mongoose.Schema({
         type: Date
     }
 });
-
-
-userSchema.statics.incrementTokenVersion = function (_id) {
-    return this.findOneAndUpdate(
-        { _id: _id },
-        { $inc: { 'tokenVersion': 1 } },
-        { new: true }
-    );
-};
 
 
 // User Model
