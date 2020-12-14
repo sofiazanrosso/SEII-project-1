@@ -1,7 +1,9 @@
+const common = require('./common');
+const app = common.app;
+//
 const express = require('express');
 const chaiHttp= require("chai-http");
 const chai = require("chai");
-const app = require('../../app');
 const Announcement= require('../api/models/announcement');
 const mocha = require("mocha");
 const { response } = require('../../app');

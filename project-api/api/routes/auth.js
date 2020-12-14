@@ -43,12 +43,13 @@ router.post('/register', async (req, res) => {
         const savedUser = await user.save();
 
         // Respond with saved user info
-        res.json({
-            savedUser: {
-                email: savedUser.email,
-                displayName: savedUser.displayName
-            }
-        });
+        res.status(201)
+            .json({
+                savedUser: {
+                    email: savedUser.email,
+                    displayName: savedUser.displayName
+                }
+            });
     } catch (err) {
         res.status(400).send({ error: err });
     }
@@ -70,6 +71,7 @@ router.post('/login', async (req, res) => {
     // Check email exists
     const userDoc = await User.findOne({ email: req.body.email }).select('_id email displayName password');
     if (!userDoc) {
+        console.log('QUI');
         return res
             .status(400)
             .send({ error: 'This email is not associated to an account' });
@@ -79,20 +81,21 @@ router.post('/login', async (req, res) => {
     const passwordCheck = await bcrypt.compare(req.body.password, userDoc.password);
     if (!passwordCheck) {
         return res
-            .status(400)
+            .status(401)
             .send({ error: 'Invalid password' });
     }
 
     // email & password are valid
 
     // Response with access-token
-    res.json({
-        accessToken: createAccessToken(userDoc),
-        user: {
-            email: userDoc.email,
-            displayName: userDoc.displayName
-        }
-    })
+    res.status(200)
+        .json({
+            accessToken: createAccessToken(userDoc),
+            user: {
+                email: userDoc.email,
+                displayName: userDoc.displayName
+            }
+        })
 });
 
 
