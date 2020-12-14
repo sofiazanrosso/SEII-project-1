@@ -1,7 +1,8 @@
+const app = require('./common').app;
+// const app = require('../../app');
+//
 const chaiHttp= require("chai-http");
 const chai = require("chai");
-const app = require('../../app');
-
 // assertion style
 chai.should();
 

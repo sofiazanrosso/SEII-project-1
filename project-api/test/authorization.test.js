@@ -1,5 +1,5 @@
 // Common
-const common = require('../common');
+const common = require('./common');
 // Dependencies
 const app = common.app;
 const mongoose = common.mongoose;
@@ -7,7 +7,7 @@ const chai = common.chai;
 const chaiHttp = common.chaiHttp;
 //
 const bcrypt = require('bcryptjs');
-const User = require('../../api/models/user');
+const User = require('../api/models/user');
 
 // chai
 const expect = chai.expect;

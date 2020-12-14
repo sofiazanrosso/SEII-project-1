@@ -1,4 +1,5 @@
-const app = require('./common').app;
+const common = require('./common');
+const app = common.app;
 //
 const express = require('express');
 const chaiHttp= require("chai-http");
