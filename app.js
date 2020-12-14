@@ -14,7 +14,6 @@ if (process.env.NODE_ENV == 'test') {
 // Loads environment variables from .env file into process.env
 require('dotenv-flow').config();
 // Priority:  .env.NODE_ENV.local  >  .env.NODE_ENV  >  .env.local  >  .env
-// console.log(process.env.DB_CONNECTION_STRING);
 
 
 // Don't show logs in testing mode
@@ -34,7 +33,7 @@ mongoose.connect(
 // Make mongoose use native promises
 // LEGACY - Mongoose 5.0 does this by default
 mongoose.Promise = global.Promise;
-console.log(process.env.DB_CONNECTION_STRING);
+console.log('DB_CONNECTION_STRING: ' + process.env.DB_CONNECTION_STRING);
 
 
 // bodyParser

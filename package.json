@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha project-api/test/**/*.test.js --exit",
-    "tt": "mocha project-api/test/*.test.js --exit"
+    "test": "mocha project-api/test/*.test.js --exit"
   },
   "repository": {
     "type": "git",
