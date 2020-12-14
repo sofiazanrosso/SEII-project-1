@@ -257,6 +257,7 @@ function show(text,id){
 // print a single announcement 
 function printSingleAnnouncement(response){
 
+  /*
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
@@ -269,7 +270,16 @@ function printSingleAnnouncement(response){
 
   cards+="</div></div>";
   cards+="</div>";
-  document.getElementById('root').innerHTML=cards;
+  */
+  var ann="<div class='see-details'>";  
+  ann+="<a class='btn btn-little' href='index.html' role='button'>Go back</a>";
+  ann+="<h2 class='see-details-title text-center'>"+response.title+"</h2>";                                  // title
+  ann+="<h5 class='see-details-text'>"+response.author+"</h5><hr class='red-line'>";                         // author
+  ann+="<p class='see-details-text'>"+response.content+"</p>";                                               // content
+  ann+="<p class='see-details-footer'> [ Publish date: "+response.publish_date;                                          // publish date
+  ann+="  -  Expiry date: "+response.expiry_date+" ]</p>";                                           // expiry date
+  ann+="</div>";
+  document.getElementById('root').innerHTML=ann;
 
 }
 
@@ -280,6 +290,7 @@ function printSingleAnnouncement(response){
 
 // print a single flyer
 function printSingleFlyer(response){
+  /*
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
   cards+="<div class='card-body text-center'>";
@@ -292,6 +303,19 @@ function printSingleFlyer(response){
 
   cards+="</div></div>";
   cards+="</div>";
+  */
+
+ var fly="<div class='see-details'>";  
+ fly+="<a class='btn btn-little' href='index.html' role='button'>Go back</a>";
+ fly+="<h2 class='see-details-title text-center'>"+response.title+"</h2>";                                  // title
+ fly+="<h5 class='see-details-text'>"+response.author+"</h5><hr class='red-line'>";                         // author
+ fly+="<p class='see-details-text'> Image: "+response.image+"</p>";                                               // content
+ fly+="<p class='see-details-footer'> [ Publish date: "+response.publish_date;                                          // publish date
+ fly+="  -  Expiry date: "+response.expiry_date+" ]</p>";                                           // expiry date
+ fly+="</div>";
+ document.getElementById('root').innerHTML=ann;
+
+
   document.getElementById('root').innerHTML=cards;
 
 }
