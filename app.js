@@ -33,7 +33,7 @@ mongoose.connect(
 // Make mongoose use native promises
 // LEGACY - Mongoose 5.0 does this by default
 mongoose.Promise = global.Promise;
-console.log('DB_CONNECTION_STRING: ' + process.env.DB_CONNECTION_STRING);
+//console.log('DB_CONNECTION_STRING: ' + process.env.DB_CONNECTION_STRING);
 
 
 // bodyParser
