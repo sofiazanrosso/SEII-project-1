@@ -318,7 +318,7 @@ router.route('/flyers/:id')
 
     })
 
-    .patch((req, res) => {
+    .patch(async(req, res) => {
 
         // Verify that PATCH operation is valid
         await Flyer.findById(req.params.id)
@@ -367,7 +367,7 @@ router.route('/flyers/:id')
 
     })
 
-    .delete((req, res) => {
+    .delete(async (req, res) => {
 
         // Verify that DELETE operation is valid
         await Flyer.findById(req.params.id)
