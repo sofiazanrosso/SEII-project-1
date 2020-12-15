@@ -522,6 +522,8 @@ definitions:
         format: "date-time"
       expired:
         type: "boolean"
+      contact:
+        type: "string"
   
   Flyer:
     type: "object"
@@ -543,14 +545,16 @@ definitions:
             type: "string"
           name:
             type: "string"
-      publish_date:
+      publishDate:
         type: "string"
         format: "date-time"
-      expiry_date:
+      expiryDate:
         type: "string"
         format: "date-time"
       expired:
         type: "boolean"
+      contact:
+        type: "string"
      
   Category:
     type: "object"
@@ -563,9 +567,9 @@ definitions:
   User:
     type: "object"
     properties:
-      userid:
-        type: "string"
       email:
+        type: "string"
+      password:
         type: "string"
       name:
         type: "string"
@@ -576,10 +580,4 @@ definitions:
       email:
         type: "string"
       password:
-        type: "string"
-        
-  ZZZ:
-    type: "object"
-    properties:
-      email:
         type: "string"
