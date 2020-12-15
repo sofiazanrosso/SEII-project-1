@@ -1,10 +1,12 @@
 const Joi = require('joi');
 
+// ------------------------------------------------------------
 
 // Basic regex for date format yyyy-mm-dd
 // To easily visualize this regex use https://www.debuggex.com/
 const regexDate = /^20[2-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
 
+// ------------------------------------------------------------
 
 // Validation /auth/register
 module.exports.registerValidation = data => {
@@ -31,6 +33,7 @@ module.exports.registerValidation = data => {
     return schema.validate(data);
 };
 
+// ------------------------------------------------------------
 
 // Validation /auth/login
 module.exports.loginValidation = data => {
@@ -48,6 +51,7 @@ module.exports.loginValidation = data => {
     return schema.validate(data);
 };
 
+// ------------------------------------------------------------
 
 // Validation /private/announcements POST
 module.exports.postAnnouncementValidation = data => {
@@ -76,6 +80,7 @@ module.exports.postAnnouncementValidation = data => {
     return schema.validate(data);
 };
 
+// ------------------------------------------------------------
 
 // Validation /private/announcements PATCH
 module.exports.patchAnnouncementValidation = data => {
@@ -91,6 +96,7 @@ module.exports.patchAnnouncementValidation = data => {
     return schema.validate(data);
 };
 
+// ------------------------------------------------------------
 
 // Validation /private/flyer POST
 module.exports.postFlyerValidation = data => {
@@ -114,3 +120,5 @@ module.exports.postFlyerValidation = data => {
 
     return schema.validate(data);
 };
+
+// ------------------------------------------------------------

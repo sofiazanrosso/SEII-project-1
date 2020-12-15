@@ -15,8 +15,6 @@ chai.use(chaiHttp);
 
 // ------------- flyers testing -------------
 
-//
-
 // contains the resource
 describe('-- flyers API --', () => {
 

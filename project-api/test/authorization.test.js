@@ -13,6 +13,7 @@ const User = require('../api/models/user');
 const expect = chai.expect;
 const { mongo } = require('mongoose');
 
+// ------------------------------------------------------------
 
 describe('Auth', function () {
 

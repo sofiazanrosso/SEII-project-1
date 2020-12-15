@@ -1,6 +1,7 @@
 const User = require('./models/user');
 const { sign } = require('jsonwebtoken');
 
+// ------------------------------------------------------------
 
 // Create new Access-Token for an User
 module.exports.createAccessToken = user => {
@@ -14,3 +15,5 @@ module.exports.createAccessToken = user => {
         }
     );
 };
+
+// ------------------------------------------------------------

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+// ------------------------------------------------------------
 
 // access-token verification middleware
 // Permits only authorized access
@@ -28,3 +29,5 @@ module.exports = (req, res, next) => {
             .send({ error: 'Access denied, invalid authorization' });
     }
 }
+
+// ------------------------------------------------------------

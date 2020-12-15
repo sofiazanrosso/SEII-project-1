@@ -72,7 +72,7 @@ describe('-- categories API --', () => {
     
 
     // ------------------------------------------------------------
-    //  FUNZIONA, MA DISTURBA IL DATABASE
+    
     // test the POST route
     describe("-- POST /routes/categories --", () => {
         it("it should POST a category", (done) => {

@@ -10,13 +10,10 @@ const Category = require('../models/category');
 const Flyer = require('../models/flyer');
 const User = require('../models/user');
 
-
-//
-//
-// >>>> Category required o no ????
-//
+// ------------------------------------------------------------
 
 router.get('/user', verifyAuth, (req, res) => {
+
     // Get user data from DataBase
     User.findById(req.payload._id, '_id email displayName')
         .then(user => {
@@ -26,8 +23,10 @@ router.get('/user', verifyAuth, (req, res) => {
             // Send generic error
             res.status(500).json({ error: 'Internal server error', details: err });
         });
+
 });
 
+// ------------------------------------------------------------
 
 router.route('/announcements/')
     // Auth middleware for all sub-routes
@@ -51,35 +50,15 @@ router.route('/announcements/')
     .post(async (req, res) => {
         // Body validation
         const { error } = postAnnouncementValidation(req.body);
+
         if (error) {
             // Data in body is not accepted
             return res.status(400).send({ error: error.details[0].message });
         }
-        // Check if assigned category exists
-        // awrs
-        // TODO: Check that [auhtor + title] is unique
-
-        // ################################################################################
-
-        // Accuraccurate dates validation
-        // if (req.body.publish_date) {
-        //     if (!dateExists(req.body.publish_date)) {
-        //         return res.status(400).send({ error: 'Can\'t parse publish_date' });
-        //     }
-        //     if (!dateNotPast(req.body.publish_date)) {
-        //         return res.status(400).send({ error: 'Value of publish_date can\'t be in the past' });
-        //     }
-        // }
-        // if (req.body.expiry_date) {
-        //     if (!dateExists(req.body.expiry_date)) {
-        //         return res.status(400).send({ error: 'Can\'t parse expiry_date' });
-        //     }
-        //     if (!dateNotPast(req.body.expiry_date)) {
-        //         return res.status(400).send({ error: 'Value of expiry_date can\'t be in the past' });
-        //     }
-        // }
+        
         //Dates are stored in the db as Strings, but to manage the expiry date we temporary manage them as Date type 
         const dToday = dateToday();
+
         // Create Announcement
         const announcement = new Announcement({
             _id: new mongoose.Types.ObjectId(),
@@ -91,6 +70,7 @@ router.route('/announcements/')
             publish_date: req.body.publish_date || dToday,
             expiry_date: req.body.expiry_date || (datePlus2(req.body.publish_date || dToday))
         });
+
         // Save Announcement
         announcement.save()
             .then(saved => {
@@ -99,11 +79,11 @@ router.route('/announcements/')
             })
             .catch(err => {
                 // Send generic error
-                console.log(err);
                 return res.status(500).json({ error: 'Internal server error', details: err });
             });
     });
 
+// ------------------------------------------------------------
 
 router.route('/announcements/:id')
     // Auth middleware for all sub-routes
@@ -204,6 +184,7 @@ router.route('/announcements/:id')
             });
     });
 
+// ------------------------------------------------------------
 
 router.route('/flyers/')
     // Auth middleware for all sub-routes
@@ -282,6 +263,7 @@ router.route('/flyers/')
 
     });
 
+// ------------------------------------------------------------
 
 router.route('/flyers/:id')
     // Auth middleware for all sub-routes
@@ -391,5 +373,6 @@ router.route('/flyers/:id')
 
     });
 
+// ------------------------------------------------------------
 
 module.exports = router;

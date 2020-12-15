@@ -128,7 +128,6 @@ function deleteAnnouncement(id){
     method: 'DELETE'
   })
   .then((resp) => {
-        console.log(resp);
         //redirect the page
         window.location.href='index.html';
         return;
@@ -146,7 +145,6 @@ function deleteFlyer(id){
     method: 'DELETE'
   })
   .then((resp) => {
-        console.log(resp);
         //redirect the page
         window.location.href='index.html';
         return;
@@ -330,7 +328,6 @@ function register(){
   .then((data) => {    
     if(data.error != null) window.alert(data.error);
     else{
-      console.log(data);
       //redirect the page
       window.alert("Register Successful!");
       window.location.href = 'index.html';
@@ -405,12 +402,10 @@ function isExpired(date){
 
 function changePath(oldPath){
 
-  console.log(oldPath);
   if(oldPath.startsWith("images\\")){
     oldPath = oldPath.substring(7);
   }
   const newPath = "../images/" + oldPath;
-  console.log(newPath);
   return newPath;
 
 }

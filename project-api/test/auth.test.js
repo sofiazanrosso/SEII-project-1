@@ -9,11 +9,15 @@ chai.should();
 // allows chai to do http request
 chai.use(chaiHttp);
 
+// ------------------------------------------------------------
+
 describe('auth API', () => {
     describe("Register",()=>{
         before(async function(){
             await User.deleteMany({});
         });
+
+        // ------------------------------------------------------------
 
         it("it should register an user",function (done){
             const user={
@@ -30,6 +34,8 @@ describe('auth API', () => {
             });
         });
 
+        // ------------------------------------------------------------
+
         it("it should NOT register an user with an email already taken",function (done){
             const user={
                 email: "test@gmail.com",
@@ -45,6 +51,8 @@ describe('auth API', () => {
             });
         });
 
+        // ------------------------------------------------------------
+
         it("it should NOT register an user without the password",function (done){
             const user={
                 email: "test2@gmail.com",
@@ -59,6 +67,8 @@ describe('auth API', () => {
             });
         });
         
+        // ------------------------------------------------------------
+
         it("it should NOT register an user with an invalid email",function (done){
             const user={
                 email: "thisisnotanemail",
@@ -76,3 +86,5 @@ describe('auth API', () => {
         
     });
 });
+
+// ------------------------------------------------------------

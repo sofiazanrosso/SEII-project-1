@@ -14,7 +14,6 @@ const storage = multer.diskStorage({
     },
     filename: function(req, file, cb) {
         cb(null, new Date().getMilliseconds() + file.originalname + "");
-        // cb(null, file.originalname);
     }
 });
 
@@ -35,15 +34,7 @@ const upload = multer({
         fileSize: 1024 * 1024 * 10 
     },
     fileFilter: fileFilter
-    //dest: 'images/' */
 });
-
-// ------------------------------------------------------------
-
-// Bad Upload
-
-// const fs = require('fs-extra');
-// const { Buffer } = require('safe-buffer');
 
 // ------------------------------------------------------------
 
@@ -75,11 +66,7 @@ router.get('/', async (req, res, next) => {
                 image: x.image,
                 contact: x.contact,
                 publishDate: x.publishDate,
-                expiryDate: x.expiryDate,
-                /*request: {
-                    type: 'GET',
-                    url: window.location.origin + '/flyers/' + x._id
-                }*/
+                expiryDate: x.expiryDate
             }
         })
     }
@@ -139,25 +126,16 @@ router.get('/:id', async (req, res, next) => {
 */
 router.post('/', upload.single('image'), (req, res, next) => {
 
-    console.log(req.file);
-
     var defaultPath;
     var messaggio = "image okay";
 
     // Image file
     if (req.file == null) {
-        // return res.status(500).json({ error: 'Errore file' });
         messaggio = "error file: default image will be posted";
         defaultPath = "../default.png";
     } else {
         defaultPath = req.file.path;
     }
-
-    // Read image from temp location
-    // const newImg = fs.readFileSync(req.file.path);
-
-    // Encode image to base64 for mongoDB storage
-    // const encImg = newImg.toString('base64');
 
     // Create Flyer
     const flyer = new Flyer({
@@ -167,12 +145,6 @@ router.post('/', upload.single('image'), (req, res, next) => {
         title: req.body.title,
         contact: req.body.contact,
         image: defaultPath,                       // require the path
-        /*{
-            // name: req.file.path,
-            // mimeType: req.body.mimeType,
-            // buffer: Buffer(encImg, 'base64')
-        },
-        */
         publishDate: req.body.publishDate,
         expiryDate: req.body.expiryDate,
         resMessage: messaggio
@@ -182,16 +154,12 @@ router.post('/', upload.single('image'), (req, res, next) => {
     flyer
         .save()
         .then(result => {
-            console.log(result);
-            console.log(result.author);
             res.status(201).json({
                 message: 'POST request to /flyers',
                 result: result
             })
         })
         .catch(err => {
-            console.log(err);
-            console.log(flyer.author);
             res.status(500).json({ error: err })
         });
 });
@@ -216,7 +184,6 @@ router.delete('/:id', (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
             res.status(500).json({
                 error: err
             })

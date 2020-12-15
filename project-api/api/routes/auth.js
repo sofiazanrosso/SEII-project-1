@@ -5,6 +5,7 @@ const { createAccessToken } = require('../createToken');
 const { loginValidation, registerValidation } = require('../validation');
 const User = require('../models/user');
 
+// ------------------------------------------------------------
 
 // Register
 // Save new user if valid
@@ -53,8 +54,10 @@ router.post('/register', async (req, res) => {
     } catch (err) {
         res.status(400).send({ error: err });
     }
+
 });
 
+// ------------------------------------------------------------
 
 // Login
 // Get refresh-token and access-token providing valid email and password
@@ -95,7 +98,9 @@ router.post('/login', async (req, res) => {
                 displayName: userDoc.displayName
             }
         })
+        
 });
 
+// ------------------------------------------------------------
 
 module.exports = router;

@@ -47,7 +47,6 @@ router.get('/',(req,res,next)=>{
         res.status(200).json(response);
     })
     .catch(err=>{
-        console.log(err);
         res.status(500).json({
             error:err
         });
@@ -92,7 +91,6 @@ router.post('/',(req,res,next)=>{
             return Promise.reject('Invalid date inserted');
         }
 
-        console.log(result);
         res.status(201).json({
             message: "Announcement posted",
             announcementPosted: {
@@ -112,7 +110,6 @@ router.post('/',(req,res,next)=>{
         });
     })
     .catch(err=>{
-        console.log(err);
         res.status(500).json({
             error:err
         })
@@ -147,7 +144,6 @@ router.get('/:id',(req,res,next)=>{
        }
    })
    .catch(err=>{
-        console.log(err);
         res.status(500).json({error:err});
     });
 }); 
@@ -167,14 +163,12 @@ router.patch('/:id',(req,res,next)=>{
     Announcement.update({_id: id, $set: updateOps})
     .exec()
     .then(result=>{
-        console.log(result);
         res.status(200).json({
             message: "Expire date updated",
             url: 'http://localhost:3000/announcements/'+id
         });
     })
     .catch(err=>{
-        console.log(err);
         res.status(500).json({
             error: err
         });
@@ -202,7 +196,6 @@ router.delete('/:id',(req,res,next)=>{
         });
     })
     .catch(err=>{
-        console.log(err);
         res.status(500).json({
             error: err
         });

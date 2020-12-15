@@ -1,10 +1,12 @@
 const urlApi = window.location.origin;
-//const urlApi="";
 
 // ------------------------------------------------------------
+
 addZero = str => str < 10 ? '0' + str : str;
 const max = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
 const min = (a,b) => a < b ? a : b;
+
+// ------------------------------------------------------------
 
 // function to add an announcement
 function addAnnouncement() {
@@ -21,13 +23,6 @@ function addAnnouncement() {
     const dateD = parseInt(datePublish.split('-')[2]);
     const dateExpire = dateM > 10 ? ((dateY + 1) + '-' + addZero(dateM - 10) + '-' + addZero(min(dateD, max[dateM - 10]))) : (dateY + '-' + addZero(dateM + 2) + '-' + addZero(min(dateD, max[dateM + 2])));
 
-    console.log('data >>> '+datePublish + ' e ' + dateExpire)
-
-    // const newExpiryDate = document.getElementById("expiry_date").innerHTML;
-    // const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
-
-    //TODO: Controllare che la data sia maggiore di quella odierna, e in caso positivo abilitare il btn add announcements
-
     fetch(urlApi + "/private/announcements", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'authorization' : sessionStorage.getItem("token") },
@@ -42,8 +37,6 @@ function addAnnouncement() {
             }),
     })
     .then((resp) => {
-        console.log(resp);
-        console.log(newCategory);
         //redirect the page
         window.location.href = 'userspace.html';
     })
@@ -58,9 +51,6 @@ function addFlyer() {
 
     var newContact = document.getElementById("contact").value;
     var newTitle = document.getElementById("title").value;
-    // var newImage = document.getElementById("image").value;
-    // var newExpiryDate = document.getElementById("expiryDate").value;
-    // var newPublishDate = document.getElementById("publishDate").value;
     const newExpiryDate = document.getElementById("expiry_date").innerHTML;
     const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
@@ -72,14 +62,12 @@ function addFlyer() {
             {
                 title: newTitle,
                 contact: newContact,
-                // image: newImage,
                 publishDate: newPublishDate,
                 expiryDate: newExpiryDate
             }
         )
     })
     .then((resp) => {
-        console.log(resp);
         //redirect the page
         window.location.href = 'usersapce.html';
         return;
@@ -111,28 +99,12 @@ function searchAnnouncements() {
     const paramsUrl = new URL(urlApi + '/search/');
 
     // Params
-    //paramsUrl.searchParams.append("includes", document.getElementById('includes').value);
     const params = document.getElementById('includes').value;
-    
-    /*
-    paramsUrl.searchParams.append("caseSensitive", "false");
-    paramsUrl.searchParams.append("from_publish", document.getElementById('from_publish').value);
-    paramsUrl.searchParams.append("to_publish", document.getElementById('to_publish').value);
-    paramsUrl.searchParams.append("from_expiry", document.getElementById('from_expiry').value);
-    paramsUrl.searchParams.append("to_expiry", document.getElementById('to_expiry').value);
-    */
-
-    console.log("API REQ:");
-    console.log(paramsUrl.href);
 
     // GET request
     fetch(paramsUrl + params)
         .then(res => res.json())
         .then(data => {
-
-            console.log('aaaaaaa');
-            console.log(data);
-
             // Fill html
             var cards = "<div class='card-columns'>";
 
@@ -185,13 +157,6 @@ function setExpiryDate(){
 
     document.getElementById("expiry_date").innerHTML = newDate;
 
-    // const newPublishDate = document.getElementById("publish_date").value;    
-    // var tmp=Date.parse(newPublishDate);
-    // var exp=new Date(tmp);
-    // exp.setMonth(exp.getMonth()+2);
-    // exp=exp.toLocaleDateString();
-    // document.getElementById("expiry_date").innerHTML=exp;
-
     var tmp = new Date(datePublish);
     var today = new Date();
     today.setDate(today.getDate()-1);
@@ -228,3 +193,5 @@ function checkExpiryDateAnn(){
     });
 
 }
+
+// ------------------------------------------------------------
