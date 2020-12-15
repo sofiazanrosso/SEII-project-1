@@ -60,6 +60,7 @@ function loadFlyers(){
 
 // print the announcements
 function printAnnouncement(count,announcements){
+  console.log(announcements);
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>";
     for(let i=0;i<count;i++){
@@ -209,7 +210,6 @@ function printAll(announcements,flyers){
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
-  console.log(countAnn+" "+annArray[0].expiry_date);
 
   // -------------------
   // print announcements
