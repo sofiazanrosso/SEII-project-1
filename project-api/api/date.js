@@ -9,8 +9,16 @@ module.exports.dateToString = dateObject =>
 
 // Get today date in yyyy-mm-dd format
 module.exports.dateToday = () =>
-    this.dateToString(new Date());
+this.dateToString(new Date());
 
+module.exports.datePlus2 = (dateString) => {
+    const dateY = parseInt(dateString.split('-')[0]);
+    const dateM = parseInt(dateString.split('-')[1]);
+    const dateD = parseInt(dateString.split('-')[2]);
+
+    const date2 = dateM > 10 ? ((dateY + 1) + '-' + addZero(dateM - 10) + '-' + addZero(dateD)) : (dateY + '-' + addZero(dateM + 2) + '-' + addZero(dateD));
+    return date2;
+}
 
 // Returns a boolean indicating if date is of today or a future day
 module.exports.dateNotPast = dateString =>

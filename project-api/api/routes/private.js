@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const verifyAuth = require('./verifyToken');
 // Helpers
 const { postAnnouncementValidation, patchAnnouncementValidation, postFlyerValidation } = require('../validation');
-const { dateToday, dateExists, dateNotPast, dateAddMonths } = require('../date');
+const { dateToday, dateExists, dateNotPast, dateAddMonths, datePlus2 } = require('../date');
 // Models
 const Announcement = require('../models/announcement');
 const Category = require('../models/category');
@@ -49,46 +49,37 @@ router.route('/announcements/')
     })
 
     .post(async (req, res) => {
-        console.log(">>>"+req.body.publish_date);
         // Body validation
-        /*
         const { error } = postAnnouncementValidation(req.body);
         if (error) {
             // Data in body is not accepted
             return res.status(400).send({ error: error.details[0].message });
         }
-        */
         // Check if assigned category exists
         // awrs
-        // Check that [auhtor + title] is unique
+        // TODO: Check that [auhtor + title] is unique
 
         // ################################################################################
 
         // Accuraccurate dates validation
-        /*
-        if (req.body.publish_date) {
-            if (!dateExists(req.body.publish_date)) {
-                return res.status(400).send({ error: 'Can\'t parse publish_date' });
-            }
-            if (!dateNotPast(req.body.publish_date)) {
-                return res.status(400).send({ error: 'Value of publish_date can\'t be in the past' });
-            }
-        }
-        if (req.body.expiry_date) {
-            if (!dateExists(req.body.expiry_date)) {
-                return res.status(400).send({ error: 'Can\'t parse expiry_date' });
-            }
-            if (!dateNotPast(req.body.expiry_date)) {
-                return res.status(400).send({ error: 'Value of expiry_date can\'t be in the past' });
-            }
-        }
-        */
+        // if (req.body.publish_date) {
+        //     if (!dateExists(req.body.publish_date)) {
+        //         return res.status(400).send({ error: 'Can\'t parse publish_date' });
+        //     }
+        //     if (!dateNotPast(req.body.publish_date)) {
+        //         return res.status(400).send({ error: 'Value of publish_date can\'t be in the past' });
+        //     }
+        // }
+        // if (req.body.expiry_date) {
+        //     if (!dateExists(req.body.expiry_date)) {
+        //         return res.status(400).send({ error: 'Can\'t parse expiry_date' });
+        //     }
+        //     if (!dateNotPast(req.body.expiry_date)) {
+        //         return res.status(400).send({ error: 'Value of expiry_date can\'t be in the past' });
+        //     }
+        // }
         //Dates are stored in the db as Strings, but to manage the expiry date we temporary manage them as Date type 
-        var tempDate = req.body.publish_date;
-        var newPubDate = new Date(tempDate);
-        var newExpDate = new Date(newPubDate);
-        newExpDate.setMonth(newPubDate.getMonth() + 2);
-
+        const dToday = dateToday();
         // Create Announcement
         const announcement = new Announcement({
             _id: new mongoose.Types.ObjectId(),
@@ -97,8 +88,8 @@ router.route('/announcements/')
             title: req.body.title,
             content: req.body.content,
             contact: req.body.contact,
-            publish_date: newPubDate.getFullYear() + "-" + (newPubDate.getMonth() + 1) + "-" + newPubDate.getDate(),
-            expiry_date: newExpDate.getFullYear() + "-" + (newExpDate.getMonth() + 1) + "-" + newExpDate.getDate()
+            publish_date: req.body.publish_date || dToday,
+            expiry_date: req.body.expiry_date || (datePlus2(req.body.publish_date || dToday))
         });
         // Save Announcement
         announcement.save()

@@ -10,10 +10,18 @@ function addAnnouncement() {
     const newContact = document.getElementById("contact").value;
     const newContent = document.getElementById("content").value;
     const newCategory = document.getElementById("cat").value;
-    // const newExpiryDate = document.getElementById("expiryDate").value;
-    // const newPublishDate = document.getElementById("publishDate").value;
-    const newExpiryDate = document.getElementById("expiry_date").innerHTML;
-    const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
+    
+    const datePublish = document.getElementById("publish_date").value.replace('/','-');
+
+    const dateY = parseInt(datePublish.split('-')[0]);
+    const dateM = parseInt(datePublish.split('-')[1]);
+    const dateD = parseInt(datePublish.split('-')[2]);
+    const dateExpire = dateM > 10 ? ((dateY + 1) + '-' + addZero(dateM - 10) + '-' + addZero(dateD)) : (dateY + '-' + addZero(dateM + 2) + '-' + addZero(dateD));
+
+    console.log('data >>> '+datePublish + ' e ' + dateExpire)
+
+    // const newExpiryDate = document.getElementById("expiry_date").innerHTML;
+    // const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     //TODO: Controllare che la data sia maggiore di quella odierna, e in caso positivo abilitare il btn add announcements
 
@@ -26,8 +34,8 @@ function addAnnouncement() {
                 contact: newContact,
                 content: newContent,
                 category: newCategory,
-                publish_date: newPublishDate,
-                expiry_date: newExpiryDate
+                publish_date: datePublish,
+                expiry_date: dateExpire
             }),
     })
     .then((resp) => {
@@ -164,15 +172,24 @@ function loadDates() {
 // ------------------------------------------------------------
 
 function setExpiryDate(){
+    
+    const datePublish = document.getElementById("publish_date").value;
 
-    const newPublishDate = document.getElementById("publish_date").value;    
-    var tmp=Date.parse(newPublishDate);
-    var exp=new Date(tmp);
-    exp.setMonth(exp.getMonth()+2);
-    exp=exp.toLocaleDateString();
-    document.getElementById("expiry_date").innerHTML=exp;
+    const dateY = parseInt(datePublish.split('-')[0]);
+    const dateM = parseInt(datePublish.split('-')[1]);
+    const dateD = parseInt(datePublish.split('-')[2]);
+    const newDate = dateM > 10 ? (addZero(dateD) + '/' + addZero(dateM - 10) + '/' + (dateY + 1)) : (addZero(dateD) + '/' + addZero(dateM + 2) + '/' + dateY);
 
-    var tmp = new Date(newPublishDate);
+    document.getElementById("expiry_date").innerHTML = newDate;
+
+    // const newPublishDate = document.getElementById("publish_date").value;    
+    // var tmp=Date.parse(newPublishDate);
+    // var exp=new Date(tmp);
+    // exp.setMonth(exp.getMonth()+2);
+    // exp=exp.toLocaleDateString();
+    // document.getElementById("expiry_date").innerHTML=exp;
+
+    var tmp = new Date(datePublish);
     var today = new Date();
     today.setDate(today.getDate()-1);
     if (tmp < today){

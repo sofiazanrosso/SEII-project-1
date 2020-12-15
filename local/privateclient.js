@@ -215,7 +215,7 @@ function printAll(announcements,flyers){
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
-  
+
   // -------------------
   // print announcements
   //var cardsA="<div class='card-column'>";
@@ -274,16 +274,22 @@ function show(text,id){
   if(text === "announcement") path="/private/announcements/";
   else path="/private/flyers/";
 
-  fetch(urlApi+ path + id)
+  const myHeaders = new Headers({ "authorization" : sessionStorage.getItem("token") });
+
+  fetch(urlApi+ path + id,
+    {
+      method : 'GET',
+      headers : myHeaders 
+    })
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
   .then(res => 
     {
       if(text === "announcement")
         //document.getElementById('root').innerHTML=res.announcement.content;
-        printSingleAnnouncement(res.announcement);
+        printSingleAnnouncement(res);
       else 
         //document.getElementById('root').innerHTML=res.content;  
-        printSingleFlyer(res.flyer);
+        printSingleFlyer(res);
     });
 }
 
@@ -291,7 +297,7 @@ function show(text,id){
 
 // print a single announcement 
 function printSingleAnnouncement(response){
-
+  
   /*
   var cards="<div class='card-column'>";  
   cards+="<div class='card'>";
@@ -307,7 +313,7 @@ function printSingleAnnouncement(response){
   cards+="</div>";
   */
   var ann="<div class='see-details'>";  
-  ann+="<a class='btn btn-little' href='index.html' role='button'>Go back</a>";
+  ann+="<a class='btn btn-little' href='userspace.html' role='button'>Go back</a>";
   ann+="<h2 class='see-details-title text-center'>"+response.title+"</h2>";                                  // title
   ann+="<h5 class='see-details-text'>"+response.contact+"</h5><hr class='red-line'>";                         // author
   ann+="<p class='see-details-text'>"+response.content+"</p>";                                               // content
