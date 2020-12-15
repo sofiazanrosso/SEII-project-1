@@ -102,7 +102,7 @@ describe('Auth', function () {
                         done();
                     });
             });
-        });
+        }).timeout(5000);
 
     });
 
