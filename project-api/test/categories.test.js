@@ -54,20 +54,6 @@ describe('-- categories API --', () => {
 
     // test the GET (by id) route
     describe("GET(id) /routes/categories/:id", () => {
-        /*
-        it("it should NOT GET a category by ID", (done) => {
-
-            const id = "1aaaa11a111aa1111aa1111";                          // invalid _id
-            chai.request(app)
-                .get("/categories/" + id)
-                .end((err, response) => {
-                    response.should.have.status(404);
-                    done(err);
-                });
-
-        });
-        */
-
         
 	    it("it should GET a category by ID and return announcements and flyers", (done) => {
 
@@ -111,20 +97,6 @@ describe('-- categories API --', () => {
 
     // test the DELETE route
     describe("DELETE /categories/:id", () => {
-
-        /*
-        it("it should NOT DELETE an existing category", (done) => {
-
-            const id = '1';                          // invalid _id
-            chai.request(app)
-                .del("/categories/" + id)
-                .end((err, response) => {
-                    response.should.have.status(500);
-                    done(err);
-                });
-
-        });
-        */
 
         it("it should DELETE an existing category", (done) => {
 

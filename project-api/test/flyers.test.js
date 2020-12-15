@@ -48,40 +48,6 @@ describe('-- flyers API --', () => {
 
     // ------------------------------------------------------------
 
-    // test the GET (by id) route
-    describe("GET(id) /routes/flyers/:id", () => {
-        /* FALLISCE PER TIMEOUT
-        it("it should NOT GET a flyer by ID", (done) => {
-
-            const id = '5fbda2a6201256080d79ee3f';                          // invalid _id
-            chai.request(app)
-                .get("/flyers/" + id)
-                .end((err, response) => {
-                    response.should.have.status(404);
-                    done(err);
-                });
-
-        });
-        */
-
-
-	    it("it should GET a flyer by ID", (done) => {
-
-            const id = '5fcf414d27b61d4660d6610b';
-            chai.request(app)
-                .get("/flyers/" + id)
-                .end((err, response) => {
-                    response.should.have.status(200);
-                    response.body.should.have.property('flyer').that.include.all.keys(['_id','author']);                   
-                    done(err);
-                });            
-        }).timeout(30000);
-        
-        
-    });
-
-    // ------------------------------------------------------------
-
     // test the POST route
     describe("-- POST /routes/flyers --", () => {
         
@@ -109,21 +75,6 @@ describe('-- flyers API --', () => {
 
     // test the DELETE route
     describe("DELETE /flyers/:id", () => {
-
-        /*
-        it("it should NOT DELETE an existing flyer", (done) => {
-
-            const id = 1;                          // invalid _id
-            chai.request(app)
-                .del("/flyers/" + id)
-                .end((err, response) => {
-                    response.should.have.status(500);
-                    done(err);
-                });
-
-        });
-        */
-
 
         it("it should DELETE an existing flyer", (done) => {
 
