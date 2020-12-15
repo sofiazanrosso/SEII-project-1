@@ -72,12 +72,12 @@ describe('-- announcements API --', () => {
 
 	    it("it should GET an announcement by ID", (done) => {
 
-            const id = '5fbfe8f1b67e19497c141f39';
+            const id = '5fd862562333fd2c085b1c41';
             chai.request(app)
                 .get("/announcements/" + id)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('announcement').that.include.all.keys(['_id','author']);                    
+                    response.body.should.have.property('announcement').that.include.all.keys(['_id','title']);                    
                     done(err);
                 });
 
@@ -86,17 +86,19 @@ describe('-- announcements API --', () => {
     });
 
     // ------------------------------------------------------------
-    /*
+    
     // test the POST route
     describe("-- POST /routes/announcements --", () => {
         it("it should POST an announcement", (done) => {
             
             const ann = {
                 title: "Testing",
-                author: "Name Surname",
-                category: "5fbbf415795ed2391cb7197a",
+                author: "4e616d65205375726e616d65",
+                //category: "5fbbf415795ed2391cb7197a",
+                category: "5fd863fc53de740c6883433f",
                 content: "Content",
-                publishDate: "01/01/2022"
+                publish_date: "2020-12-14",
+                expiry_date: "2020-12-16"
             };
 
             chai.request(app)
@@ -110,16 +112,17 @@ describe('-- announcements API --', () => {
         }).timeout(10000);
 
     });
-    */
+    
 
     // ------------------------------------------------------------
 
     // test the DELETE route
     describe("DELETE /announcements/:id", () => {
 
+        /*
         it("it should NOT DELETE an existing announcement", (done) => {
 
-            const annid = 1;                          // invalid _id
+            const annid = '1';                          // invalid _id
             chai.request(app)
                 .del("/announcements/" + annid)
                 .end((err, response) => {
@@ -128,7 +131,7 @@ describe('-- announcements API --', () => {
                 });
 
         });
-
+        */
 
         it("it should DELETE an existing announcement", (done) => {
 

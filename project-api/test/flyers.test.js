@@ -20,7 +20,7 @@ describe('-- flyers API --', () => {
 
     // test the GET route
     describe("-- GET /routes/flyers --", () => {
-        /* FALLISCE PER TIMEOUT
+
         it("it should GET all the flyers", (done) => {
 
             chai.request(app)
@@ -31,7 +31,7 @@ describe('-- flyers API --', () => {
                 });
 
         }).timeout(10000);
-        */
+        
         
         it("it should NOT GET all the flyers", (done) => {
 
@@ -64,7 +64,7 @@ describe('-- flyers API --', () => {
         });
         */
 
-        /*  FALLISCE PER TIMEOUT
+
 	    it("it should GET a flyer by ID", (done) => {
 
             const id = '5fcf414d27b61d4660d6610b';
@@ -76,23 +76,22 @@ describe('-- flyers API --', () => {
                     done(err);
                 });            
         }).timeout(30000);
-        */
+        
         
     });
 
     // ------------------------------------------------------------
 
     // test the POST route
-    /*describe("-- POST /routes/flyers --", () => {
+    describe("-- POST /routes/flyers --", () => {
         
         it("it should POST a flyer", (done) => {
             const fly = {
                 title: "Testing",
-                author: "Name Surname",
-                category: "5fbbf5b0795ed2391cb7197f",
-                // image: file
-                publish_date: "03/01/01",
-                expiry_date: "03/02/01"
+                author: "4e616d65205375726e616d65",
+                category: "5fd863fc53de740c6883433f",
+                publishDate: "2020-12-15",
+                expiryDate: "2020-12-20"
             };
             chai.request(app)
             .post("/flyers")
@@ -104,13 +103,14 @@ describe('-- flyers API --', () => {
         });
 
     });
-    */
+    
 
     // ------------------------------------------------------------
 
     // test the DELETE route
     describe("DELETE /flyers/:id", () => {
 
+        /*
         it("it should NOT DELETE an existing flyer", (done) => {
 
             const id = 1;                          // invalid _id
@@ -122,6 +122,7 @@ describe('-- flyers API --', () => {
                 });
 
         });
+        */
 
 
         it("it should DELETE an existing flyer", (done) => {

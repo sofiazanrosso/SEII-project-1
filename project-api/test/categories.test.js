@@ -86,7 +86,7 @@ describe('-- categories API --', () => {
     
 
     // ------------------------------------------------------------
-    /*  FUNZIONA, MA DISTURBA IL DATABASE
+    //  FUNZIONA, MA DISTURBA IL DATABASE
     // test the POST route
     describe("-- POST /routes/categories --", () => {
         it("it should POST a category", (done) => {
@@ -106,25 +106,26 @@ describe('-- categories API --', () => {
         }).timeout(10000);
 
     });
-    */
+    
     // ------------------------------------------------------------
 
     // test the DELETE route
     describe("DELETE /categories/:id", () => {
 
-        it("it should NOT DELETE an existing announcement", (done) => {
+        /*
+        it("it should NOT DELETE an existing category", (done) => {
 
-            const annid = 1;                          // invalid _id
+            const id = '1';                          // invalid _id
             chai.request(app)
-                .del("/categories/" + annid)
+                .del("/categories/" + id)
                 .end((err, response) => {
-                    response.should.have.status(404);
+                    response.should.have.status(500);
                     done(err);
                 });
 
         });
+        */
 
-        /*
         it("it should DELETE an existing category", (done) => {
 
             const id = '5fbbf402795ed2391cb71978';
@@ -136,7 +137,7 @@ describe('-- categories API --', () => {
                 });
 
         });
-        */
+        
     });
     
     // ------------------------------------------------------------
