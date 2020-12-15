@@ -2,6 +2,9 @@ const urlApi = window.location.origin;
 //const urlApi="";
 
 // ------------------------------------------------------------
+addZero = str => str < 10 ? '0' + str : str;
+const max = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+const min = (a,b) => a < b ? a : b;
 
 // function to add an announcement
 function addAnnouncement() {
@@ -16,7 +19,7 @@ function addAnnouncement() {
     const dateY = parseInt(datePublish.split('-')[0]);
     const dateM = parseInt(datePublish.split('-')[1]);
     const dateD = parseInt(datePublish.split('-')[2]);
-    const dateExpire = dateM > 10 ? ((dateY + 1) + '-' + addZero(dateM - 10) + '-' + addZero(dateD)) : (dateY + '-' + addZero(dateM + 2) + '-' + addZero(dateD));
+    const dateExpire = dateM > 10 ? ((dateY + 1) + '-' + addZero(dateM - 10) + '-' + addZero(min(dateD, max[dateM - 10]))) : (dateY + '-' + addZero(dateM + 2) + '-' + addZero(min(dateD, max[dateM + 2])));
 
     console.log('data >>> '+datePublish + ' e ' + dateExpire)
 
@@ -42,7 +45,7 @@ function addAnnouncement() {
         console.log(resp);
         console.log(newCategory);
         //redirect the page
-        window.location.href = 'index.html';
+        window.location.href = 'userspace.html';
     })
     .catch(error => console.error(error));
 
@@ -78,7 +81,7 @@ function addFlyer() {
     .then((resp) => {
         console.log(resp);
         //redirect the page
-        window.location.href = 'index.html';
+        window.location.href = 'usersapce.html';
         return;
     })
     .catch(error => console.error(error)); // If there is any error you will catch them here
@@ -178,7 +181,7 @@ function setExpiryDate(){
     const dateY = parseInt(datePublish.split('-')[0]);
     const dateM = parseInt(datePublish.split('-')[1]);
     const dateD = parseInt(datePublish.split('-')[2]);
-    const newDate = dateM > 10 ? (addZero(dateD) + '/' + addZero(dateM - 10) + '/' + (dateY + 1)) : (addZero(dateD) + '/' + addZero(dateM + 2) + '/' + dateY);
+    const newDate = dateM > 10 ? (addZero(min(dateD, max[dateM - 10])) + '/' + addZero(dateM - 10) + '/' + (dateY + 1)) : (addZero(min(dateD, max[dateM + 2])) + '/' + addZero(dateM + 2) + '/' + dateY);
 
     document.getElementById("expiry_date").innerHTML = newDate;
 
