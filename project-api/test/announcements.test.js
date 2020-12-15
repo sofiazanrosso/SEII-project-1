@@ -72,12 +72,12 @@ describe('-- announcements API --', () => {
 
 	    it("it should GET an announcement by ID", (done) => {
 
-            const id = '5fbfe8f1b67e19497c141f39';
+            const id = '5fd862562333fd2c085b1c41';
             chai.request(app)
                 .get("/announcements/" + id)
                 .end((err, response) => {
                     response.should.have.status(200);
-                    response.body.should.have.property('announcement').that.include.all.keys(['_id','author']);                    
+                    response.body.should.have.property('announcement').that.include.all.keys(['_id','title']);                    
                     done(err);
                 });
 
@@ -94,7 +94,8 @@ describe('-- announcements API --', () => {
             const ann = {
                 title: "Testing",
                 author: "4e616d65205375726e616d65",
-                category: "5fbbf415795ed2391cb7197a",
+                //category: "5fbbf415795ed2391cb7197a",
+                category: "5fd863fc53de740c6883433f",
                 content: "Content",
                 publish_date: "2020-12-14",
                 expiry_date: "2020-12-16"
@@ -118,6 +119,7 @@ describe('-- announcements API --', () => {
     // test the DELETE route
     describe("DELETE /announcements/:id", () => {
 
+        /*
         it("it should NOT DELETE an existing announcement", (done) => {
 
             const annid = '1';                          // invalid _id
@@ -129,7 +131,7 @@ describe('-- announcements API --', () => {
                 });
 
         });
-
+        */
 
         it("it should DELETE an existing announcement", (done) => {
 

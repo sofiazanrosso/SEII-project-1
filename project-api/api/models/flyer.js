@@ -10,7 +10,7 @@ const flyerSchema = mongoose.Schema({
         // type: mongoose.Schema.Types.ObjectId,
         // ref: 'User',
         type: String,
-        required: true,
+        // required: true,
         immutable: true
     },
     category: {
@@ -22,8 +22,8 @@ const flyerSchema = mongoose.Schema({
         required: true
     },
     image: {
-        type: String,
-        required: true
+        type: String
+        // required: true
 
         /*name: {
             type: String,
@@ -45,6 +45,10 @@ const flyerSchema = mongoose.Schema({
     },
     expiryDate: {
         type: String
+    },
+    resMessage: {
+        type: String,
+        default: "image okay"
     }
 });
 

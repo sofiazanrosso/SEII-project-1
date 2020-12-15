@@ -140,9 +140,16 @@ router.post('/', upload.single('image'), (req, res, next) => {
 
     console.log(req.file);
 
+    var defaultPath;
+    var messaggio = "image okay";
+
     // Image file
     if (req.file == null) {
-        return res.status(500).json({ error: 'Errore file' });
+        // return res.status(500).json({ error: 'Errore file' });
+        messaggio = "error file: default image will be posted";
+        defaultPath = "../default.png";
+    } else {
+        defaultPath = req.file.path;
     }
 
     // Read image from temp location
@@ -157,7 +164,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         author: req.body.author,
         category: req.body.category,
         title: req.body.title,
-        image: req.file.path,                       // require the path
+        image: defaultPath,                       // require the path
         /*{
             // name: req.file.path,
             // mimeType: req.body.mimeType,
@@ -165,7 +172,8 @@ router.post('/', upload.single('image'), (req, res, next) => {
         },
         */
         publishDate: req.body.publishDate,
-        expiryDate: req.body.expiryDate
+        expiryDate: req.body.expiryDate,
+        resMessage: messaggio
     });
 
     // Post
@@ -173,6 +181,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         .save()
         .then(result => {
             console.log(result);
+            console.log(result.author);
             res.status(201).json({
                 message: 'POST request to /flyers',
                 result: result
@@ -180,6 +189,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
+            console.log(flyer.author);
             res.status(500).json({ error: err })
         });
 });
