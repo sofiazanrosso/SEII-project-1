@@ -1,19 +1,36 @@
 const app = require('./common').app;
 // const app = require('../../app');
-//
 const chaiHttp= require("chai-http");
 const chai = require("chai");
+const User = require('../api/models/user');
 // assertion style
 chai.should();
 
 // allows chai to do http request
 chai.use(chaiHttp);
 
-// contains the resource
 describe('auth API', () => {
+    describe("Register",()=>{
+        before(async function(){
+            await User.deleteMany({});
+        });
 
-    describe("POST /routes/auth", ()=>{
-        it("it should NOT register an user (user already taken)",(done)=>{
+        it("it should register an user",function (done){
+            const user={
+                email: "test@gmail.com",
+                password: "password",
+                displayName: "whoami"
+            };
+            chai.request(app)   
+            .post("/auth/register")
+            .send(user)
+            .end((err,response)=>{
+                response.should.have.status(201);
+                done();
+            });
+        });
+
+        it("it should NOT register an user with an email already taken",function (done){
             const user={
                 email: "test@gmail.com",
                 password: "password",
@@ -26,35 +43,36 @@ describe('auth API', () => {
                 response.should.have.status(400);
                 done();
             });
-        }).timeout(10000);
-        /* FALLISCE PER TIMEOUT
-        it("it should login an user (the user already exist)",(done)=>{
+        });
+
+        it("it should NOT register an user without the password",function (done){
             const user={
-                email: "test@gmail.com",
-                password: "password"
+                email: "test2@gmail.com",
+                displayName: "whoami"
             };
             chai.request(app)   
-            .post("/auth/login")
-            .send(user)
-            .end((err,response)=>{
-                response.should.have.status(200);
-                done();
-            });
-        }).timeout(15000);
-        */
-        it("it should NOT login an user (the user doesn't exist)",(done)=>{
-            const user={
-                email: "test@nogmail.com",
-                password: "password"
-            };
-            chai.request(app)   
-            .post("/auth/login")
+            .post("/auth/register")
             .send(user)
             .end((err,response)=>{
                 response.should.have.status(400);
                 done();
             });
-        }).timeout(10000);
+        });
+        
+        it("it should NOT register an user with an invalid email",function (done){
+            const user={
+                email: "thisisnotanemail",
+                password: "password",
+                displayName: "whoami"
+            };
+            chai.request(app)   
+            .post("/auth/register")
+            .send(user)
+            .end((err,response)=>{
+                response.should.have.status(400);
+                done();
+            });
+        });
+        
     });
-
 });

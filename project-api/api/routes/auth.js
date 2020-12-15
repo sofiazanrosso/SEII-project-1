@@ -71,7 +71,6 @@ router.post('/login', async (req, res) => {
     // Check email exists
     const userDoc = await User.findOne({ email: req.body.email }).select('_id email displayName password');
     if (!userDoc) {
-        console.log('QUI');
         return res
             .status(400)
             .send({ error: 'This email is not associated to an account' });
