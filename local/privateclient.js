@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 //function to load the announcements
 function loadAnnouncements(){  
-  fetch(urlApi+"/announcements")
+  fetch(urlApi+"/user/announcements")
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
   .then(res => 
     {
@@ -30,7 +30,7 @@ function loadAnnouncements(){
 
 //function to load the flyers
 function loadFlyers(){
-  fetch(urlApi+"/flyers")
+  fetch(urlApi+"/user/flyers")
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
   .then(res => 
     {
@@ -98,7 +98,7 @@ function printFlyers(count,flyers){
 
 // select the category
 function selectCat(id) {
-  fetch(urlApi+ "/categories/"+ id)
+  fetch(urlApi+ "/user/categories/"+ id)
   .then(response=>response.json())  //convert the response to json and pass it to the next promise
   .then(res => 
     {
@@ -112,7 +112,7 @@ function selectCat(id) {
 
 // delete an announcement
 function deleteAnnouncement(id){
-  fetch(urlApi+"/announcements/"+id, {
+  fetch(urlApi+"/user/announcements/"+id, {
     method: 'DELETE'
   })
   .then((resp) => {
@@ -128,7 +128,7 @@ function deleteAnnouncement(id){
 
 // delete a flyer
 function deleteFlyer(id){
-  fetch(urlApi+"/flyers/"+id, {
+  fetch(urlApi+"/user/flyers/"+id, {
     method: 'DELETE'
   })
   .then((resp) => {
@@ -145,7 +145,7 @@ function deleteFlyer(id){
 // load announcements and flyers
 function loadAll(){
   var ann;
-  fetch(urlApi+"/announcements")
+  fetch(urlApi+"/user/announcements")
   .then(announcement => announcement.json())
   .then(data=>{
       ann=data;
@@ -236,7 +236,7 @@ function printAll(announcements,flyers){
 //with the function i pass if it's an announcement or flyer
 function show(text,id){
   let path;
-  if(text === "announcement") path="/announcements/";
+  if(text === "announcement") path="/user/announcements/";
   else path="/flyers/";
 
   fetch(urlApi+ path + id)
@@ -319,96 +319,11 @@ function loadCategoriesBtn() {
 
     const catSel = document.getElementById("cat");
 
-    fetch(urlApi + "/categories")
+    fetch(urlApi + "/user/categories")
         .then(response => response.json())
         .then(res => { res.category.forEach(x => catSel.innerHTML+='<a class="btn btn-secondary" onclick="selectCat( \'' + x._id + '\' )" role="button">'+ x.name +'</a> ' ) } ) // label (displayed text) && value (send to server)
         .catch(error => console.error(error));
 
-}
-
-// ------------------------------------------------------------
-
-//function for register a user with POST
-function register(){
-
-  var newEmail=document.getElementById("email").value;
-  var newPassword=document.getElementById("password").value;
-  var newDisplayName=document.getElementById("displayName").value;
-
-  fetch(urlApi+"/auth/register",{
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(
-        {
-          email: newEmail,
-          password: newPassword,
-          displayName: newDisplayName
-        })
-  })
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {    
-    if(data.error != null) window.alert(data.error);
-    else{
-      console.log(data);
-      //redirect the page
-      window.alert("Register Successful!");
-      window.location.href = 'index.html';
-    }
-  })
-  .catch(error => console.error(error));
-
-}
-
-// ------------------------------------------------------------
-
-function login(){
-
-  var newEmail=document.getElementById("email").value;
-  var newPassword=document.getElementById("password").value;
-
-  fetch(urlApi+"/auth/login",{
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(
-        {
-          email: newEmail,
-          password: newPassword
-        })
-  })
-  .then((res) => {
-    return res.json();
-  })
-  .then((data)=>{
-    if(data.error != null) window.alert(data.error);
-    else{
-      window.alert("Login successful!");
-      userToken=data.accessToken;
-      sessionStorage.setItem("token",userToken);
-      window.location.href = 'index.html';
-      //console.log(userToken);
-    }
-  })
-  .catch(error => console.error(error));
-
-}
-
-// ------------------------------------------------------------
-
-function checkAuth(){
-  
-  //console.log(sessionStorage.getItem("token"));
-  var token=sessionStorage.getItem("token");
-  if(token != null){
-    //DO SOMETHING
-    window.location.href = "userspace.html";
-    
-  }else {
-    //DON'T do something
-    window.alert("devi prima loggarti per accedere alla pagina");
-  };
-  
 }
 
 // ------------------------------------------------------------
