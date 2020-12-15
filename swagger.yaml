@@ -17,7 +17,7 @@ tags:
   description: "flyers in the digital bulletin board"
 - name: "categories"
   description: "categories of announcements and flyers"
-- name: "user"
+- name: "private"
   description: "personal data of the user"
 - name: "auth"
   description: "user authentication"
@@ -203,10 +203,10 @@ paths:
         "500":
           description: "Error"  
   
-  /user:
+  /private:
     get:
       tags:
-      - "user"
+      - "private"
       summary: "View information about the logged user"
       description: "You may want to view information about the logged user. The attributes are email and name."
       operationId: "viewUser"
@@ -223,11 +223,11 @@ paths:
         "500":
           description: "Error"
   
-  /user/announcements:
+  /private/announcements:
   
     post:
       tags:
-      - "user"
+      - "private"
       - "announcements"
       summary: "Add a new announcement of the logged user"
       description: "You may want to add a new announcement. The attributes are title, author, category, content, publish and expiry dates and expired."
@@ -252,7 +252,7 @@ paths:
     get:
       tags:
       - "announcements"
-      - "user"
+      - "private"
       summary: "View announcements of the logged user"
       description: "You may want to view all announcements of the logged user. The attributes are title, author, category, content, publish and expiry dates and expired."
       operationId: "viewAllAnnUser"
@@ -268,10 +268,10 @@ paths:
           description: "Error"
   
   
-  /user/announcements/{annid}:
+  /private/announcements/{annid}:
     get:
       tags:
-      - "user"
+      - "private"
       - "announcements"
       summary: "View a single announcement of the logged user"
       description: "You may want to view a single announcement about the logged user. The attributes are title, author, category, content, publish and expiry dates and expired."
@@ -296,7 +296,7 @@ paths:
           
     patch:
       tags:
-      - "user"
+      - "private"
       - "announcements"
       summary: "Update a specific announcement of the logged user"
       description: "You may want to update a specific announcement of the logged user."
@@ -319,7 +319,7 @@ paths:
       
     delete:
       tags:
-      - "user"
+      - "private"
       - "announcements"
       summary: "Delete a specific announcement of the logged user"
       description: "You may want to delete a specific announcement of the logged user."
@@ -340,11 +340,11 @@ paths:
         "500":
           description: "Error"  
     
-  /user/flyers:
+  /private/flyers:
     post:
       tags:
       - "flyers"
-      - "user"
+      - "private"
       summary: "Add a new flyer of the logged user"
       description: "You may want to add a new flyer of the logged user. The attributes are author, category, title, image, publish and expiry dates and expired."
       operationId: "addFlyUser"
@@ -368,7 +368,7 @@ paths:
     get:
       tags:
       - "flyers"
-      - "user"
+      - "private"
       summary: "View all flyers of the logged user"
       description: "You may want to view all flyers of the logged user. The attributes are author, category, title, image, publish and expiry dates and expired."
       operationId: "viewAllFlyUser"
@@ -383,10 +383,10 @@ paths:
         "500":
           description: "Error"
   
-  /user/flyers/{flyid}:
+  /private/flyers/{flyid}:
     get:
       tags:
-      - "user"
+      - "private"
       - "flyers"
       summary: "View a single flyer of the logged user"
       description: "You may want to view a single flyer about the logged user. The attributes are author, category, title,  image, publish and expiry dates and expired."
@@ -411,7 +411,7 @@ paths:
   
     patch:
       tags:
-      - "user"
+      - "private"
       - "flyers"
       summary: "Update a specific flyer of the logged user"
       description: "You may want to update a specific flyer of the logged user."
@@ -434,7 +434,7 @@ paths:
       
     delete:
       tags:
-      - "user"
+      - "private"
       - "flyers"
       summary: "Delete a specific flyer of the logged user"
       description: "You may want to delete a specific flyer of the logged user."
@@ -522,6 +522,8 @@ definitions:
         format: "date-time"
       expired:
         type: "boolean"
+      contact:
+        type: "string"
   
   Flyer:
     type: "object"
@@ -543,14 +545,16 @@ definitions:
             type: "string"
           name:
             type: "string"
-      publish_date:
+      publishDate:
         type: "string"
         format: "date-time"
-      expiry_date:
+      expiryDate:
         type: "string"
         format: "date-time"
       expired:
         type: "boolean"
+      contact:
+        type: "string"
      
   Category:
     type: "object"
@@ -563,12 +567,18 @@ definitions:
   User:
     type: "object"
     properties:
-      userid:
-        type: "string"
       email:
         type: "string"
-      name:
+      password:
         type: "string"
+      displayName:
+        type: "string"
+      registrationDate:
+        type: "string"
+        format: "date-time"
+      lastLoginDate:
+        type: "string"
+        format: "date-time"
 
   UserLogin:
     type: "object"
@@ -576,10 +586,4 @@ definitions:
       email:
         type: "string"
       password:
-        type: "string"
-        
-  ZZZ:
-    type: "object"
-    properties:
-      email:
         type: "string"
