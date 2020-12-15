@@ -1,18 +1,19 @@
-//const category = require("../project-api/api/models/category");
-
 const urlApi= window.location.origin;
 
 var userToken;
 
 //when the page is loaded, I insert the cards
 $(document).ready(function () {
-    loadAll();    
+
+  loadAll(); 
+
 });
 
 // ------------------------------------------------------------
 
 //function to load the announcements
 function loadAnnouncements(){
+
   const myHeaders = new Headers({ "authorization" : sessionStorage.getItem("token") });
   fetch(urlApi+"/private/announcements",
     {
@@ -27,16 +28,16 @@ function loadAnnouncements(){
       let count=res.count;
       let announcements=res.announcement;
       console.log(myHeaders);
-      //var cards="<div class='card-deck'>";
-      //with column the layout will change dinamicaly with the insertion of other cards
       printAnnouncement(count,announcements);
     });
+
 }
 
 // ------------------------------------------------------------
 
 //function to load the flyers
 function loadFlyers(){
+
   const myHeaders = new Headers({ "authorization" : sessionStorage.getItem("token") });
   fetch(urlApi+"/private/flyers",
     {
@@ -50,34 +51,37 @@ function loadFlyers(){
       //obtains the number of flyers
       let count=res.count;
       let flyers=res.flyer;
-      //var cards="<div class='card-deck'>";
-      //with column the layout will change dinamicaly with the insertion of other cards
       printFlyers(count,flyers);
     });
+
 }
 
 // ------------------------------------------------------------
 
 // print the announcements
 function printAnnouncement(count,announcements){
+
   console.log(announcements);
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>";
-    for(let i=0;i<count;i++){
-      if (!isExpired(announcements[i].expiry_date)){
-        cards+="<div class='card'>";
-        cards+="<div class='card-body text-center'>";
-        cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
-        cards+="<h5 class='card-header'> Contact: "+announcements[i].contact+"</h5>";
-        cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
-        cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
-        cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
-        cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
-        cards+="</div></div>";
-      }
+  for(let i=0;i<count;i++){
+
+    if (!isExpired(announcements[i].expiry_date)){
+      cards+="<div class='card'>";
+      cards+="<div class='card-body text-center'>";
+      cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
+      cards+="<h5 class='card-header'> Contact: "+announcements[i].contact+"</h5>";
+      cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
+      cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
+      cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
+      cards+="<a class='btn btn-danger' onclick='deleteAnnouncement(\""+announcements[i]._id+"\")'>Delete Announce</a>";
+      cards+="</div></div>";
     }
-    cards+="</div></div>";
-    document.getElementById('root').innerHTML=cards;
+    
+  }
+  cards+="</div></div>";
+  document.getElementById('root').innerHTML=cards;
+
 }
 
 // ------------------------------------------------------------
@@ -88,11 +92,12 @@ function printFlyers(count,flyers){
   var cards="<div class='card-column'>";
   cards+= "<div class= 'card-columns'>"
   for(let i=0;i<count;i++){
+
     if (!isExpired(flyers[i].expiryDate)){
+      
       cards+="<div class='card'>";
       cards+="<div class='card-body text-center'>";
       cards+="<h5 class='card-header'> Contact: "+flyers[i].contact+"</h5>";
-      //cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
       //needs the path of the image for printing it
       if(flyers[i].image==null) cards+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
       else cards+="<img  width='100%' height='180' src='"+ changePath(flyers[i].image) +"' role='img'></img>";
@@ -101,11 +106,13 @@ function printFlyers(count,flyers){
       cards+="<a class='btn btn-primary' onclick='show(\"flyers\",\""+flyers[i]._id+"\")'>See Flyer</a>";
       cards+="<a class='btn btn-danger' onclick='deleteFlyer(\""+flyers[i]._id+"\")'>Delete Flyer</a>";
       cards+="</div></div>";
+      
     }
 
   }
   cards+="</div></div>";
   document.getElementById('root').innerHTML=cards;
+
 }
 
 // ------------------------------------------------------------

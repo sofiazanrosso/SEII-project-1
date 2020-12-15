@@ -55,9 +55,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res,next) => {
     const category= new Category({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        nn_ids: req.body.ann_ids,
-        fly_ids: req.body.fly_ids
+        name: req.body.name
     });
 
     //mongoose method to save models
