@@ -21,7 +21,7 @@ if (process.env.NODE_ENV != 'test') {
     // morgan
     // HTTP request logger middleware
 }
-app.use(require('morgan'));
+// app.use(require('morgan'));
 
 
 // DB Connection
