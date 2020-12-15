@@ -46,6 +46,7 @@ function addAnnouncement() {
 function addFlyer() {
 
     var newAuthor = document.getElementById("author").value;
+    var newTitle = document.getElementById("title").value;
     // var newImage = document.getElementById("image").value;
     // var newExpiryDate = document.getElementById("expiryDate").value;
     // var newPublishDate = document.getElementById("publishDate").value;
@@ -58,6 +59,7 @@ function addFlyer() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
             {
+                title: newTitle,
                 author: newAuthor,
                 // image: newImage,
                 publishDate: newPublishDate,
