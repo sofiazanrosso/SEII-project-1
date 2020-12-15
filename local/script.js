@@ -7,7 +7,7 @@ const urlApi = window.location.origin;
 function addAnnouncement() {
 
     const newTitle = document.getElementById("title").value;
-    const newAuthor = document.getElementById("author").value;
+    const newContact = document.getElementById("contact").value;
     const newContent = document.getElementById("content").value;
     const newCategory = document.getElementById("cat").value;
     // const newExpiryDate = document.getElementById("expiryDate").value;
@@ -17,13 +17,13 @@ function addAnnouncement() {
 
     //TODO: Controllare che la data sia maggiore di quella odierna, e in caso positivo abilitare il btn add announcements
 
-    fetch(urlApi + "/announcements", {
+    fetch(urlApi + "/private/announcements", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'authorization' : sessionStorage.getItem("token") },
         body: JSON.stringify(
             {
                 title: newTitle,
-                author: newAuthor,
+                contact: newContact,
                 content: newContent,
                 category: newCategory,
                 publish_date: newPublishDate,
@@ -45,7 +45,7 @@ function addAnnouncement() {
 // function to add a new flyer
 function addFlyer() {
 
-    var newAuthor = document.getElementById("author").value;
+    var newContact = document.getElementById("contact").value;
     var newTitle = document.getElementById("title").value;
     // var newImage = document.getElementById("image").value;
     // var newExpiryDate = document.getElementById("expiryDate").value;
@@ -54,13 +54,13 @@ function addFlyer() {
     const newPublishDate = ""+new Date(document.getElementById("publish_date").value).toLocaleDateString();
 
     // do the POST request with the data of the form
-    fetch(urlApi + "/flyers", {
+    fetch(urlApi + "/private/flyers", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'authorization' : sessionStorage.getItem("token") },
         body: JSON.stringify(
             {
                 title: newTitle,
-                author: newAuthor,
+                contact: newContact,
                 // image: newImage,
                 publishDate: newPublishDate,
                 expiryDate: newExpiryDate
@@ -128,7 +128,7 @@ function searchAnnouncements() {
             data.announcements.announcements.forEach(x => {
                 cards += "<div class='card bg-success'>";
                 cards += "<div class='card-body text-center'>";
-                cards += "<h3 class='card-title'> Author: " + x.author + "</h3>";
+                cards += "<h3 class='card-title'> contact: " + x.contact + "</h3>";
                 cards += "<p class='card-text'> Publish date: " + x.publishDate + "</p>";
                 cards += "<p class='card-text'> Expiry date: " + x.expiryDate + "</p>";
                 cards += "<a class='btn btn-primary stretched-link' onclick='show(\"" + x.content + "\")'>See Announce</a>";

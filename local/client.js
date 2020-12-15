@@ -54,7 +54,7 @@ function printAnnouncement(count,announcements){
         cards+="<div class='card'>";
         cards+="<div class='card-body text-center'>";
         cards+= "<div class='card-header text-center'><h4>" + announcements[i].title + "</h4></div>";
-        cards+="<h5 class='card-header'> Author: "+announcements[i].author+"</h5>";
+        cards+="<h5 class='card-header'> Contact: "+announcements[i].contact+"</h5>";
         cards+="<p class='card-text text-muted'> Publish date: "+announcements[i].publish_date+"<br>";
         cards+="Expiry date: "+announcements[i].expiry_date+"</p>";
         cards+="<a class='btn btn-primary' onclick='show(\"announcement\",\""+announcements[i]._id+"\")'>See Announce</a>";
@@ -77,7 +77,7 @@ function printFlyers(count,flyers){
     if (!isExpired(flyers[i].expiryDate)){
       cards+="<div class='card'>";
       cards+="<div class='card-body text-center'>";
-      cards+="<h5 class='card-header'> Author: "+flyers[i].author+"</h5>";
+      cards+="<h5 class='card-header'> Contact: "+flyers[i].contact+"</h5>";
       //cards+="<img class='bd-placeholder-img card-img-top' width='100%' height='180' source='https://wips.plug.it/cips/supereva/cms/2016/06/img_2224798205917661.jpg?w=850&a=r' role='img'></img>";
       //needs the path of the image for printing it
       if(flyers[i].image==null) cards+="<img  width='100%' height='180' src='../images/trasferimento.jpg' role='img'></img>";
@@ -179,7 +179,6 @@ function printAll(announcements,flyers){
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
-  console.log(countAnn+" "+annArray[0].expiry_date);
 
   // -------------------
   // print announcements
@@ -191,7 +190,7 @@ function printAll(announcements,flyers){
       cardsA+="<div class= 'card'>";
       cardsA+="<div class='card-body text-center'>";
       cardsA+="<div class='card-header text-center'><h4>" + annArray[i].title + "</h4></div>";
-      cardsA+="<h5 class='card-title'>"+annArray[i].author+"</h5>";
+      cardsA+="<h5 class='card-title'>"+annArray[i].contact+"</h5>";
       //res+="<p class='card-text'>"+announcements[i].content+"</p>";
       cardsA+="<p class='card-text text-muted'> Publish date: "+annArray[i].publish_date+"<br>";
       cardsA+="Expiry date: "+annArray[i].expiry_date+"</p>";
@@ -212,7 +211,7 @@ function printAll(announcements,flyers){
     if (!isExpired(flyArray[i].expiryDate)){
     cardsF+="<div class= 'card'>";
     cardsF+="<div class='card-body text-center'>";
-    cardsF+="<h5 class='card-title'> Author: "+flyArray[i].author+"</h5>";
+    cardsF+="<h5 class='card-title'> Contact: "+flyArray[i].contact+"</h5>";
 
     // cardsF+="<img class='card-img-top' width='100%' height='180' source='"+urlApi+'/images/'+flyArray[i].image+"' role='img'></img>";
     // cardsF+="<img class='card-img-top' width='100%' height='180' source='https://github.githubassets.com/images/modules/logos_page/Octocat.png' role='img'></img>";
@@ -274,7 +273,7 @@ function printSingleAnnouncement(response){
   var ann="<div class='see-details'>";  
   ann+="<a class='btn btn-little' href='index.html' role='button'>Go back</a>";
   ann+="<h2 class='see-details-title text-center'>"+response.title+"</h2>";                                  // title
-  ann+="<h5 class='see-details-text'>"+response.author+"</h5><hr class='red-line'>";                         // author
+  ann+="<h5 class='see-details-text'>"+response.contact+"</h5><hr class='red-line'>";                         // author
   ann+="<p class='see-details-text'>"+response.content+"</p>";                                               // content
   ann+="<p class='see-details-footer'> [ Publish date: "+response.publish_date;                                          // publish date
   ann+="  -  Expiry date: "+response.expiry_date+" ]</p>";                                           // expiry date
@@ -303,7 +302,7 @@ function printSingleFlyer(response){
   var fly="<div class='see-details'>";  
   fly+="<a class='btn btn-little' href='index.html' role='button'>Go back</a>";
   fly+="<h2 class='see-details-title text-center'>"+response.title+"</h2>";                                  // title
-  fly+="<h5 class='see-details-text'>"+response.author+"</h5><hr class='red-line'>";                         // author
+  fly+="<h5 class='see-details-text'>"+response.contact+"</h5><hr class='red-line'>";                         // author
   fly+="<p class='see-details-text'> Image: "+changePath(response.image)+"</p>";                                               // content
   fly+="<p class='see-details-footer'> [ Publish date: "+response.publishDate;                                          // publish date
   fly+="  -  Expiry date: "+response.expiryDate+" ]</p>";                                           // expiry date

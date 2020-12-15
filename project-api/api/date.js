@@ -1,5 +1,5 @@
 // Add a zero to day or month if it's only one digit 
-addZero = str => str < 10 ? str + '0' : str;
+addZero = str => str < 10 ? '0' + str : str;
 
 
 // Get string in yyyy-mm-dd format from Date object

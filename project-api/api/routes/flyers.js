@@ -73,6 +73,7 @@ router.get('/', async (req, res, next) => {
                 title: x.title,
                 category: x.category,
                 image: x.image,
+                contact: x.contact,
                 publishDate: x.publishDate,
                 expiryDate: x.expiryDate,
                 /*request: {
@@ -164,6 +165,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         author: req.body.author,
         category: req.body.category,
         title: req.body.title,
+        contact: req.body.contact,
         image: defaultPath,                       // require the path
         /*{
             // name: req.file.path,

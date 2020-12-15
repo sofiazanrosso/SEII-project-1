@@ -36,6 +36,7 @@ router.get('/',(req,res,next)=>{
                     publish_date: ann.publish_date,
                     expiry_date: ann.expiry_date,
                     expired: ann.expired,
+                    contact: ann.contact,
                     request : {
                         type: 'GET',
                         url: 'http://localhost:3000/announcements/'+ann._id
@@ -79,6 +80,7 @@ router.post('/',(req,res,next)=>{
         author: req.body.author,
         category: req.body.category,
         content: req.body.content,
+        contact: req.body.contact,
         publish_date:  newPubDate.getFullYear() + "-" + (newPubDate.getMonth()+1) + "-" + newPubDate.getDate(),
         expiry_date: newExpDate.getFullYear()+ "-" + (newExpDate.getMonth()+1) + "-" + newExpDate.getDate() 
     });
@@ -99,6 +101,7 @@ router.post('/',(req,res,next)=>{
                 author: result.author,
                 category: result.category,
                 content: result.content,
+                contact: result.contact,
                 publish_date: result.publish_date,
                 expiry_date: result.expiry_date,
                 request: {

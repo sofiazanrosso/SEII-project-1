@@ -49,6 +49,9 @@ const flyerSchema = mongoose.Schema({
     resMessage: {
         type: String,
         default: "image okay"
+    },
+    contact: {
+        type: String
     }
 });
 

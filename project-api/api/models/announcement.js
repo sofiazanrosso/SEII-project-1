@@ -34,7 +34,11 @@ const announcementSchema = mongoose.Schema({
     hide_after: {
         type: Boolean,
         default: true
+    },
+    contact: {
+        type: String
     }
+    
 });
 
 

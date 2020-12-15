@@ -68,7 +68,9 @@ module.exports.postAnnouncementValidation = data => {
             .string()
             .pattern(regexDate, 'yyyy-mm-dd'),
         hide_after: Joi
-            .boolean()
+            .boolean(),
+        contact: Joi
+            .string()
     });
 
     return schema.validate(data);
@@ -105,7 +107,9 @@ module.exports.postFlyerValidation = data => {
             .string()
             .pattern(regexDate, 'yyyy-mm-dd'),
         hide_after: Joi
-            .boolean()
+            .boolean(),
+        contact: Joi
+            .string()
     });
 
     return schema.validate(data);
