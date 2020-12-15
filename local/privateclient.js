@@ -175,8 +175,7 @@ function loadAll(){
     }
   )
   .then(announcement => {
-    console.log(announcement);
-    announcement.json()
+    return announcement.json()
   })
   .then(data=>{
       ann=data;
@@ -188,8 +187,7 @@ function loadAll(){
       );
   })
   .then(flyers=> {
-    console.log(flyers);
-    flyers.json();
+    return flyers.json();
   })
   .then(fly=>{
       printAll(ann,fly);        
@@ -217,7 +215,7 @@ function printAll(announcements,flyers){
   let countFly=flyers.count;
   let annArray=announcements.announcement;
   let flyArray=flyers.flyer;
-
+  
   // -------------------
   // print announcements
   //var cardsA="<div class='card-column'>";

@@ -40,7 +40,7 @@ router.route('/announcements/')
                 // Send data
                 res.status(200).json({
                     count: announcements.length,
-                    announcements: announcements
+                    announcement: announcements
                 });
             }).catch(err => {
                 // Send generic error
@@ -223,7 +223,7 @@ router.route('/flyers/')
             .then(flyers => {
                 res.status(200).json({
                     count: flyers.length,
-                    flyers: flyers
+                    flyer: flyers
                 });
             }).catch(err => {
                 res.status(500).json({ error: 'Internal server error', details: err });
