@@ -49,28 +49,23 @@ router.route('/announcements/')
     })
 
     .post(async (req, res) => {
+        console.log(">>>"+req.body.publish_date);
         // Body validation
+        /*
         const { error } = postAnnouncementValidation(req.body);
         if (error) {
             // Data in body is not accepted
             return res.status(400).send({ error: error.details[0].message });
         }
+        */
         // Check if assigned category exists
-        await Category.exists({ _id: req.body.category })
-            .then(exists => {
-                if (!exists) {
-                    // The assigned Category doesn't exists
-                    return res.status(400).send({ error: 'The assigned Category doesn\'t exists' });
-                }
-            }).catch(err => {
-                // Send generic error
-                return res.status(500).json({ error: 'Internal server error', details: err });
-            });
+        // awrs
         // Check that [auhtor + title] is unique
 
         // ################################################################################
 
         // Accuraccurate dates validation
+        /*
         if (req.body.publish_date) {
             if (!dateExists(req.body.publish_date)) {
                 return res.status(400).send({ error: 'Can\'t parse publish_date' });
@@ -87,6 +82,13 @@ router.route('/announcements/')
                 return res.status(400).send({ error: 'Value of expiry_date can\'t be in the past' });
             }
         }
+        */
+        //Dates are stored in the db as Strings, but to manage the expiry date we temporary manage them as Date type 
+        var tempDate = req.body.publish_date;
+        var newPubDate = new Date(tempDate);
+        var newExpDate = new Date(newPubDate);
+        newExpDate.setMonth(newPubDate.getMonth() + 2);
+
         // Create Announcement
         const announcement = new Announcement({
             _id: new mongoose.Types.ObjectId(),
@@ -95,18 +97,19 @@ router.route('/announcements/')
             title: req.body.title,
             content: req.body.content,
             contact: req.body.contact,
-            publish_date: req.body.publish_date || dateToday(),
-            expiry_date: req.body.expiry_date || dateAddMonths(req.body.publish_date || dateToday(), 2),
+            publish_date: newPubDate.getFullYear() + "-" + (newPubDate.getMonth() + 1) + "-" + newPubDate.getDate(),
+            expiry_date: newExpDate.getFullYear() + "-" + (newExpDate.getMonth() + 1) + "-" + newExpDate.getDate()
         });
         // Save Announcement
         announcement.save()
             .then(saved => {
                 // Success, send saved announcement back
-                res.status(201).json(saved);
+                return res.status(201).json(saved);
             })
             .catch(err => {
                 // Send generic error
-                res.status(500).json({ error: 'Internal server error', details: err });
+                console.log(err);
+                return res.status(500).json({ error: 'Internal server error', details: err });
             });
     });
 
@@ -217,32 +220,32 @@ router.route('/flyers/')
 
     .get((req, res) => {
         Flyer.find({ author: req.payload._id })
-            .then (flyers => {
-                res.status(200).json ( {
+            .then(flyers => {
+                res.status(200).json({
                     count: flyers.length,
                     flyers: flyers
                 });
             }).catch(err => {
-                res.status(500).json({ error: 'Internal server error', details: err});
+                res.status(500).json({ error: 'Internal server error', details: err });
             });
     })
 
     .post(async (req, res) => {
 
-        const {error} = postFlyerValidation(req.body);
-        
+        const { error } = postFlyerValidation(req.body);
+
         if (error) {
             return res.status(400).send({ error: error.details[0].message });
         }
 
         await Category.exists({ _id: req.body.category })
-        .then(exists => {
-            if (!exists) {
-                return res.status(400).send({ error: 'The assigned Category doesn\'t exists' });
-            }
-        }).catch(err => {
-            return res.status(500).json({ error: 'Internal server error', details: err });
-        });
+            .then(exists => {
+                if (!exists) {
+                    return res.status(400).send({ error: 'The assigned Category doesn\'t exists' });
+                }
+            }).catch(err => {
+                return res.status(500).json({ error: 'Internal server error', details: err });
+            });
 
         // Accuraccurate dates validation
         if (req.body.publishDate) {
@@ -262,7 +265,7 @@ router.route('/flyers/')
                 return res.status(400).send({ error: 'Value of expiryDate can\'t be in the past' });
             }
         }
-        
+
         // Create Announcement
         const flyer = new Flyer({
             _id: new mongoose.Types.ObjectId(),
@@ -274,7 +277,7 @@ router.route('/flyers/')
             publishDate: req.body.publishDate || dateToday(),
             expiryDate: req.body.expiryDate || dateAddMonths(req.body.publishDate || dateToday(), 2),
         });
-        
+
         // Save Announcement
         flyer.save()
             .then(saved => {
@@ -295,28 +298,28 @@ router.route('/flyers/:id')
 
     .get((req, res) => {
         Flyer.findById(req.params.id)
-        .then(flyer => {
-            // Check if Announcement exists
-            if (!flyer) {
-                // Not found
-                return res.status(404).json({ error: 'Flyer not found' });
-            }
-            // Verify that authenticated user is author
-            if (req.payload._id == flyer.author) {
-                // Send data
-                res.status(200).json(flyer);
-            } else {
-                // Forbidden
-                res.status(403).json({ error: 'Access forbidden' });
-            }
-        }).catch(err => {
-            // Send generic error
-            res.status(500).json({ error: 'Internal server error', details: err });
-        });
+            .then(flyer => {
+                // Check if Announcement exists
+                if (!flyer) {
+                    // Not found
+                    return res.status(404).json({ error: 'Flyer not found' });
+                }
+                // Verify that authenticated user is author
+                if (req.payload._id == flyer.author) {
+                    // Send data
+                    res.status(200).json(flyer);
+                } else {
+                    // Forbidden
+                    res.status(403).json({ error: 'Access forbidden' });
+                }
+            }).catch(err => {
+                // Send generic error
+                res.status(500).json({ error: 'Internal server error', details: err });
+            });
 
     })
 
-    .patch(async(req, res) => {
+    .patch(async (req, res) => {
 
         // Verify that PATCH operation is valid
         await Flyer.findById(req.params.id)
@@ -335,7 +338,7 @@ router.route('/flyers/:id')
                 // Send generic error
                 return res.status(500).json({ error: 'Internal server error', details: err });
             });
-        
+
         // Body validation
         const { error } = patchFlyerValidation(req.body);
         if (error) {
@@ -385,7 +388,7 @@ router.route('/flyers/:id')
                 // Send generic error
                 return res.status(500).json({ error: 'Internal server error', details: err });
             });
-        
+
         // Proceed with delete
         Flyer.deleteOne({ _id: req.params.id })
             .then(result => {
